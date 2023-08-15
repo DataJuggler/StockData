@@ -238,6 +238,16 @@ namespace StockData
                                                 }
                                                 else
                                                 {
+                                                    // if the price went down
+                                                    if (stock.LastClose < data.ClosePrice)
+                                                    {
+                                                        
+                                                    }
+                                                    else if (stock.LastClose > data.ClosePrice)
+                                                    {
+                                                        
+                                                    }
+
                                                     // perform the save
                                                     saved = Gateway.SaveDailyPriceData(ref data);
                                                 }

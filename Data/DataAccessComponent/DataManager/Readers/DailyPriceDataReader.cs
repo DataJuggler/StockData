@@ -37,28 +37,22 @@ namespace DataAccessComponent.DataManager.Readers
 
                 // Create field Integers
                 int closePricefield = 0;
-                int closeScorefield = 1;
-                int highPricefield = 2;
-                int idfield = 3;
-                int lastCloseOpenSpreadfield = 4;
-                int lastCloseOpenStreakfield = 5;
-                int lowPricefield = 6;
-                int openPricefield = 7;
-                int spreadfield = 8;
-                int stockDatefield = 9;
-                int streakfield = 10;
-                int symbolfield = 11;
-                int volumefield = 12;
+                int highPricefield = 1;
+                int idfield = 2;
+                int lowPricefield = 3;
+                int openPricefield = 4;
+                int spreadfield = 5;
+                int stockDatefield = 6;
+                int streakfield = 7;
+                int symbolfield = 8;
+                int volumefield = 9;
 
                 try
                 {
                     // Load Each field
                     dailyPriceData.ClosePrice = DataHelper.ParseDouble(dataRow.ItemArray[closePricefield], 0);
-                    dailyPriceData.CloseScore = DataHelper.ParseDouble(dataRow.ItemArray[closeScorefield], 0);
                     dailyPriceData.HighPrice = DataHelper.ParseDouble(dataRow.ItemArray[highPricefield], 0);
                     dailyPriceData.UpdateIdentity(DataHelper.ParseInteger(dataRow.ItemArray[idfield], 0));
-                    dailyPriceData.LastCloseOpenSpread = DataHelper.ParseDouble(dataRow.ItemArray[lastCloseOpenSpreadfield], 0);
-                    dailyPriceData.LastCloseOpenStreak = DataHelper.ParseInteger(dataRow.ItemArray[lastCloseOpenStreakfield], 0);
                     dailyPriceData.LowPrice = DataHelper.ParseDouble(dataRow.ItemArray[lowPricefield], 0);
                     dailyPriceData.OpenPrice = DataHelper.ParseDouble(dataRow.ItemArray[openPricefield], 0);
                     dailyPriceData.Spread = DataHelper.ParseDouble(dataRow.ItemArray[spreadfield], 0);

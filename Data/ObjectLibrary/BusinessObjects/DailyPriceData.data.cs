@@ -17,11 +17,8 @@ namespace ObjectLibrary.BusinessObjects
 
         #region Private Variables
         private double closePrice;
-        private double closeScore;
         private double highPrice;
         private int id;
-        private double lastCloseOpenSpread;
-        private int lastCloseOpenStreak;
         private double lowPrice;
         private double openPrice;
         private double spread;
@@ -63,20 +60,6 @@ namespace ObjectLibrary.BusinessObjects
             }
             #endregion
 
-            #region double CloseScore
-            public double CloseScore
-            {
-                get
-                {
-                    return closeScore;
-                }
-                set
-                {
-                    closeScore = value;
-                }
-            }
-            #endregion
-
             #region double HighPrice
             public double HighPrice
             {
@@ -97,34 +80,6 @@ namespace ObjectLibrary.BusinessObjects
                 get
                 {
                     return id;
-                }
-            }
-            #endregion
-
-            #region double LastCloseOpenSpread
-            public double LastCloseOpenSpread
-            {
-                get
-                {
-                    return lastCloseOpenSpread;
-                }
-                set
-                {
-                    lastCloseOpenSpread = value;
-                }
-            }
-            #endregion
-
-            #region int LastCloseOpenStreak
-            public int LastCloseOpenStreak
-            {
-                get
-                {
-                    return lastCloseOpenStreak;
-                }
-                set
-                {
-                    lastCloseOpenStreak = value;
                 }
             }
             #endregion
