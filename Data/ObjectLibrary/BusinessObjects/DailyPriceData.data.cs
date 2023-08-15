@@ -17,6 +17,7 @@ namespace ObjectLibrary.BusinessObjects
 
         #region Private Variables
         private double closePrice;
+        private double closeScore;
         private double highPrice;
         private int id;
         private double lowPrice;
@@ -56,6 +57,20 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     closePrice = value;
+                }
+            }
+            #endregion
+
+            #region double CloseScore
+            public double CloseScore
+            {
+                get
+                {
+                    return closeScore;
+                }
+                set
+                {
+                    closeScore = value;
                 }
             }
             #endregion

@@ -1,4 +1,13 @@
 
+8.15.2023: StockData is checked into GitHub
+
+# Video for how this project was built
+
+Create a Stock Predictor with C# and ML.NET Part I
+https://youtu.be/hF8LkvwOXQY
+
+# Copied from ExcelerateWinApp
+
 7.24.2023: New Video
 
 The Best C# Excel Library In The Galaxy

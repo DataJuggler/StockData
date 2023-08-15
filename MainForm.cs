@@ -227,7 +227,7 @@ namespace StockData
                                             // if Track is true
                                             if (stock.Track)
                                             {
-                                                // if less than 100,000 shares
+                                                // if less than 100,000 shares, or whatever value Admin.MinVolume is set to.
                                                 if (data.Volume < MinVolume)
                                                 {
                                                     // set this to false

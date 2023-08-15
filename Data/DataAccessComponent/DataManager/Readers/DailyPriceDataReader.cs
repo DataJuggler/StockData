@@ -37,20 +37,22 @@ namespace DataAccessComponent.DataManager.Readers
 
                 // Create field Integers
                 int closePricefield = 0;
-                int highPricefield = 1;
-                int idfield = 2;
-                int lowPricefield = 3;
-                int openPricefield = 4;
-                int spreadfield = 5;
-                int stockDatefield = 6;
-                int streakfield = 7;
-                int symbolfield = 8;
-                int volumefield = 9;
+                int closeScorefield = 1;
+                int highPricefield = 2;
+                int idfield = 3;
+                int lowPricefield = 4;
+                int openPricefield = 5;
+                int spreadfield = 6;
+                int stockDatefield = 7;
+                int streakfield = 8;
+                int symbolfield = 9;
+                int volumefield = 10;
 
                 try
                 {
                     // Load Each field
                     dailyPriceData.ClosePrice = DataHelper.ParseDouble(dataRow.ItemArray[closePricefield], 0);
+                    dailyPriceData.CloseScore = DataHelper.ParseDouble(dataRow.ItemArray[closeScorefield], 0);
                     dailyPriceData.HighPrice = DataHelper.ParseDouble(dataRow.ItemArray[highPricefield], 0);
                     dailyPriceData.UpdateIdentity(DataHelper.ParseInteger(dataRow.ItemArray[idfield], 0));
                     dailyPriceData.LowPrice = DataHelper.ParseDouble(dataRow.ItemArray[lowPricefield], 0);

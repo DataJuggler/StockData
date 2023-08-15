@@ -322,6 +322,7 @@ Create PROCEDURE DailyPriceData_Insert
 
     -- Add the parameters for the stored procedure here
     @ClosePrice float,
+    @CloseScore float,
     @HighPrice float,
     @LowPrice float,
     @OpenPrice float,
@@ -340,10 +341,10 @@ BEGIN
 
     -- Begin Insert Statement
     Insert Into [DailyPriceData]
-    ([ClosePrice],[HighPrice],[LowPrice],[OpenPrice],[Spread],[StockDate],[Streak],[Symbol],[Volume])
+    ([ClosePrice],[CloseScore],[HighPrice],[LowPrice],[OpenPrice],[Spread],[StockDate],[Streak],[Symbol],[Volume])
 
     -- Begin Values List
-    Values(@ClosePrice, @HighPrice, @LowPrice, @OpenPrice, @Spread, @StockDate, @Streak, @Symbol, @Volume)
+    Values(@ClosePrice, @CloseScore, @HighPrice, @LowPrice, @OpenPrice, @Spread, @StockDate, @Streak, @Symbol, @Volume)
 
     -- Return ID of new record
     SELECT SCOPE_IDENTITY()
@@ -388,6 +389,7 @@ Create PROCEDURE DailyPriceData_Update
 
     -- Add the parameters for the stored procedure here
     @ClosePrice float,
+    @CloseScore float,
     @HighPrice float,
     @Id int,
     @LowPrice float,
@@ -410,6 +412,7 @@ BEGIN
 
     -- Update Each field
     Set [ClosePrice] = @ClosePrice,
+    [CloseScore] = @CloseScore,
     [HighPrice] = @HighPrice,
     [LowPrice] = @LowPrice,
     [OpenPrice] = @OpenPrice,
@@ -471,7 +474,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [ClosePrice],[HighPrice],[Id],[LowPrice],[OpenPrice],[Spread],[StockDate],[Streak],[Symbol],[Volume]
+    Select [ClosePrice],[CloseScore],[HighPrice],[Id],[LowPrice],[OpenPrice],[Spread],[StockDate],[Streak],[Symbol],[Volume]
 
     -- From tableName
     From [DailyPriceData]
@@ -579,7 +582,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [ClosePrice],[HighPrice],[Id],[LowPrice],[OpenPrice],[Spread],[StockDate],[Streak],[Symbol],[Volume]
+    Select [ClosePrice],[CloseScore],[HighPrice],[Id],[LowPrice],[OpenPrice],[Spread],[StockDate],[Streak],[Symbol],[Volume]
 
     -- From tableName
     From [DailyPriceData]
