@@ -6,6 +6,22 @@
 Create a Stock Predictor with C# and ML.NET Part I
 https://youtu.be/hF8LkvwOXQY
 
+# Setup Instructions
+
+1. Create a SQL Server database named StockData and execute StockDataDatabase.sql located in the SQL folder.
+2. Create a connection string * and set a User level environment variable named StockDataConnString and 
+set the connection string as the value.
+3. Copy the NASDAQ.txt and NYSE.txt files from the ProcessedFolder, to the Documents folder.
+4. If you ever need to rerun the files, repeat step 3 and excecute ResetStocks.sql and 
+DropAndCreateDailyPriceDataAndStockStreak.sql, which are both located in the SQL folder of this project.
+5. Import Stocks before you process the files.
+
+The site eoddata.com is used to create the NASDAQ.txt and NYSE.txt files. I download the latest two files
+every night. 
+
+* DataTier.Net, which built the data tier this project uses, comes with a tool called Connection Builder and
+you will probably think it is wortht the price (of free).
+
 # Copied from ExcelerateWinApp
 
 7.24.2023: New Video
@@ -24,29 +40,28 @@ Code Generate C# Classes From Excel Header Rows
 
 # Instructions to run this project:
 
-To Install Via Nuget and DOT NET CLI, navigate to the folder you wish to create your project in
+To Install ExcelerateWinApp via Nuget and DOT NET CLI, navigate to the folder you wish to create your project in
 
-    cd c:\Projects\StockData
-    dotnet new install DataJuggler.StockData
-    dotnet new DataJuggler.StockData
+    cd c:\Projects\ExcelerateWinApp
+    dotnet new install DataJuggler.Excelerate
+    dotnet new DataJuggler.Excelerate
 
-or
+# How the Stocks were imported
 
-Clone this project from GitHub https://github.com/DataJuggler/StockData
+1. The project has two .xlsx files located in Documents\Stocks of this project.
+The .xlsx files were created using NASDAQ.com https://www.nasdaq.com/market-activity/stocks/screener 
+The two Excel files were created by saving the .csv for NASDAQ and NYSE in Excel as a .xlsx extension.
 
-# Setup Instructions
-
-1. Create one or more classes from Excel Header Rows at<br><br>
+The C# classes were code generated from
 
 Blazor Excelerate<br>
 https://excelerate.datajuggler.com<br>
 
-Download the file MemberData.xlsx from the above site to see an example.
 Use StockData.Objects for the namespace or rename this project to your liking
  
-2. Copy the classes created into the Objects folder of StockData
+2. Copy the classes created into the Objects folder of StockData (this is already done for this project)
 
-3. Load Excel Worksheet(s) - Example is included in the UpdateButton_Click event
+3. Load Excel Worksheet(s) - Example is included Import Stocks button click event.
 	
        // load your object(s)
        string workbookPath = FileSelector.Text;

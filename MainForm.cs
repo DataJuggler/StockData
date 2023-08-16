@@ -414,20 +414,10 @@ namespace StockData
                                                     // Set the LastClose at the stock level
                                                     stock.LastClose = data.ClosePrice;
 
-                                                    // setting the AverageDailyVolume
-                                                    List<DailyPriceData> mostRecentEntries = Gateway.LoadDailyPriceDatasForSymbol(data.Symbol);
-
-                                                    // If the mostRecentEntries collection exists and has one or more items
-                                                    if (ListHelper.HasOneOrMoreItems(mostRecentEntries))
-                                                    {
-                                                        // Set the Average Daily Volume
-                                                        double averageDailyVolume = mostRecentEntries.Sum(x => x.Volume) / mostRecentEntries.Count;
-
-                                                        // Round the AverageDailyVolume
-                                                        stock.AverageDailyVolume = (int)Math.Round(averageDailyVolume, 0);
-                                                    }
-
-                                                    // Save the stock
+                                                    // Set the AverageDailyVolume (in 1,000's)
+                                                    stock.AverageDailyVolume = SetAverageDailyVolume(data.Symbol);
+                                                    
+                                                    // Save the Stock
                                                     saved = Gateway.SaveStock(ref stock);
 
                                                     // Set the StreakDays
@@ -501,6 +491,54 @@ namespace StockData
         }
         #endregion
 
+        #region SetAverageDailyVolume(string symbol)
+        /// <summary>
+        /// returns the Average Daily Volume
+        /// </summary>
+        public int SetAverageDailyVolume(string symbol)
+        {
+            // initial value
+            int averageDailyVolume = 0;
+
+            // local
+            int sumVolume = 0;
+
+            try
+            {
+                // Load the daily price data
+                List<DailyPriceData> dailyPriceData = Gateway.LoadDailyPriceDatasForSymbol(symbol);
+
+                // If the dailyPriceData collection exists and has one or more items
+                if (ListHelper.HasOneOrMoreItems(dailyPriceData))
+                {
+                    // Iterate the collection of DailyPriceData objects
+                    foreach (DailyPriceData data in dailyPriceData)
+                    {
+                        // Take the value for volume, and multiply by .001 so the number is smal
+                        sumVolume += (int) (data.Volume * .001);
+                    }
+
+                    // temp value
+                    double temp = sumVolume / dailyPriceData.Count;
+
+                    // Set the AverageDailyVolume
+                    averageDailyVolume = (int) temp;
+
+                    // now put back the three digits
+                    averageDailyVolume = averageDailyVolume * 1000;
+                }
+            }
+            catch (Exception error)
+            {
+                // for debugging only
+                DebugHelper.WriteDebugError("SetAverageDailyVolume", "MainForm", error);
+            }
+                
+            // return value
+            return averageDailyVolume;
+        }
+        #endregion
+            
         #region SetupGraph()
         /// <summary>
         /// Setup Graph
