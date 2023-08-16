@@ -19,6 +19,7 @@ namespace ObjectLibrary.BusinessObjects
         private bool currentStreak;
         private int id;
         private int stockId;
+        private bool streakContinuing;
         private int streakDays;
         private DateTime streakEndDate;
         private double streakEndPrice;
@@ -79,6 +80,20 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     stockId = value;
+                }
+            }
+            #endregion
+
+            #region bool StreakContinuing
+            public bool StreakContinuing
+            {
+                get
+                {
+                    return streakContinuing;
+                }
+                set
+                {
+                    streakContinuing = value;
                 }
             }
             #endregion

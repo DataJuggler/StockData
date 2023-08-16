@@ -425,6 +425,25 @@ namespace StockData
 
                                                     // Save the stockStreak
                                                     saved = Gateway.SaveStockStreak(ref streak);
+
+                                                    // I am leaving this here, to show you how to get the last exception.
+                                                    // I had dropped a column from StockStreak and forgot to execute
+                                                    // the stored procedures when I rebuilt with DataTier.Net. This method
+                                                    // Showed me the error.
+                                                    
+                                                    // if not saved
+                                                    if (!saved)
+                                                    {
+                                                        // Get the last error
+                                                        Exception error = Gateway.GetLastException();
+
+                                                        // If the error object exists
+                                                        if (NullHelper.Exists(error))
+                                                        {
+                                                            // set the error
+                                                            string err = error.ToString();
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
