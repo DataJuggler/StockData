@@ -1,5 +1,4 @@
 
-
 #region using statements
 
 using DataAccessComponent.StoredProcedureManager.DeleteProcedures;
@@ -12,7 +11,6 @@ using System;
 using System.Data;
 
 #endregion
-
 
 namespace DataAccessComponent.DataManager.Writers
 {
@@ -27,10 +25,38 @@ namespace DataAccessComponent.DataManager.Writers
 
         #region Static Methods
 
-            // *******************************************
-            // Write any overrides or custom methods here.
-            // *******************************************
+            #region CreateFetchAllDailyPriceDatasStoredProcedure(DailyPriceData dailyPriceData)
+            /// <summary>
+            /// This method creates an instance of a
+            /// 'FetchAllDailyPriceDatasStoredProcedure' object and
+            /// creates the sql parameter[] array needed
+            /// to execute the procedure 'DailyPriceData_FetchAll'.
+            /// </summary>
+            /// <returns>An instance of a(n) 'FetchAllDailyPriceDatasStoredProcedure' object.</returns>
+            public static new FetchAllDailyPriceDatasStoredProcedure CreateFetchAllDailyPriceDatasStoredProcedure(DailyPriceData dailyPriceData)
+            {
+                // Initial value
+                FetchAllDailyPriceDatasStoredProcedure fetchAllDailyPriceDatasStoredProcedure = new FetchAllDailyPriceDatasStoredProcedure();
 
+                // if the dailyPriceData object exists
+                if (dailyPriceData != null)
+                {
+                    // if LoadBySymbol is true
+                    if (dailyPriceData.LoadBySymbol)
+                    {
+                        // Change the procedure name
+                        fetchAllDailyPriceDatasStoredProcedure.ProcedureName = "DailyPriceData_FetchAllForSymbol";
+                        
+                        // Create the @Symbol parameter
+                        fetchAllDailyPriceDatasStoredProcedure.Parameters = SqlParameterHelper.CreateSqlParameters("@Symbol", dailyPriceData.Symbol);
+                    }
+                }
+                
+                // return value
+                return fetchAllDailyPriceDatasStoredProcedure;
+            }
+            #endregion
+            
         #endregion
 
     }

@@ -547,6 +547,32 @@ namespace DataGateway
             }
             #endregion
 
+                #region LoadDailyPriceDatasForSymbol(string symbol)
+                /// <summary>
+                /// This method is used to load 'DailyPriceData' objects for the Symbol given.
+                /// </summary>
+                public List<DailyPriceData> LoadDailyPriceDatasForSymbol(string symbol)
+                {
+                    // initial value
+                    List<DailyPriceData> dailyPriceDatas = null;
+                    
+                    // Create a temp DailyPriceData object
+                    DailyPriceData tempDailyPriceData = new DailyPriceData();
+                    
+                    // Set the value for LoadBySymbol to true
+                    tempDailyPriceData.LoadBySymbol = true;
+                    
+                    // Set the value for Symbol
+                    tempDailyPriceData.Symbol = symbol;
+                    
+                    // Perform the load
+                    dailyPriceDatas = LoadDailyPriceDatas(tempDailyPriceData);
+                    
+                    // return value
+                    return dailyPriceDatas;
+                }
+                #endregion
+                
             #region LoadStocks(Stock tempStock = null)
             /// <summary>
             /// This method loads a collection of 'Stock' objects.

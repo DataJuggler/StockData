@@ -103,7 +103,7 @@
             Margin = new Padding(4);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Stock Data";
+            Text = "Stock Data 1.0.0";
             ResumeLayout(false);
         }
 

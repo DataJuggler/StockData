@@ -195,7 +195,7 @@ namespace StockData
                         if (ListHelper.HasOneOrMoreItems(lines))
                         {
                             // reset
-                            count = 0;                            
+                            count = 0;
 
                             // Iterate the collection of TextLine objects
                             foreach (TextLine line in lines)
@@ -230,7 +230,7 @@ namespace StockData
                                         if ((data.Spread > 0) && (data.SpreadScore > 0))
                                         {
                                             // Set the SpreadScore
-                                            data.CloseScore = 100 / data.Spread * data.SpreadScore;                                            
+                                            data.CloseScore = 100 / data.Spread * data.SpreadScore;
                                         }
                                         else if (data.HighPrice == data.ClosePrice)
                                         {
@@ -278,7 +278,7 @@ namespace StockData
                                                             continueType = ContinueTypeEnum.ContinueStreakAdvancing;
 
                                                             // continue the streak                                                            
-                                                            stock.Streak++;                                                            
+                                                            stock.Streak++;
                                                         }
                                                         else
                                                         {
@@ -286,7 +286,7 @@ namespace StockData
                                                             continueType = ContinueTypeEnum.NewStreakAdvancing;
 
                                                             // reset to 1
-                                                            stock.Streak = 1;                                                                                                                        
+                                                            stock.Streak = 1;
                                                         }
                                                     }
                                                     else if (stock.LastClose > data.ClosePrice)
@@ -317,21 +317,21 @@ namespace StockData
                                                         continueType = ContinueTypeEnum.NewStreakAdvancing;
 
                                                         // reset to 1
-                                                        stock.Streak = 1;       
+                                                        stock.Streak = 1;
                                                     }
 
                                                     // find the current streak for this stock
-                                                    streak = Gateway.FindStockStreakByStockIdAndCurrentStreak(true, stock.Id);          
+                                                    streak = Gateway.FindStockStreakByStockIdAndCurrentStreak(true, stock.Id);
 
                                                     // if the streak exists
                                                     if (NullHelper.Exists(streak))
                                                     {
                                                         // if the streak is continueing
                                                         if (continueType == ContinueTypeEnum.ContinueStreakAdvancing)
-                                                        {  
+                                                        {
                                                             // continue the streak
                                                             streak.StreakDays = stock.Streak;
-                                                            
+
                                                             // Set the StreakEndDate, in case it ends
                                                             streak.StreakEndDate = data.StockDate;
                                                             streak.StreakEndPrice = data.ClosePrice;
@@ -344,14 +344,14 @@ namespace StockData
                                                             // Set the StreakEndDate, in case it ends
                                                             streak.StreakEndDate = data.StockDate;
                                                             streak.StreakEndPrice = data.ClosePrice;
-                                                        }                                                       
+                                                        }
                                                         else
                                                         {
                                                             // close the old streak and start a new oone
 
                                                             // no longer the current
                                                             streak.CurrentStreak = false;
-                                                            
+
                                                             // Save this stock streak
                                                             saved = Gateway.SaveStockStreak(ref streak);
 
@@ -362,26 +362,26 @@ namespace StockData
                                                             streak.StreakStartDate = data.StockDate;
                                                             streak.StockId = stock.Id;
                                                             streak.CurrentStreak = true;
-                                                            streak.StreakStartPrice = data.OpenPrice;
+                                                            streak.StreakStartPrice = stock.LastClose;
                                                             streak.StreakEndPrice = data.ClosePrice;
 
                                                             // if this is a streak going up
                                                             if (data.Streak > 0)
                                                             {
                                                                 // This is a winning streak
-                                                                streak.StreakType = StreakTypeEnum.PriceIncreasing; 
+                                                                streak.StreakType = StreakTypeEnum.PriceIncreasing;
                                                             }
                                                             else
                                                             {
                                                                 // This is a losing streak
                                                                 streak.StreakType = StreakTypeEnum.PriceDecreasing;
                                                             }
-                                                        }                                                       
+                                                        }
                                                     }
                                                     else
                                                     {
                                                         // start a new streak
- 
+
                                                         // create the streak
                                                         streak = new StockStreak();
 
@@ -391,12 +391,12 @@ namespace StockData
                                                         streak.CurrentStreak = true;
                                                         streak.StreakStartPrice = data.OpenPrice;
                                                         streak.StreakEndPrice = data.ClosePrice;
-                                                       
+
                                                         // if this is a streak going up
                                                         if (data.Streak > 0)
                                                         {
                                                             // This is a winning streak
-                                                            streak.StreakType = StreakTypeEnum.PriceIncreasing; 
+                                                            streak.StreakType = StreakTypeEnum.PriceIncreasing;
                                                         }
                                                         else if (data.Streak < 0)
                                                         {
@@ -413,6 +413,19 @@ namespace StockData
 
                                                     // Set the LastClose at the stock level
                                                     stock.LastClose = data.ClosePrice;
+
+                                                    // setting the AverageDailyVolume
+                                                    List<DailyPriceData> mostRecentEntries = Gateway.LoadDailyPriceDatasForSymbol(data.Symbol);
+
+                                                    // If the mostRecentEntries collection exists and has one or more items
+                                                    if (ListHelper.HasOneOrMoreItems(mostRecentEntries))
+                                                    {
+                                                        // Set the Average Daily Volume
+                                                        double averageDailyVolume = mostRecentEntries.Sum(x => x.Volume) / mostRecentEntries.Count;
+
+                                                        // Round the AverageDailyVolume
+                                                        stock.AverageDailyVolume = (int)Math.Round(averageDailyVolume, 0);
+                                                    }
 
                                                     // Save the stock
                                                     saved = Gateway.SaveStock(ref stock);
@@ -449,7 +462,7 @@ namespace StockData
             }
         }
         #endregion
-            
+
         #endregion
 
         #region Methods
@@ -467,7 +480,7 @@ namespace StockData
             Admin = Gateway.LoadAdmins().FirstOrDefault();
         }
         #endregion
-            
+
         #region SaveWorksheetCallback(SaveWorksheetResponse resonse)
         /// <summary>
         /// Save Worksheet Callback
@@ -521,32 +534,32 @@ namespace StockData
             set { admin = value; }
         }
         #endregion
-            
+
         #region DocumentsFolder
         /// <summary>
         /// This read only property returns the value of DocumentsFolder from the object Admin.
         /// </summary>
         public string DocumentsFolder
         {
-                
+
             get
             {
                 // initial value
                 string documentsFolder = "";
-                    
+
                 // if Admin exists
                 if (Admin != null)
                 {
                     // set the return value
                     documentsFolder = Admin.DocumentsFolder;
                 }
-                    
+
                 // return value
                 return documentsFolder;
             }
         }
         #endregion
-            
+
         #region Gateway
         /// <summary>
         /// This property gets or sets the value for 'Gateway'.
@@ -557,7 +570,7 @@ namespace StockData
             set { gateway = value; }
         }
         #endregion
-            
+
         #region HasAdmin
         /// <summary>
         /// This property returns true if this object has an 'Admin'.
@@ -568,13 +581,13 @@ namespace StockData
             {
                 // initial value
                 bool hasAdmin = (this.Admin != null);
-                    
+
                 // return value
                 return hasAdmin;
             }
         }
         #endregion
-            
+
         #region HasGateway
         /// <summary>
         /// This property returns true if this object has a 'Gateway'.
@@ -585,63 +598,63 @@ namespace StockData
             {
                 // initial value
                 bool hasGateway = (this.Gateway != null);
-                    
+
                 // return value
                 return hasGateway;
             }
         }
         #endregion
-            
+
         #region MinVolume
         /// <summary>
         /// This read only property returns the value of MinVolume from the object Admin.
         /// </summary>
         public int MinVolume
         {
-                
+
             get
             {
                 // initial value
                 int minVolume = 0;
-                    
+
                 // if Admin exists
                 if (Admin != null)
                 {
                     // set the return value
                     minVolume = Admin.MinVolume;
                 }
-                    
+
                 // return value
                 return minVolume;
             }
         }
         #endregion
-            
+
         #region ProcessedFolder
         /// <summary>
         /// This read only property returns the value of ProcessedFolder from the object Admin.
         /// </summary>
         public string ProcessedFolder
         {
-                
+
             get
             {
                 // initial value
                 string processedFolder = "";
-                    
+
                 // if Admin exists
                 if (Admin != null)
                 {
                     // set the return value
                     processedFolder = Admin.ProcessedFolder;
                 }
-                    
+
                 // return value
                 return processedFolder;
             }
         }
         #endregion
-            
+
         #endregion
     }
     #endregion
