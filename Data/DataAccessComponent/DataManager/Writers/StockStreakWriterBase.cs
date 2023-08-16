@@ -117,7 +117,7 @@ namespace DataAccessComponent.DataManager.Writers
             internal static SqlParameter[] CreateInsertParameters(StockStreak stockStreak)
             {
                 // Initial Values
-                SqlParameter[] parameters = new SqlParameter[8];
+                SqlParameter[] parameters = new SqlParameter[9];
                 SqlParameter param = null;
 
                 // verify stockStreakexists
@@ -192,6 +192,12 @@ namespace DataAccessComponent.DataManager.Writers
 
                     // set parameters[7]
                     parameters[7] = param;
+
+                    // Create [StreakType] parameter
+                    param = new SqlParameter("@StreakType", stockStreak.StreakType);
+
+                    // set parameters[8]
+                    parameters[8] = param;
                 }
 
                 // return value
@@ -238,7 +244,7 @@ namespace DataAccessComponent.DataManager.Writers
             internal static SqlParameter[] CreateUpdateParameters(StockStreak stockStreak)
             {
                 // Initial Values
-                SqlParameter[] parameters = new SqlParameter[9];
+                SqlParameter[] parameters = new SqlParameter[10];
                 SqlParameter param = null;
 
                 // verify stockStreakexists
@@ -318,9 +324,15 @@ namespace DataAccessComponent.DataManager.Writers
                     // set parameters[7]
                     parameters[7] = param;
 
+                    // Create parameter for [StreakType]
+                    param = new SqlParameter("@StreakType", stockStreak.StreakType);
+
+                    // set parameters[8]
+                    parameters[8] = param;
+
                     // Create parameter for [Id]
                     param = new SqlParameter("@Id", stockStreak.Id);
-                    parameters[8] = param;
+                    parameters[9] = param;
                 }
 
                 // return value

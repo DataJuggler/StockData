@@ -25,6 +25,7 @@ namespace ObjectLibrary.BusinessObjects
         private double streakEndPrice;
         private DateTime streakStartDate;
         private double streakStartPrice;
+        private StreakTypeEnum streakType;
         #endregion
 
         #region Methods
@@ -163,6 +164,20 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     streakStartPrice = value;
+                }
+            }
+            #endregion
+
+            #region StreakTypeEnum StreakType
+            public StreakTypeEnum StreakType
+            {
+                get
+                {
+                    return streakType;
+                }
+                set
+                {
+                    streakType = value;
                 }
             }
             #endregion

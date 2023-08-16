@@ -10,6 +10,7 @@ using StockData.Objects;
 using DataJuggler.UltimateHelper.Objects;
 using ApplicationLogicComponent.Connection;
 using ObjectLibrary.BusinessObjects;
+using ObjectLibrary.Enumerations;
 using DataGateway;
 
 #endregion
@@ -167,6 +168,8 @@ namespace StockData
             // locals
             int count = 0;
             bool saved = false;
+            ContinueTypeEnum continueType = ContinueTypeEnum.Even;
+            StockStreak streak = null;
 
             // <ticker>,<per>,<date>,<open>,<high>,<low>,<close>,<vol>
 
@@ -185,15 +188,15 @@ namespace StockData
                     // Iterate the collection of string objects
                     foreach (string file in files)
                     {
-                        // reset
-                        count = 0;
-
                         // Get the textLines from this file
                         List<TextLine> lines = TextHelper.GetTextLinesFromFile(file, true, delimiter);
 
                         // If the lines collection exists and has one or more items
                         if (ListHelper.HasOneOrMoreItems(lines))
                         {
+                            // reset
+                            count = 0;                            
+
                             // Iterate the collection of TextLine objects
                             foreach (TextLine line in lines)
                             {
@@ -203,6 +206,9 @@ namespace StockData
                                 // skip the header row
                                 if (count > 1)
                                 {
+                                    // reset
+                                    continueType = ContinueTypeEnum.Even;
+
                                     // if the words exist and have exactly 8 words
                                     if ((line.HasWords) && (line.Words.Count == 8))
                                     {
@@ -217,6 +223,28 @@ namespace StockData
                                         data.LowPrice = NumericHelper.ParseDouble(line.Words[5].Text, 0, 0);
                                         data.ClosePrice = NumericHelper.ParseDouble(line.Words[6].Text, 0, 0);
                                         data.Volume = NumericHelper.ParseInteger(line.Words[7].Text, 0, 0);
+                                        data.Spread = Math.Round(data.HighPrice - data.LowPrice, 2);
+                                        data.SpreadScore = Math.Round(data.ClosePrice - data.LowPrice, 2);
+
+                                        // if the Spread is set
+                                        if ((data.Spread > 0) && (data.SpreadScore > 0))
+                                        {
+                                            // Set the SpreadScore
+                                            data.CloseScore = 100 / data.Spread * data.SpreadScore;                                            
+                                        }
+                                        else if (data.HighPrice == data.ClosePrice)
+                                        {
+                                            // if it closes at the high
+                                            data.CloseScore = 100;
+                                        }
+                                        else if (data.LowPrice == data.ClosePrice)
+                                        {
+                                            // if it closes at the low
+                                            data.CloseScore = 0;
+                                        }
+
+                                        // round to 2 digits
+                                        data.CloseScore = Math.Round(data.CloseScore, 2);
 
                                         // find this stock
                                         Stock stock = Gateway.FindStockBySymbol(data.Symbol);
@@ -238,18 +266,162 @@ namespace StockData
                                                 }
                                                 else
                                                 {
-                                                    // if the price went down
-                                                    if (stock.LastClose < data.ClosePrice)
+                                                    // if the price went up
+                                                    if ((stock.LastClose < data.ClosePrice) && (stock.LastClose > 0))
                                                     {
-                                                        
+                                                        // the price went up
+
+                                                        // if on a winning streak
+                                                        if (stock.Streak > 0)
+                                                        {
+                                                            // still on a streak
+                                                            continueType = ContinueTypeEnum.ContinueStreakAdvancing;
+
+                                                            // continue the streak                                                            
+                                                            stock.Streak++;                                                            
+                                                        }
+                                                        else
+                                                        {
+                                                            // set to NewStreakAdvancing
+                                                            continueType = ContinueTypeEnum.NewStreakAdvancing;
+
+                                                            // reset to 1
+                                                            stock.Streak = 1;                                                                                                                        
+                                                        }
                                                     }
                                                     else if (stock.LastClose > data.ClosePrice)
                                                     {
-                                                        
+                                                        // the price went down
+
+                                                        // if on a losing streak
+                                                        if (stock.Streak < 0)
+                                                        {
+                                                            // continue the streak
+                                                            continueType = ContinueTypeEnum.ContinueStreakDeclining;
+
+                                                            // continue the streak                                                            
+                                                            stock.Streak--;
+                                                        }
+                                                        else
+                                                        {
+                                                            // set to false
+                                                            continueType = ContinueTypeEnum.NewStreakDeclining;
+
+                                                            // reset to -1
+                                                            stock.Streak = -1;
+                                                        }
                                                     }
+                                                    else if (stock.LastClose == 0)
+                                                    {
+                                                        // set to NewStreakAdvancing
+                                                        continueType = ContinueTypeEnum.NewStreakAdvancing;
+
+                                                        // reset to 1
+                                                        stock.Streak = 1;       
+                                                    }
+
+                                                    // find the current streak for this stock
+                                                    streak = Gateway.FindStockStreakByStockIdAndCurrentStreak(true, stock.Id);          
+
+                                                    // if the streak exists
+                                                    if (NullHelper.Exists(streak))
+                                                    {
+                                                        // if the streak is continueing
+                                                        if (continueType == ContinueTypeEnum.ContinueStreakAdvancing)
+                                                        {  
+                                                            // continue the streak
+                                                            streak.StreakDays = stock.Streak;
+                                                            
+                                                            // Set the StreakEndDate, in case it ends
+                                                            streak.StreakEndDate = data.StockDate;
+                                                            streak.StreakEndPrice = data.ClosePrice;
+                                                        }
+                                                        else if (continueType == ContinueTypeEnum.ContinueStreakDeclining)
+                                                        {
+                                                            // continue the streak
+                                                            streak.StreakDays = stock.Streak;
+
+                                                            // Set the StreakEndDate, in case it ends
+                                                            streak.StreakEndDate = data.StockDate;
+                                                            streak.StreakEndPrice = data.ClosePrice;
+                                                        }                                                       
+                                                        else
+                                                        {
+                                                            // close the old streak and start a new oone
+
+                                                            // no longer the current
+                                                            streak.CurrentStreak = false;
+                                                            
+                                                            // Save this stock streak
+                                                            saved = Gateway.SaveStockStreak(ref streak);
+
+                                                            // create a new streak
+                                                            streak = new StockStreak();
+
+                                                            // Start a new streak
+                                                            streak.StreakStartDate = data.StockDate;
+                                                            streak.StockId = stock.Id;
+                                                            streak.CurrentStreak = true;
+                                                            streak.StreakStartPrice = data.OpenPrice;
+                                                            streak.StreakEndPrice = data.ClosePrice;
+
+                                                            // if this is a streak going up
+                                                            if (data.Streak > 0)
+                                                            {
+                                                                // This is a winning streak
+                                                                streak.StreakType = StreakTypeEnum.PriceIncreasing; 
+                                                            }
+                                                            else
+                                                            {
+                                                                // This is a losing streak
+                                                                streak.StreakType = StreakTypeEnum.PriceDecreasing;
+                                                            }
+                                                        }                                                       
+                                                    }
+                                                    else
+                                                    {
+                                                        // start a new streak
+ 
+                                                        // create the streak
+                                                        streak = new StockStreak();
+
+                                                        // Start a new streak
+                                                        streak.StreakStartDate = data.StockDate;
+                                                        streak.StockId = stock.Id;
+                                                        streak.CurrentStreak = true;
+                                                        streak.StreakStartPrice = data.OpenPrice;
+                                                        streak.StreakEndPrice = data.ClosePrice;
+                                                       
+                                                        // if this is a streak going up
+                                                        if (data.Streak > 0)
+                                                        {
+                                                            // This is a winning streak
+                                                            streak.StreakType = StreakTypeEnum.PriceIncreasing; 
+                                                        }
+                                                        else if (data.Streak < 0)
+                                                        {
+                                                            // This is a losing streak
+                                                            streak.StreakType = StreakTypeEnum.PriceDecreasing;
+                                                        }
+                                                    }
+
+                                                    // Set the streak from the stock
+                                                    data.Streak = stock.Streak;
 
                                                     // perform the save
                                                     saved = Gateway.SaveDailyPriceData(ref data);
+
+                                                    // Set the LastClose at the stock level
+                                                    stock.LastClose = data.ClosePrice;
+
+                                                    // Save the stock
+                                                    saved = Gateway.SaveStock(ref stock);
+
+                                                    // Set the StreakDays
+                                                    streak.StreakDays = stock.Streak;
+
+                                                    // Save the stockStreak
+                                                    saved = Gateway.SaveStockStreak(ref streak);
                                                 }
                                             }
                                         }

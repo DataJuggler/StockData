@@ -353,31 +353,31 @@ namespace DataGateway
             }
             #endregion
 
-                #region FindStockBySymbol(string symbol)
-                /// <summary>
-                /// This method is used to find 'Stock' objects for the Symbol given.
-                /// </summary>
-                public Stock FindStockBySymbol(string symbol)
-                {
-                    // initial value
-                    Stock stock = null;
+            #region FindStockBySymbol(string symbol)
+            /// <summary>
+            /// This method is used to find 'Stock' objects for the Symbol given.
+            /// </summary>
+            public Stock FindStockBySymbol(string symbol)
+            {
+                // initial value
+                Stock stock = null;
                     
-                    // Create a temp Stock object
-                    Stock tempStock = new Stock();
+                // Create a temp Stock object
+                Stock tempStock = new Stock();
                     
-                    // Set the value for FindBySymbol to true
-                    tempStock.FindBySymbol = true;
+                // Set the value for FindBySymbol to true
+                tempStock.FindBySymbol = true;
                     
-                    // Set the value for Symbol
-                    tempStock.Symbol = symbol;
+                // Set the value for Symbol
+                tempStock.Symbol = symbol;
                     
-                    // Perform the find
-                    stock = FindStock(0, tempStock);
+                // Perform the find
+                stock = FindStock(0, tempStock);
                     
-                    // return value
-                    return stock;
-                }
-                #endregion
+                // return value
+                return stock;
+            }
+            #endregion
                 
             #region FindStockStreak(int id, StockStreak tempStockStreak = null)
             /// <summary>
@@ -416,6 +416,35 @@ namespace DataGateway
             }
             #endregion
 
+            #region FindStockStreakByStockIdAndCurrentStreak(bool currentStreak, int stockId)
+            /// <summary>
+            /// This method is used to find 'StockStreak' objects by StockIdAndCurrentStreak
+            /// </summary>
+            public StockStreak FindStockStreakByStockIdAndCurrentStreak(bool currentStreak, int stockId)
+            {
+                // initial value
+                StockStreak stockStreak = null;
+                        
+                // Create a temp StockStreak object
+                StockStreak tempStockStreak = new StockStreak();
+                        
+                // Set the value for FindByStockIdAndCurrentStreak to true
+                tempStockStreak.FindByStockIdAndCurrentStreak = true;
+                        
+                // Set the value for CurrentStreak
+                tempStockStreak.CurrentStreak = currentStreak;
+                        
+                // Set the value for StockId
+                tempStockStreak.StockId = stockId;
+                        
+                // Perform the find
+                stockStreak = FindStockStreak(0, tempStockStreak);
+                        
+                // return value
+                return stockStreak;
+            }
+            #endregion
+                
             #region GetDataConnector()
             /// <summary>
             /// This method (safely) returns the Data Connector from the

@@ -45,6 +45,7 @@ namespace DataAccessComponent.DataManager.Readers
                 int streakEndPricefield = 6;
                 int streakStartDatefield = 7;
                 int streakStartPricefield = 8;
+                int streakTypefield = 9;
 
                 try
                 {
@@ -58,6 +59,7 @@ namespace DataAccessComponent.DataManager.Readers
                     stockStreak.StreakEndPrice = DataHelper.ParseDouble(dataRow.ItemArray[streakEndPricefield], 0);
                     stockStreak.StreakStartDate = DataHelper.ParseDate(dataRow.ItemArray[streakStartDatefield]);
                     stockStreak.StreakStartPrice = DataHelper.ParseDouble(dataRow.ItemArray[streakStartPricefield], 0);
+                    stockStreak.StreakType = (StreakTypeEnum) DataHelper.ParseInteger(dataRow.ItemArray[streakTypefield], 0);
                 }
                 catch
                 {

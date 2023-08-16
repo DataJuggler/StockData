@@ -327,6 +327,7 @@ Create PROCEDURE DailyPriceData_Insert
     @LowPrice float,
     @OpenPrice float,
     @Spread float,
+    @SpreadScore float,
     @StockDate datetime,
     @Streak int,
     @Symbol nvarchar(10),
@@ -341,10 +342,10 @@ BEGIN
 
     -- Begin Insert Statement
     Insert Into [DailyPriceData]
-    ([ClosePrice],[CloseScore],[HighPrice],[LowPrice],[OpenPrice],[Spread],[StockDate],[Streak],[Symbol],[Volume])
+    ([ClosePrice],[CloseScore],[HighPrice],[LowPrice],[OpenPrice],[Spread],[SpreadScore],[StockDate],[Streak],[Symbol],[Volume])
 
     -- Begin Values List
-    Values(@ClosePrice, @CloseScore, @HighPrice, @LowPrice, @OpenPrice, @Spread, @StockDate, @Streak, @Symbol, @Volume)
+    Values(@ClosePrice, @CloseScore, @HighPrice, @LowPrice, @OpenPrice, @Spread, @SpreadScore, @StockDate, @Streak, @Symbol, @Volume)
 
     -- Return ID of new record
     SELECT SCOPE_IDENTITY()
@@ -395,6 +396,7 @@ Create PROCEDURE DailyPriceData_Update
     @LowPrice float,
     @OpenPrice float,
     @Spread float,
+    @SpreadScore float,
     @StockDate datetime,
     @Streak int,
     @Symbol nvarchar(10),
@@ -417,6 +419,7 @@ BEGIN
     [LowPrice] = @LowPrice,
     [OpenPrice] = @OpenPrice,
     [Spread] = @Spread,
+    [SpreadScore] = @SpreadScore,
     [StockDate] = @StockDate,
     [Streak] = @Streak,
     [Symbol] = @Symbol,
@@ -474,7 +477,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [ClosePrice],[CloseScore],[HighPrice],[Id],[LowPrice],[OpenPrice],[Spread],[StockDate],[Streak],[Symbol],[Volume]
+    Select [ClosePrice],[CloseScore],[HighPrice],[Id],[LowPrice],[OpenPrice],[Spread],[SpreadScore],[StockDate],[Streak],[Symbol],[Volume]
 
     -- From tableName
     From [DailyPriceData]
@@ -582,7 +585,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [ClosePrice],[CloseScore],[HighPrice],[Id],[LowPrice],[OpenPrice],[Spread],[StockDate],[Streak],[Symbol],[Volume]
+    Select [ClosePrice],[CloseScore],[HighPrice],[Id],[LowPrice],[OpenPrice],[Spread],[SpreadScore],[StockDate],[Streak],[Symbol],[Volume]
 
     -- From tableName
     From [DailyPriceData]
@@ -938,7 +941,8 @@ Create PROCEDURE StockStreak_Insert
     @StreakEndDate datetime,
     @StreakEndPrice float,
     @StreakStartDate datetime,
-    @StreakStartPrice float
+    @StreakStartPrice float,
+    @StreakType int
 
 AS
 BEGIN
@@ -949,10 +953,10 @@ BEGIN
 
     -- Begin Insert Statement
     Insert Into [StockStreak]
-    ([CurrentStreak],[StockId],[StreakContinuing],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice])
+    ([CurrentStreak],[StockId],[StreakContinuing],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType])
 
     -- Begin Values List
-    Values(@CurrentStreak, @StockId, @StreakContinuing, @StreakDays, @StreakEndDate, @StreakEndPrice, @StreakStartDate, @StreakStartPrice)
+    Values(@CurrentStreak, @StockId, @StreakContinuing, @StreakDays, @StreakEndDate, @StreakEndPrice, @StreakStartDate, @StreakStartPrice, @StreakType)
 
     -- Return ID of new record
     SELECT SCOPE_IDENTITY()
@@ -1004,7 +1008,8 @@ Create PROCEDURE StockStreak_Update
     @StreakEndDate datetime,
     @StreakEndPrice float,
     @StreakStartDate datetime,
-    @StreakStartPrice float
+    @StreakStartPrice float,
+    @StreakType int
 
 AS
 BEGIN
@@ -1024,7 +1029,8 @@ BEGIN
     [StreakEndDate] = @StreakEndDate,
     [StreakEndPrice] = @StreakEndPrice,
     [StreakStartDate] = @StreakStartDate,
-    [StreakStartPrice] = @StreakStartPrice
+    [StreakStartPrice] = @StreakStartPrice,
+    [StreakType] = @StreakType
 
     -- Update Matching Record
     Where [Id] = @Id
@@ -1078,7 +1084,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [CurrentStreak],[Id],[StockId],[StreakContinuing],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice]
+    Select [CurrentStreak],[Id],[StockId],[StreakContinuing],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType]
 
     -- From tableName
     From [StockStreak]
@@ -1186,7 +1192,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [CurrentStreak],[Id],[StockId],[StreakContinuing],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice]
+    Select [CurrentStreak],[Id],[StockId],[StreakContinuing],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType]
 
     -- From tableName
     From [StockStreak]
@@ -1250,6 +1256,68 @@ BEGIN
 
     -- Find Matching Record
     Where [Symbol] = @Symbol
+
+END
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
+-- Procure Name: StockStreak_FindByStockIdAndCurrentStreak
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   8/15/2023
+-- Description:    Find an existing StockStreak by
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('StockStreak_FindByStockIdAndCurrentStreak'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure StockStreak_FindByStockIdAndCurrentStreak
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.StockStreak_FindByStockIdAndCurrentStreak') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure StockStreak_FindByStockIdAndCurrentStreak >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure StockStreak_FindByStockIdAndCurrentStreak >>>'
+
+    End
+
+GO
+
+Create PROCEDURE StockStreak_FindByStockIdAndCurrentStreak
+
+    -- Create @CurrentStreak Paramater
+    @CurrentStreak bit,
+
+
+    -- Create @StockId Paramater
+    @StockId int
+
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Select Statement
+    Select [CurrentStreak],[Id],[StockId],[StreakContinuing],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType]
+
+    -- From tableName
+    From [StockStreak]
+
+    -- Find Matching Record
+    Where [CurrentStreak] = @CurrentStreak And [StockId] = @StockId
 
 END
 

@@ -1,12 +1,10 @@
 
-
 #region using statements
 
 using ObjectLibrary.Enumerations;
 using System;
 
 #endregion
-
 
 namespace ObjectLibrary.BusinessObjects
 {
@@ -17,6 +15,7 @@ namespace ObjectLibrary.BusinessObjects
     {
 
         #region Private Variables
+        private bool findByStockIdAndCurrentStreak;        
         #endregion
 
         #region Constructor
@@ -42,6 +41,18 @@ namespace ObjectLibrary.BusinessObjects
         #endregion
 
         #region Properties
+
+            #region FindByStockIdAndCurrentStreak
+            /// <summary>
+            /// This property gets or sets the value for 'FindByStockIdAndCurrentStreak'.
+            /// </summary>
+            public bool FindByStockIdAndCurrentStreak
+            {
+                get { return findByStockIdAndCurrentStreak; }
+                set { findByStockIdAndCurrentStreak = value; }
+            }
+            #endregion
+
         #endregion
 
     }

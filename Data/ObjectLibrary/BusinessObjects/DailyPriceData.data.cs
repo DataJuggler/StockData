@@ -23,6 +23,7 @@ namespace ObjectLibrary.BusinessObjects
         private double lowPrice;
         private double openPrice;
         private double spread;
+        private double spreadScore;
         private DateTime stockDate;
         private int streak;
         private string symbol;
@@ -137,6 +138,20 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     spread = value;
+                }
+            }
+            #endregion
+
+            #region double SpreadScore
+            public double SpreadScore
+            {
+                get
+                {
+                    return spreadScore;
+                }
+                set
+                {
+                    spreadScore = value;
                 }
             }
             #endregion

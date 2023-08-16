@@ -117,7 +117,7 @@ namespace DataAccessComponent.DataManager.Writers
             internal static SqlParameter[] CreateInsertParameters(DailyPriceData dailyPriceData)
             {
                 // Initial Values
-                SqlParameter[] parameters = new SqlParameter[10];
+                SqlParameter[] parameters = new SqlParameter[11];
                 SqlParameter param = null;
 
                 // verify dailyPriceDataexists
@@ -159,6 +159,12 @@ namespace DataAccessComponent.DataManager.Writers
                     // set parameters[5]
                     parameters[5] = param;
 
+                    // Create [SpreadScore] parameter
+                    param = new SqlParameter("@SpreadScore", dailyPriceData.SpreadScore);
+
+                    // set parameters[6]
+                    parameters[6] = param;
+
                     // Create [StockDate] Parameter
                     param = new SqlParameter("@StockDate", SqlDbType.DateTime);
 
@@ -173,26 +179,26 @@ namespace DataAccessComponent.DataManager.Writers
                         // Set the parameter value
                         param.Value = dailyPriceData.StockDate;
                     }
-                    // set parameters[6]
-                    parameters[6] = param;
+                    // set parameters[7]
+                    parameters[7] = param;
 
                     // Create [Streak] parameter
                     param = new SqlParameter("@Streak", dailyPriceData.Streak);
 
-                    // set parameters[7]
-                    parameters[7] = param;
+                    // set parameters[8]
+                    parameters[8] = param;
 
                     // Create [Symbol] parameter
                     param = new SqlParameter("@Symbol", dailyPriceData.Symbol);
 
-                    // set parameters[8]
-                    parameters[8] = param;
+                    // set parameters[9]
+                    parameters[9] = param;
 
                     // Create [Volume] parameter
                     param = new SqlParameter("@Volume", dailyPriceData.Volume);
 
-                    // set parameters[9]
-                    parameters[9] = param;
+                    // set parameters[10]
+                    parameters[10] = param;
                 }
 
                 // return value
@@ -239,7 +245,7 @@ namespace DataAccessComponent.DataManager.Writers
             internal static SqlParameter[] CreateUpdateParameters(DailyPriceData dailyPriceData)
             {
                 // Initial Values
-                SqlParameter[] parameters = new SqlParameter[11];
+                SqlParameter[] parameters = new SqlParameter[12];
                 SqlParameter param = null;
 
                 // verify dailyPriceDataexists
@@ -281,6 +287,12 @@ namespace DataAccessComponent.DataManager.Writers
                     // set parameters[5]
                     parameters[5] = param;
 
+                    // Create parameter for [SpreadScore]
+                    param = new SqlParameter("@SpreadScore", dailyPriceData.SpreadScore);
+
+                    // set parameters[6]
+                    parameters[6] = param;
+
                     // Create parameter for [StockDate]
                     // Create [StockDate] Parameter
                     param = new SqlParameter("@StockDate", SqlDbType.DateTime);
@@ -297,30 +309,30 @@ namespace DataAccessComponent.DataManager.Writers
                         param.Value = dailyPriceData.StockDate;
                     }
 
-                    // set parameters[6]
-                    parameters[6] = param;
+                    // set parameters[7]
+                    parameters[7] = param;
 
                     // Create parameter for [Streak]
                     param = new SqlParameter("@Streak", dailyPriceData.Streak);
 
-                    // set parameters[7]
-                    parameters[7] = param;
+                    // set parameters[8]
+                    parameters[8] = param;
 
                     // Create parameter for [Symbol]
                     param = new SqlParameter("@Symbol", dailyPriceData.Symbol);
 
-                    // set parameters[8]
-                    parameters[8] = param;
+                    // set parameters[9]
+                    parameters[9] = param;
 
                     // Create parameter for [Volume]
                     param = new SqlParameter("@Volume", dailyPriceData.Volume);
 
-                    // set parameters[9]
-                    parameters[9] = param;
+                    // set parameters[10]
+                    parameters[10] = param;
 
                     // Create parameter for [Id]
                     param = new SqlParameter("@Id", dailyPriceData.Id);
-                    parameters[10] = param;
+                    parameters[11] = param;
                 }
 
                 // return value
