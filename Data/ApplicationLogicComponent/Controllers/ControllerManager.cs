@@ -27,6 +27,7 @@ namespace ApplicationLogicComponent.Controllers
         private ApplicationController appController;
         private AdminController adminController;
         private DailyPriceDataController dailypricedataController;
+        private DailyPriceDataViewController dailypricedataviewController;
         private StockController stockController;
         private StockStreakController stockstreakController;
         private StockStreakViewController stockstreakviewController;
@@ -58,6 +59,7 @@ namespace ApplicationLogicComponent.Controllers
                 // Create Child Controllers
                 this.AdminController = new AdminController(this.ErrorProcessor, this.AppController);
                 this.DailyPriceDataController = new DailyPriceDataController(this.ErrorProcessor, this.AppController);
+                this.DailyPriceDataViewController = new DailyPriceDataViewController(this.ErrorProcessor, this.AppController);
                 this.StockController = new StockController(this.ErrorProcessor, this.AppController);
                 this.StockStreakController = new StockStreakController(this.ErrorProcessor, this.AppController);
                 this.StockStreakViewController = new StockStreakViewController(this.ErrorProcessor, this.AppController);
@@ -97,6 +99,14 @@ namespace ApplicationLogicComponent.Controllers
             {
                 get { return dailypricedataController; }
                 set { dailypricedataController = value; }
+            }
+            #endregion
+
+            #region DailyPriceDataViewController
+            public DailyPriceDataViewController DailyPriceDataViewController
+            {
+                get { return dailypricedataviewController; }
+                set { dailypricedataviewController = value; }
             }
             #endregion
 

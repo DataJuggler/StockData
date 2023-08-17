@@ -31,6 +31,7 @@ namespace ApplicationLogicComponent.DataOperations
         private SystemMethods systemMethods;
         private AdminMethods adminMethods;
         private DailyPriceDataMethods dailypricedataMethods;
+        private DailyPriceDataViewMethods dailypricedataviewMethods;
         private StockMethods stockMethods;
         private StockStreakMethods stockstreakMethods;
         private StockStreakViewMethods stockstreakviewMethods;
@@ -62,6 +63,7 @@ namespace ApplicationLogicComponent.DataOperations
                 this.SystemMethods = new SystemMethods();
                 this.AdminMethods = new AdminMethods(this.DataManager);
                 this.DailyPriceDataMethods = new DailyPriceDataMethods(this.DataManager);
+                this.DailyPriceDataViewMethods = new DailyPriceDataViewMethods(this.DataManager);
                 this.StockMethods = new StockMethods(this.DataManager);
                 this.StockStreakMethods = new StockStreakMethods(this.DataManager);
                 this.StockStreakViewMethods = new StockStreakViewMethods(this.DataManager);
@@ -101,6 +103,14 @@ namespace ApplicationLogicComponent.DataOperations
             {
                 get { return dailypricedataMethods; }
                 set { dailypricedataMethods = value; }
+            }
+            #endregion
+
+            #region DailyPriceDataViewMethods
+            public DailyPriceDataViewMethods DailyPriceDataViewMethods
+            {
+                get { return dailypricedataviewMethods; }
+                set { dailypricedataviewMethods = value; }
             }
             #endregion
 

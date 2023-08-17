@@ -30,6 +30,7 @@ namespace DataAccessComponent.DataManager
         private string connectionName;
         private AdminManager adminManager;
         private DailyPriceDataManager dailypricedataManager;
+        private DailyPriceDataViewManager dailypricedataviewManager;
         private StockManager stockManager;
         private StockStreakManager stockstreakManager;
         private StockStreakViewManager stockstreakviewManager;
@@ -64,6 +65,7 @@ namespace DataAccessComponent.DataManager
                 // Create Child Object Managers
                 this.AdminManager = new AdminManager(this);
                 this.DailyPriceDataManager = new DailyPriceDataManager(this);
+                this.DailyPriceDataViewManager = new DailyPriceDataViewManager(this);
                 this.StockManager = new StockManager(this);
                 this.StockStreakManager = new StockStreakManager(this);
                 this.StockStreakViewManager = new StockStreakViewManager(this);
@@ -103,6 +105,14 @@ namespace DataAccessComponent.DataManager
             {
                 get { return dailypricedataManager; }
                 set { dailypricedataManager = value; }
+            }
+            #endregion
+
+            #region DailyPriceDataViewManager
+            public DailyPriceDataViewManager DailyPriceDataViewManager
+            {
+                get { return dailypricedataviewManager; }
+                set { dailypricedataviewManager = value; }
             }
             #endregion
 
