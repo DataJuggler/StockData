@@ -936,7 +936,6 @@ Create PROCEDURE StockStreak_Insert
     -- Add the parameters for the stored procedure here
     @CurrentStreak bit,
     @StockId int,
-    @StreakContinuing bit,
     @StreakDays int,
     @StreakEndDate datetime,
     @StreakEndPrice float,
@@ -953,10 +952,10 @@ BEGIN
 
     -- Begin Insert Statement
     Insert Into [StockStreak]
-    ([CurrentStreak],[StockId],[StreakContinuing],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType])
+    ([CurrentStreak],[StockId],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType])
 
     -- Begin Values List
-    Values(@CurrentStreak, @StockId, @StreakContinuing, @StreakDays, @StreakEndDate, @StreakEndPrice, @StreakStartDate, @StreakStartPrice, @StreakType)
+    Values(@CurrentStreak, @StockId, @StreakDays, @StreakEndDate, @StreakEndPrice, @StreakStartDate, @StreakStartPrice, @StreakType)
 
     -- Return ID of new record
     SELECT SCOPE_IDENTITY()
@@ -1003,7 +1002,6 @@ Create PROCEDURE StockStreak_Update
     @CurrentStreak bit,
     @Id int,
     @StockId int,
-    @StreakContinuing bit,
     @StreakDays int,
     @StreakEndDate datetime,
     @StreakEndPrice float,
@@ -1024,7 +1022,6 @@ BEGIN
     -- Update Each field
     Set [CurrentStreak] = @CurrentStreak,
     [StockId] = @StockId,
-    [StreakContinuing] = @StreakContinuing,
     [StreakDays] = @StreakDays,
     [StreakEndDate] = @StreakEndDate,
     [StreakEndPrice] = @StreakEndPrice,
@@ -1084,7 +1081,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [CurrentStreak],[Id],[StockId],[StreakContinuing],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType]
+    Select [CurrentStreak],[Id],[StockId],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType]
 
     -- From tableName
     From [StockStreak]
@@ -1192,7 +1189,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [CurrentStreak],[Id],[StockId],[StreakContinuing],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType]
+    Select [CurrentStreak],[Id],[StockId],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType]
 
     -- From tableName
     From [StockStreak]
@@ -1311,7 +1308,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [CurrentStreak],[Id],[StockId],[StreakContinuing],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType]
+    Select [CurrentStreak],[Id],[StockId],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType]
 
     -- From tableName
     From [StockStreak]

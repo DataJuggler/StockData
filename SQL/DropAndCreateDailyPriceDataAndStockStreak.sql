@@ -1,16 +1,16 @@
 Use [StockData]
 
-/****** Object:  Table [dbo].[StockStreak]    Script Date: 8/15/2023 9:27:05 PM ******/
+/****** Object:  Table [dbo].[StockStreak]    Script Date: 8/16/2023 9:22:13 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[StockStreak]') AND type in (N'U'))
 DROP TABLE [dbo].[StockStreak]
 GO
 
-/****** Object:  Table [dbo].[DailyPriceData]    Script Date: 8/15/2023 9:27:05 PM ******/
+/****** Object:  Table [dbo].[DailyPriceData]    Script Date: 8/16/2023 9:22:13 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DailyPriceData]') AND type in (N'U'))
 DROP TABLE [dbo].[DailyPriceData]
 GO
 
-/****** Object:  Table [dbo].[DailyPriceData]    Script Date: 8/15/2023 9:27:05 PM ******/
+/****** Object:  Table [dbo].[DailyPriceData]    Script Date: 8/16/2023 9:22:13 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -37,7 +37,7 @@ CREATE TABLE [dbo].[DailyPriceData](
 ) ON [PRIMARY]
 GO
 
-/****** Object:  Table [dbo].[StockStreak]    Script Date: 8/15/2023 9:27:05 PM ******/
+/****** Object:  Table [dbo].[StockStreak]    Script Date: 8/16/2023 9:22:13 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -51,7 +51,6 @@ CREATE TABLE [dbo].[StockStreak](
 	[StreakEndDate] [datetime] NOT NULL,
 	[StreakStartPrice] [money] NOT NULL,
 	[StreakEndPrice] [money] NOT NULL,
-	[StreakContinuing] [bit] NOT NULL,
 	[StreakDays] [int] NOT NULL,
 	[CurrentStreak] [bit] NOT NULL,
 	[StreakType] [int] NOT NULL,

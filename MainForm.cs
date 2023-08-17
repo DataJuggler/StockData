@@ -366,7 +366,7 @@ namespace StockData
                                                             streak.StreakEndPrice = data.ClosePrice;
 
                                                             // if this is a streak going up
-                                                            if (data.Streak > 0)
+                                                            if (stock.Streak > 0)
                                                             {
                                                                 // This is a winning streak
                                                                 streak.StreakType = StreakTypeEnum.PriceIncreasing;
@@ -393,12 +393,12 @@ namespace StockData
                                                         streak.StreakEndPrice = data.ClosePrice;
 
                                                         // if this is a streak going up
-                                                        if (data.Streak > 0)
+                                                        if (stock.Streak > 0)
                                                         {
                                                             // This is a winning streak
                                                             streak.StreakType = StreakTypeEnum.PriceIncreasing;
                                                         }
-                                                        else if (data.Streak < 0)
+                                                        else if (stock.Streak < 0)
                                                         {
                                                             // This is a losing streak
                                                             streak.StreakType = StreakTypeEnum.PriceDecreasing;
