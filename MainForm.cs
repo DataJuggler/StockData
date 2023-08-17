@@ -55,6 +55,9 @@ namespace StockData
             // local
             bool saved = false;
 
+            // Remove focus from this buttton
+            HiddenButton.Focus();
+
             // Create a new instance of a 'WorksheetInfo' object.
             WorksheetInfo worksheetInfo = new WorksheetInfo();
 
@@ -164,6 +167,9 @@ namespace StockData
         {
             // use this delimiter
             char[] delimiter = { ',' };
+
+            // Remove focus from this buttton
+            HiddenButton.Focus();
 
             // locals
             int count = 0;
@@ -311,8 +317,15 @@ namespace StockData
                                                             stock.Streak = -1;
                                                         }
                                                     }
+                                                    else if (stock.LastClose == data.ClosePrice)
+                                                    {
+                                                        // Set to Even
+                                                        continueType = ContinueTypeEnum.Even;
+                                                    }
                                                     else if (stock.LastClose == 0)
                                                     {
+                                                        // only the first time
+
                                                         // set to NewStreakAdvancing
                                                         continueType = ContinueTypeEnum.NewStreakAdvancing;
 
@@ -342,6 +355,15 @@ namespace StockData
                                                             streak.StreakDays = stock.Streak;
 
                                                             // Set the StreakEndDate, in case it ends
+                                                            streak.StreakEndDate = data.StockDate;
+                                                            streak.StreakEndPrice = data.ClosePrice;
+                                                        }
+                                                        else if (continueType == ContinueTypeEnum.Even)
+                                                        {
+                                                            // streak stays the same
+                                                            streak.StreakDays = stock.Streak;
+
+                                                            // End Date changes
                                                             streak.StreakEndDate = data.StockDate;
                                                             streak.StreakEndPrice = data.ClosePrice;
                                                         }
@@ -416,7 +438,7 @@ namespace StockData
 
                                                     // Set the AverageDailyVolume (in 1,000's)
                                                     stock.AverageDailyVolume = SetAverageDailyVolume(data.Symbol);
-                                                    
+
                                                     // Save the Stock
                                                     saved = Gateway.SaveStock(ref stock);
 
@@ -430,7 +452,7 @@ namespace StockData
                                                     // I had dropped a column from StockStreak and forgot to execute
                                                     // the stored procedures when I rebuilt with DataTier.Net. This method
                                                     // Showed me the error.
-                                                    
+
                                                     // if not saved
                                                     if (!saved)
                                                     {
@@ -534,14 +556,14 @@ namespace StockData
                     foreach (DailyPriceData data in dailyPriceData)
                     {
                         // Take the value for volume, and multiply by .001 so the number is smal
-                        sumVolume += (int) (data.Volume * .001);
+                        sumVolume += (int)(data.Volume * .001);
                     }
 
                     // temp value
                     double temp = sumVolume / dailyPriceData.Count;
 
                     // Set the AverageDailyVolume
-                    averageDailyVolume = (int) temp;
+                    averageDailyVolume = (int)temp;
 
                     // now put back the three digits
                     averageDailyVolume = averageDailyVolume * 1000;
@@ -552,12 +574,12 @@ namespace StockData
                 // for debugging only
                 DebugHelper.WriteDebugError("SetAverageDailyVolume", "MainForm", error);
             }
-                
+
             // return value
             return averageDailyVolume;
         }
         #endregion
-            
+
         #region SetupGraph()
         /// <summary>
         /// Setup Graph

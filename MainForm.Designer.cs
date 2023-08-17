@@ -33,6 +33,7 @@
             Graph = new ProgressBar();
             StatusLabel = new Label();
             ProcessFilesButton = new DataJuggler.Win.Controls.Button();
+            HiddenButton = new DataJuggler.Win.Controls.Button();
             SuspendLayout();
             // 
             // ImportStocksButton
@@ -87,12 +88,28 @@
             ProcessFilesButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
             ProcessFilesButton.Click += ProcessFilesButton_Click;
             // 
+            // HiddenButton
+            // 
+            HiddenButton.BackColor = Color.Transparent;
+            HiddenButton.ButtonText = "Import Stocks";
+            HiddenButton.FlatStyle = FlatStyle.Flat;
+            HiddenButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            HiddenButton.ForeColor = Color.LemonChiffon;
+            HiddenButton.Location = new Point(-600, -600);
+            HiddenButton.Margin = new Padding(6, 4, 6, 4);
+            HiddenButton.Name = "HiddenButton";
+            HiddenButton.Size = new Size(177, 46);
+            HiddenButton.TabIndex = 5;
+            HiddenButton.TextAlign = ContentAlignment.MiddleCenter;
+            HiddenButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            // 
             // MainForm
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = Properties.Resources.BlackImage;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(838, 262);
+            Controls.Add(HiddenButton);
             Controls.Add(ProcessFilesButton);
             Controls.Add(StatusLabel);
             Controls.Add(Graph);
@@ -115,5 +132,6 @@
         private Label StatusLabel;
         private DataJuggler.Win.Controls.Button ProcessFilesButton;
         private Label ExtensionLabel;
+        private DataJuggler.Win.Controls.Button HiddenButton;
     }
 }
