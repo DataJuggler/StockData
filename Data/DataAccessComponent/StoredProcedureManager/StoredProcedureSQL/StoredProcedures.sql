@@ -1196,6 +1196,57 @@ BEGIN
 
 END
 
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
+-- Procure Name: StockStreakView_FetchAll
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   8/16/2023
+-- Description:    Returns all StockStreakView objects
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('StockStreakView_FetchAll'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure StockStreakView_FetchAll
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.StockStreakView_FetchAll') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure StockStreakView_FetchAll >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure StockStreakView_FetchAll >>>'
+
+    End
+
+GO
+
+Create PROCEDURE StockStreakView_FetchAll
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Select Statement
+    Select [AverageDailyVolume],[Exchange],[Industry],[LastClose],[Name],[Sector],[StockId],[Streak],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[Symbol]
+
+    -- From tableName
+    From [StockStreakView]
+
+END
+
 -- Begin Custom Methods
 
 

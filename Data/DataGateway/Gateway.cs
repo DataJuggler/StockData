@@ -615,6 +615,27 @@ namespace DataGateway
             }
             #endregion
 
+            #region LoadStockStreakViews(StockStreakView tempStockStreakView = null)
+            /// <summary>
+            /// This method loads a collection of 'StockStreakView' objects.
+            /// </summary>
+            public List<StockStreakView> LoadStockStreakViews(StockStreakView tempStockStreakView = null)
+            {
+                // initial value
+                List<StockStreakView> stockStreakViews = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    stockStreakViews = this.AppController.ControllerManager.StockStreakViewController.FetchAll(tempStockStreakView);
+                }
+
+                // return value
+                return stockStreakViews;
+            }
+            #endregion
+
             #region SaveAdmin(ref Admin admin)
             /// <summary>
             /// This method is used to save 'Admin' objects.

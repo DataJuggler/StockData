@@ -33,6 +33,7 @@ namespace ApplicationLogicComponent.DataOperations
         private DailyPriceDataMethods dailypricedataMethods;
         private StockMethods stockMethods;
         private StockStreakMethods stockstreakMethods;
+        private StockStreakViewMethods stockstreakviewMethods;
         #endregion
 
         #region Constructor
@@ -63,6 +64,7 @@ namespace ApplicationLogicComponent.DataOperations
                 this.DailyPriceDataMethods = new DailyPriceDataMethods(this.DataManager);
                 this.StockMethods = new StockMethods(this.DataManager);
                 this.StockStreakMethods = new StockStreakMethods(this.DataManager);
+                this.StockStreakViewMethods = new StockStreakViewMethods(this.DataManager);
             }
             #endregion
 
@@ -115,6 +117,14 @@ namespace ApplicationLogicComponent.DataOperations
             {
                 get { return stockstreakMethods; }
                 set { stockstreakMethods = value; }
+            }
+            #endregion
+
+            #region StockStreakViewMethods
+            public StockStreakViewMethods StockStreakViewMethods
+            {
+                get { return stockstreakviewMethods; }
+                set { stockstreakviewMethods = value; }
             }
             #endregion
 

@@ -29,6 +29,7 @@ namespace ApplicationLogicComponent.Controllers
         private DailyPriceDataController dailypricedataController;
         private StockController stockController;
         private StockStreakController stockstreakController;
+        private StockStreakViewController stockstreakviewController;
         #endregion
 
         #region Constructor
@@ -59,6 +60,7 @@ namespace ApplicationLogicComponent.Controllers
                 this.DailyPriceDataController = new DailyPriceDataController(this.ErrorProcessor, this.AppController);
                 this.StockController = new StockController(this.ErrorProcessor, this.AppController);
                 this.StockStreakController = new StockStreakController(this.ErrorProcessor, this.AppController);
+                this.StockStreakViewController = new StockStreakViewController(this.ErrorProcessor, this.AppController);
             }
             #endregion
 
@@ -111,6 +113,14 @@ namespace ApplicationLogicComponent.Controllers
             {
                 get { return stockstreakController; }
                 set { stockstreakController = value; }
+            }
+            #endregion
+
+            #region StockStreakViewController
+            public StockStreakViewController StockStreakViewController
+            {
+                get { return stockstreakviewController; }
+                set { stockstreakviewController = value; }
             }
             #endregion
 
