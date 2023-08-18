@@ -28,6 +28,7 @@ namespace ObjectLibrary.BusinessObjects
         private int streak;
         private string symbol;
         private int volume;
+        private double volumeScore;
         #endregion
 
         #region Methods
@@ -208,6 +209,20 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     volume = value;
+                }
+            }
+            #endregion
+
+            #region double VolumeScore
+            public double VolumeScore
+            {
+                get
+                {
+                    return volumeScore;
+                }
+                set
+                {
+                    volumeScore = value;
                 }
             }
             #endregion

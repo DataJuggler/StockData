@@ -49,6 +49,7 @@ namespace DataAccessComponent.DataManager.Readers
                 int streakfield = 10;
                 int symbolfield = 11;
                 int volumefield = 12;
+                int volumeScorefield = 13;
 
                 try
                 {
@@ -66,6 +67,7 @@ namespace DataAccessComponent.DataManager.Readers
                     dailyPriceDataView.Streak = DataHelper.ParseInteger(dataRow.ItemArray[streakfield], 0);
                     dailyPriceDataView.Symbol = DataHelper.ParseString(dataRow.ItemArray[symbolfield]);
                     dailyPriceDataView.Volume = DataHelper.ParseInteger(dataRow.ItemArray[volumefield], 0);
+                    dailyPriceDataView.VolumeScore = DataHelper.ParseDouble(dataRow.ItemArray[volumeScorefield], 0);
                 }
                 catch
                 {

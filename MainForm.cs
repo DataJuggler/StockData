@@ -430,14 +430,28 @@ namespace StockData
                                                     // Set the streak from the stock
                                                     data.Streak = stock.Streak;
 
-                                                    // perform the save
-                                                    saved = Gateway.SaveDailyPriceData(ref data);
-
                                                     // Set the LastClose at the stock level
                                                     stock.LastClose = data.ClosePrice;
 
+                                                    // perform the save
+                                                    saved = Gateway.SaveDailyPriceData(ref data);
+
                                                     // Set the AverageDailyVolume (in 1,000's)
                                                     stock.AverageDailyVolume = SetAverageDailyVolume(data.Symbol);
+
+                                                    // Get a comparision of the average volume for the last 50 trading days vs this day's volume
+                                                    if (stock.AverageDailyVolume > 0)
+                                                    {
+                                                        decimal oneHundred = 100;
+                                                        decimal averageDailyVolume = stock.AverageDailyVolume; 
+                                                        decimal temp = oneHundred / averageDailyVolume;
+                                                        decimal temp2 = Math.Round(temp * data.Volume, 2);
+                                                        decimal volumeScore = temp2 - oneHundred;
+                                                        data.VolumeScore = (double) volumeScore;
+                                                    }
+
+                                                    // perform the save again now that VolumeScore is set
+                                                    saved = Gateway.SaveDailyPriceData(ref data);
 
                                                     // Save the Stock
                                                     saved = Gateway.SaveStock(ref stock);
@@ -450,7 +464,7 @@ namespace StockData
 
                                                     // I am leaving this here, to show you how to get the last exception.
                                                     // I had dropped a column from StockStreak and forgot to execute
-                                                    // the stored procedures when I rebuilt with DataTier.Net. This method
+                                                    // the stored procedures when I rebuilt with DataTier.Net. This 
                                                     // Showed me the error.
 
                                                     // if not saved

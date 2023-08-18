@@ -117,7 +117,7 @@ namespace DataAccessComponent.DataManager.Writers
             internal static SqlParameter[] CreateInsertParameters(DailyPriceData dailyPriceData)
             {
                 // Initial Values
-                SqlParameter[] parameters = new SqlParameter[11];
+                SqlParameter[] parameters = new SqlParameter[12];
                 SqlParameter param = null;
 
                 // verify dailyPriceDataexists
@@ -199,6 +199,12 @@ namespace DataAccessComponent.DataManager.Writers
 
                     // set parameters[10]
                     parameters[10] = param;
+
+                    // Create [VolumeScore] parameter
+                    param = new SqlParameter("@VolumeScore", dailyPriceData.VolumeScore);
+
+                    // set parameters[11]
+                    parameters[11] = param;
                 }
 
                 // return value
@@ -245,7 +251,7 @@ namespace DataAccessComponent.DataManager.Writers
             internal static SqlParameter[] CreateUpdateParameters(DailyPriceData dailyPriceData)
             {
                 // Initial Values
-                SqlParameter[] parameters = new SqlParameter[12];
+                SqlParameter[] parameters = new SqlParameter[13];
                 SqlParameter param = null;
 
                 // verify dailyPriceDataexists
@@ -330,9 +336,15 @@ namespace DataAccessComponent.DataManager.Writers
                     // set parameters[10]
                     parameters[10] = param;
 
+                    // Create parameter for [VolumeScore]
+                    param = new SqlParameter("@VolumeScore", dailyPriceData.VolumeScore);
+
+                    // set parameters[11]
+                    parameters[11] = param;
+
                     // Create parameter for [Id]
                     param = new SqlParameter("@Id", dailyPriceData.Id);
-                    parameters[11] = param;
+                    parameters[12] = param;
                 }
 
                 // return value

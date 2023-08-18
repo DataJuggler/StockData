@@ -573,6 +573,27 @@ namespace DataGateway
                 }
                 #endregion
                 
+            #region LoadDailyPriceDataViews(DailyPriceDataView tempDailyPriceDataView = null)
+            /// <summary>
+            /// This method loads a collection of 'DailyPriceDataView' objects.
+            /// </summary>
+            public List<DailyPriceDataView> LoadDailyPriceDataViews(DailyPriceDataView tempDailyPriceDataView = null)
+            {
+                // initial value
+                List<DailyPriceDataView> dailyPriceDataViews = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    dailyPriceDataViews = this.AppController.ControllerManager.DailyPriceDataViewController.FetchAll(tempDailyPriceDataView);
+                }
+
+                // return value
+                return dailyPriceDataViews;
+            }
+            #endregion
+
             #region LoadStocks(Stock tempStock = null)
             /// <summary>
             /// This method loads a collection of 'Stock' objects.
