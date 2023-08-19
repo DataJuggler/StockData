@@ -21,6 +21,7 @@ namespace ObjectLibrary.BusinessObjects
         private double highPrice;
         private int id;
         private double lowPrice;
+        private string name;
         private double openPrice;
         private double spread;
         private double spreadScore;
@@ -105,6 +106,20 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     lowPrice = value;
+                }
+            }
+            #endregion
+
+            #region string Name
+            public string Name
+            {
+                get
+                {
+                    return name;
+                }
+                set
+                {
+                    name = value;
                 }
             }
             #endregion
