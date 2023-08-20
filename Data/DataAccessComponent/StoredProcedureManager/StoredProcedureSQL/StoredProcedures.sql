@@ -6,7 +6,7 @@ Go
 -- =========================================================
 -- Procure Name: Admin_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Insert a new Admin
 -- =========================================================
 
@@ -66,7 +66,7 @@ Go
 -- =========================================================
 -- Procure Name: Admin_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Update an existing Admin
 -- =========================================================
 
@@ -128,7 +128,7 @@ Go
 -- =========================================================
 -- Procure Name: Admin_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Find an existing Admin
 -- =========================================================
 
@@ -185,7 +185,7 @@ Go
 -- =========================================================
 -- Procure Name: Admin_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Delete an existing Admin
 -- =========================================================
 
@@ -239,7 +239,7 @@ Go
 -- =========================================================
 -- Procure Name: Admin_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Returns all Admin objects
 -- =========================================================
 
@@ -290,7 +290,7 @@ Go
 -- =========================================================
 -- Procure Name: DailyPriceData_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Insert a new DailyPriceData
 -- =========================================================
 
@@ -326,6 +326,7 @@ Create PROCEDURE DailyPriceData_Insert
     @HighPrice float,
     @LowPrice float,
     @OpenPrice float,
+    @PercentChange float,
     @Spread float,
     @SpreadScore float,
     @StockDate datetime,
@@ -343,10 +344,10 @@ BEGIN
 
     -- Begin Insert Statement
     Insert Into [DailyPriceData]
-    ([ClosePrice],[CloseScore],[HighPrice],[LowPrice],[OpenPrice],[Spread],[SpreadScore],[StockDate],[Streak],[Symbol],[Volume],[VolumeScore])
+    ([ClosePrice],[CloseScore],[HighPrice],[LowPrice],[OpenPrice],[PercentChange],[Spread],[SpreadScore],[StockDate],[Streak],[Symbol],[Volume],[VolumeScore])
 
     -- Begin Values List
-    Values(@ClosePrice, @CloseScore, @HighPrice, @LowPrice, @OpenPrice, @Spread, @SpreadScore, @StockDate, @Streak, @Symbol, @Volume, @VolumeScore)
+    Values(@ClosePrice, @CloseScore, @HighPrice, @LowPrice, @OpenPrice, @PercentChange, @Spread, @SpreadScore, @StockDate, @Streak, @Symbol, @Volume, @VolumeScore)
 
     -- Return ID of new record
     SELECT SCOPE_IDENTITY()
@@ -359,7 +360,7 @@ Go
 -- =========================================================
 -- Procure Name: DailyPriceData_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Update an existing DailyPriceData
 -- =========================================================
 
@@ -396,6 +397,7 @@ Create PROCEDURE DailyPriceData_Update
     @Id int,
     @LowPrice float,
     @OpenPrice float,
+    @PercentChange float,
     @Spread float,
     @SpreadScore float,
     @StockDate datetime,
@@ -420,6 +422,7 @@ BEGIN
     [HighPrice] = @HighPrice,
     [LowPrice] = @LowPrice,
     [OpenPrice] = @OpenPrice,
+    [PercentChange] = @PercentChange,
     [Spread] = @Spread,
     [SpreadScore] = @SpreadScore,
     [StockDate] = @StockDate,
@@ -439,7 +442,7 @@ Go
 -- =========================================================
 -- Procure Name: DailyPriceData_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Find an existing DailyPriceData
 -- =========================================================
 
@@ -480,7 +483,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [ClosePrice],[CloseScore],[HighPrice],[Id],[LowPrice],[OpenPrice],[Spread],[SpreadScore],[StockDate],[Streak],[Symbol],[Volume],[VolumeScore]
+    Select [ClosePrice],[CloseScore],[HighPrice],[Id],[LowPrice],[OpenPrice],[PercentChange],[Spread],[SpreadScore],[StockDate],[Streak],[Symbol],[Volume],[VolumeScore]
 
     -- From tableName
     From [DailyPriceData]
@@ -496,7 +499,7 @@ Go
 -- =========================================================
 -- Procure Name: DailyPriceData_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Delete an existing DailyPriceData
 -- =========================================================
 
@@ -550,7 +553,7 @@ Go
 -- =========================================================
 -- Procure Name: DailyPriceData_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Returns all DailyPriceData objects
 -- =========================================================
 
@@ -588,7 +591,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [ClosePrice],[CloseScore],[HighPrice],[Id],[LowPrice],[OpenPrice],[Spread],[SpreadScore],[StockDate],[Streak],[Symbol],[Volume],[VolumeScore]
+    Select [ClosePrice],[CloseScore],[HighPrice],[Id],[LowPrice],[OpenPrice],[PercentChange],[Spread],[SpreadScore],[StockDate],[Streak],[Symbol],[Volume],[VolumeScore]
 
     -- From tableName
     From [DailyPriceData]
@@ -601,7 +604,7 @@ Go
 -- =========================================================
 -- Procure Name: DailyPriceDataView_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Returns all DailyPriceDataView objects
 -- =========================================================
 
@@ -652,7 +655,7 @@ Go
 -- =========================================================
 -- Procure Name: Stock_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Insert a new Stock
 -- =========================================================
 
@@ -719,7 +722,7 @@ Go
 -- =========================================================
 -- Procure Name: Stock_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Update an existing Stock
 -- =========================================================
 
@@ -795,7 +798,7 @@ Go
 -- =========================================================
 -- Procure Name: Stock_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Find an existing Stock
 -- =========================================================
 
@@ -852,7 +855,7 @@ Go
 -- =========================================================
 -- Procure Name: Stock_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Delete an existing Stock
 -- =========================================================
 
@@ -906,7 +909,7 @@ Go
 -- =========================================================
 -- Procure Name: Stock_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Returns all Stock objects
 -- =========================================================
 
@@ -957,7 +960,7 @@ Go
 -- =========================================================
 -- Procure Name: StockStreak_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Insert a new StockStreak
 -- =========================================================
 
@@ -989,6 +992,7 @@ Create PROCEDURE StockStreak_Insert
 
     -- Add the parameters for the stored procedure here
     @CurrentStreak bit,
+    @PercentChange float,
     @StockId int,
     @StreakDays int,
     @StreakEndDate datetime,
@@ -1006,10 +1010,10 @@ BEGIN
 
     -- Begin Insert Statement
     Insert Into [StockStreak]
-    ([CurrentStreak],[StockId],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType])
+    ([CurrentStreak],[PercentChange],[StockId],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType])
 
     -- Begin Values List
-    Values(@CurrentStreak, @StockId, @StreakDays, @StreakEndDate, @StreakEndPrice, @StreakStartDate, @StreakStartPrice, @StreakType)
+    Values(@CurrentStreak, @PercentChange, @StockId, @StreakDays, @StreakEndDate, @StreakEndPrice, @StreakStartDate, @StreakStartPrice, @StreakType)
 
     -- Return ID of new record
     SELECT SCOPE_IDENTITY()
@@ -1022,7 +1026,7 @@ Go
 -- =========================================================
 -- Procure Name: StockStreak_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Update an existing StockStreak
 -- =========================================================
 
@@ -1055,6 +1059,7 @@ Create PROCEDURE StockStreak_Update
     -- Add the parameters for the stored procedure here
     @CurrentStreak bit,
     @Id int,
+    @PercentChange float,
     @StockId int,
     @StreakDays int,
     @StreakEndDate datetime,
@@ -1075,6 +1080,7 @@ BEGIN
 
     -- Update Each field
     Set [CurrentStreak] = @CurrentStreak,
+    [PercentChange] = @PercentChange,
     [StockId] = @StockId,
     [StreakDays] = @StreakDays,
     [StreakEndDate] = @StreakEndDate,
@@ -1094,7 +1100,7 @@ Go
 -- =========================================================
 -- Procure Name: StockStreak_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Find an existing StockStreak
 -- =========================================================
 
@@ -1135,7 +1141,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [CurrentStreak],[Id],[StockId],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType]
+    Select [CurrentStreak],[Id],[PercentChange],[StockId],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType]
 
     -- From tableName
     From [StockStreak]
@@ -1151,7 +1157,7 @@ Go
 -- =========================================================
 -- Procure Name: StockStreak_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Delete an existing StockStreak
 -- =========================================================
 
@@ -1205,7 +1211,7 @@ Go
 -- =========================================================
 -- Procure Name: StockStreak_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Returns all StockStreak objects
 -- =========================================================
 
@@ -1243,7 +1249,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [CurrentStreak],[Id],[StockId],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType]
+    Select [CurrentStreak],[Id],[PercentChange],[StockId],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType]
 
     -- From tableName
     From [StockStreak]
@@ -1256,7 +1262,7 @@ Go
 -- =========================================================
 -- Procure Name: StockStreakView_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Returns all StockStreakView objects
 -- =========================================================
 
@@ -1310,7 +1316,7 @@ Go
 -- =========================================================
 -- Procure Name: Stock_FindBySymbol
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Find an existing Stock for the Symbol given.
 -- =========================================================
 
@@ -1367,7 +1373,7 @@ Go
 -- =========================================================
 -- Procure Name: StockStreak_FindByStockIdAndCurrentStreak
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Find an existing StockStreak by
 -- =========================================================
 
@@ -1413,7 +1419,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [CurrentStreak],[Id],[StockId],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType]
+    Select [CurrentStreak],[Id],[PercentChange],[StockId],[StreakDays],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[StreakType]
 
     -- From tableName
     From [StockStreak]
@@ -1429,7 +1435,7 @@ Go
 -- =========================================================
 -- Procure Name: DailyPriceData_FetchAllForSymbol
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/19/2023
+-- Create Date:   8/20/2023
 -- Description:    Returns all DailyPriceData objects for the Symbol given.
 -- =========================================================
 
@@ -1471,7 +1477,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select Top 50 [ClosePrice],[CloseScore],[HighPrice],[Id],[LowPrice],[OpenPrice],[Spread],[SpreadScore],[StockDate],[Streak],[Symbol],[Volume],[VolumeScore]
+    Select Top 50 [ClosePrice],[CloseScore],[HighPrice],[Id],[LowPrice],[OpenPrice],[PercentChange],[Spread],[SpreadScore],[StockDate],[Streak],[Symbol],[Volume],[VolumeScore]
 
     -- From tableName
     From [DailyPriceData]

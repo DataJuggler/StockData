@@ -42,13 +42,14 @@ namespace DataAccessComponent.DataManager.Readers
                 int idfield = 3;
                 int lowPricefield = 4;
                 int openPricefield = 5;
-                int spreadfield = 6;
-                int spreadScorefield = 7;
-                int stockDatefield = 8;
-                int streakfield = 9;
-                int symbolfield = 10;
-                int volumefield = 11;
-                int volumeScorefield = 12;
+                int percentChangefield = 6;
+                int spreadfield = 7;
+                int spreadScorefield = 8;
+                int stockDatefield = 9;
+                int streakfield = 10;
+                int symbolfield = 11;
+                int volumefield = 12;
+                int volumeScorefield = 13;
 
                 try
                 {
@@ -59,6 +60,7 @@ namespace DataAccessComponent.DataManager.Readers
                     dailyPriceData.UpdateIdentity(DataHelper.ParseInteger(dataRow.ItemArray[idfield], 0));
                     dailyPriceData.LowPrice = DataHelper.ParseDouble(dataRow.ItemArray[lowPricefield], 0);
                     dailyPriceData.OpenPrice = DataHelper.ParseDouble(dataRow.ItemArray[openPricefield], 0);
+                    dailyPriceData.PercentChange = DataHelper.ParseDouble(dataRow.ItemArray[percentChangefield], 0);
                     dailyPriceData.Spread = DataHelper.ParseDouble(dataRow.ItemArray[spreadfield], 0);
                     dailyPriceData.SpreadScore = DataHelper.ParseDouble(dataRow.ItemArray[spreadScorefield], 0);
                     dailyPriceData.StockDate = DataHelper.ParseDate(dataRow.ItemArray[stockDatefield]);

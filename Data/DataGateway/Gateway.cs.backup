@@ -415,7 +415,7 @@ namespace DataGateway
                 return stockStreak;
             }
             #endregion
-
+                
             #region FindStockStreakByStockIdAndCurrentStreak(bool currentStreak, int stockId)
             /// <summary>
             /// This method is used to find 'StockStreak' objects by StockIdAndCurrentStreak
@@ -444,6 +444,35 @@ namespace DataGateway
                 return stockStreak;
             }
             #endregion
+                
+                #region FindStockStreakByStockIdAndPreviousStreak(bool previousStreak, int stockId)
+                /// <summary>
+                /// This method is used to find 'StockStreak' objects by StockIdAndPreviousStreak
+                /// </summary>
+                public StockStreak FindStockStreakByStockIdAndPreviousStreak(bool previousStreak, int stockId)
+                {
+                    // initial value
+                    StockStreak stockStreak = null;
+                    
+                    // Create a temp StockStreak object
+                    StockStreak tempStockStreak = new StockStreak();
+                    
+                    // Set the value for FindByStockIdAndPreviousStreak to true
+                    tempStockStreak.FindByStockIdAndPreviousStreak = true;
+                    
+                    // Set the value for PreviousStreak
+                    tempStockStreak.PreviousStreak = previousStreak;
+                    
+                    // Set the value for StockId
+                    tempStockStreak.StockId = stockId;
+                    
+                    // Perform the find
+                    stockStreak = FindStockStreak(0, tempStockStreak);
+                    
+                    // return value
+                    return stockStreak;
+                }
+                #endregion
                 
             #region GetDataConnector()
             /// <summary>

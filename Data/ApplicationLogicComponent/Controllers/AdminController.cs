@@ -48,7 +48,7 @@ namespace ApplicationLogicComponent.Controllers
             /// <param name='admin'>The 'Admin' to use as the first
             /// parameter (parameters[0]).</param>
             /// <returns>A List<PolymorphicObject> collection.</returns>
-            private List<PolymorphicObject> CreateAdminParameter(Admin admin)
+            private static List<PolymorphicObject> CreateAdminParameter(Admin admin)
             {
                 // Initial Value
                 List<PolymorphicObject> parameters = new List<PolymorphicObject>();

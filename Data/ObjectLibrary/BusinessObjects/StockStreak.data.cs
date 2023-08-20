@@ -18,6 +18,7 @@ namespace ObjectLibrary.BusinessObjects
         #region Private Variables
         private bool currentStreak;
         private int id;
+        private double percentChange;
         private int stockId;
         private int streakDays;
         private DateTime streakEndDate;
@@ -65,6 +66,20 @@ namespace ObjectLibrary.BusinessObjects
                 get
                 {
                     return id;
+                }
+            }
+            #endregion
+
+            #region double PercentChange
+            public double PercentChange
+            {
+                get
+                {
+                    return percentChange;
+                }
+                set
+                {
+                    percentChange = value;
                 }
             }
             #endregion

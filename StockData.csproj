@@ -7,13 +7,21 @@
     <Nullable>disable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <PackageIcon>ExcelerateLogoSmallWhite.png</PackageIcon>
+    <PackageIcon>Icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/DataJuggler/StockData.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/DataJuggler/StockData</PackageProjectUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>C#;Excel;</PackageTags>
     <Version>1.0.7</Version>    
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;IDE0017;IDE0059;IDE0074;IDE0090;</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;IDE0017;IDE0059;IDE0074;IDE0090;</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -53,6 +61,10 @@
 
   <ItemGroup>
     <None Update="ExcelerateLogoSmallWhite.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Images\Icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

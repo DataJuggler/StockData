@@ -415,7 +415,7 @@ namespace DataGateway
                 return stockStreak;
             }
             #endregion
-
+                
             #region FindStockStreakByStockIdAndCurrentStreak(bool currentStreak, int stockId)
             /// <summary>
             /// This method is used to find 'StockStreak' objects by StockIdAndCurrentStreak
@@ -547,31 +547,31 @@ namespace DataGateway
             }
             #endregion
 
-                #region LoadDailyPriceDatasForSymbol(string symbol)
-                /// <summary>
-                /// This method is used to load 'DailyPriceData' objects for the Symbol given.
-                /// </summary>
-                public List<DailyPriceData> LoadDailyPriceDatasForSymbol(string symbol)
-                {
-                    // initial value
-                    List<DailyPriceData> dailyPriceDatas = null;
+            #region LoadDailyPriceDatasForSymbol(string symbol)
+            /// <summary>
+            /// This method is used to load 'DailyPriceData' objects for the Symbol given.
+            /// </summary>
+            public List<DailyPriceData> LoadDailyPriceDatasForSymbol(string symbol)
+            {
+                // initial value
+                List<DailyPriceData> dailyPriceDatas = null;
                     
-                    // Create a temp DailyPriceData object
-                    DailyPriceData tempDailyPriceData = new DailyPriceData();
+                // Create a temp DailyPriceData object
+                DailyPriceData tempDailyPriceData = new DailyPriceData();
                     
-                    // Set the value for LoadBySymbol to true
-                    tempDailyPriceData.LoadBySymbol = true;
+                // Set the value for LoadBySymbol to true
+                tempDailyPriceData.LoadBySymbol = true;
                     
-                    // Set the value for Symbol
-                    tempDailyPriceData.Symbol = symbol;
+                // Set the value for Symbol
+                tempDailyPriceData.Symbol = symbol;
                     
-                    // Perform the load
-                    dailyPriceDatas = LoadDailyPriceDatas(tempDailyPriceData);
+                // Perform the load
+                dailyPriceDatas = LoadDailyPriceDatas(tempDailyPriceData);
                     
-                    // return value
-                    return dailyPriceDatas;
-                }
-                #endregion
+                // return value
+                return dailyPriceDatas;
+            }
+            #endregion
                 
             #region LoadDailyPriceDataViews(DailyPriceDataView tempDailyPriceDataView = null)
             /// <summary>

@@ -54,7 +54,7 @@ namespace DataAccessComponent.DataManager.Writers
                         
                         // Create the StockIdAndCurrentStreak field set parameters
                         findStockStreakStoredProcedure.Parameters = SqlParameterHelper.CreateSqlParameters("@CurrentStreak", stockStreak.CurrentStreak, "@StockId", stockStreak.StockId);
-                    }
+                    }                                      
                     else
                     {
                         // Now create parameters for this procedure

@@ -48,7 +48,7 @@ namespace ApplicationLogicComponent.Controllers
             /// <param name='stock'>The 'Stock' to use as the first
             /// parameter (parameters[0]).</param>
             /// <returns>A List<PolymorphicObject> collection.</returns>
-            private List<PolymorphicObject> CreateStockParameter(Stock stock)
+            private static List<PolymorphicObject> CreateStockParameter(Stock stock)
             {
                 // Initial Value
                 List<PolymorphicObject> parameters = new List<PolymorphicObject>();

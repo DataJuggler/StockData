@@ -15,7 +15,7 @@ namespace ObjectLibrary.BusinessObjects
     {
 
         #region Private Variables
-        private bool findByStockIdAndCurrentStreak;        
+        private bool findByStockIdAndCurrentStreak;
         #endregion
 
         #region Constructor

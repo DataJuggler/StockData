@@ -48,7 +48,7 @@ namespace ApplicationLogicComponent.Controllers
             /// <param name='dailypricedataview'>The 'DailyPriceDataView' to use as the first
             /// parameter (parameters[0]).</param>
             /// <returns>A List<PolymorphicObject> collection.</returns>
-            private List<PolymorphicObject> CreateDailyPriceDataViewParameter(DailyPriceDataView dailyPriceDataView)
+            private static List<PolymorphicObject> CreateDailyPriceDataViewParameter(DailyPriceDataView dailyPriceDataView)
             {
                 // Initial Value
                 List<PolymorphicObject> parameters = new List<PolymorphicObject>();

@@ -1,12 +1,32 @@
-﻿namespace StockData
+﻿
+
+#region using statements
+
+
+#endregion
+
+namespace StockData
 {
+
+    #region class MainForm
+    /// <summary>
+    /// This class is the designer for this form
+    /// </summary>
     partial class MainForm
     {
-        /// <summary>
-        ///  Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
 
+        #region Private Variables
+        private System.ComponentModel.IContainer components = null;
+        private DataJuggler.Win.Controls.Button ImportStocksButton;
+        private ProgressBar Graph;
+        private Label StatusLabel;
+        private DataJuggler.Win.Controls.Button ProcessFilesButton;
+        private DataJuggler.Win.Controls.Button HiddenButton;
+        #endregion
+
+        #region Methods
+
+        #region Dispose(bool disposing)
         /// <summary>
         ///  Clean up any resources being used.
         /// </summary>
@@ -19,9 +39,9 @@
             }
             base.Dispose(disposing);
         }
+        #endregion
 
-        #region Windows Form Designer generated code
-
+        #region InitializeComponent()
         /// <summary>
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
@@ -123,15 +143,11 @@
             Text = "Stock Data 1.0.0";
             ResumeLayout(false);
         }
+        #endregion
 
         #endregion
 
-        private DataJuggler.Win.Controls.LabelTextBoxBrowserControl FileSelector;
-        private DataJuggler.Win.Controls.Button ImportStocksButton;
-        private ProgressBar Graph;
-        private Label StatusLabel;
-        private DataJuggler.Win.Controls.Button ProcessFilesButton;
-        private Label ExtensionLabel;
-        private DataJuggler.Win.Controls.Button HiddenButton;
     }
+    #endregion
+
 }

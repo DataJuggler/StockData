@@ -22,6 +22,7 @@ namespace ObjectLibrary.BusinessObjects
         private int id;
         private double lowPrice;
         private double openPrice;
+        private double percentChange;
         private double spread;
         private double spreadScore;
         private DateTime stockDate;
@@ -125,6 +126,20 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     openPrice = value;
+                }
+            }
+            #endregion
+
+            #region double PercentChange
+            public double PercentChange
+            {
+                get
+                {
+                    return percentChange;
+                }
+                set
+                {
+                    percentChange = value;
                 }
             }
             #endregion
