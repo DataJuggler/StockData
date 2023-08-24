@@ -46,6 +46,19 @@ To Install ExcelerateWinApp via Nuget and DOT NET CLI, navigate to the folder yo
     dotnet new install DataJuggler.Excelerate
     dotnet new DataJuggler.Excelerate
 
+# Update 8.24.2023
+
+I perform the following query to find stocks that are no longer listed
+Change the date to the last date you have data for.
+
+Select * From StockStreak Where CurrentStreak = 1
+And StreakEndDate < '2023-08-23' 
+
+I also added a stored procedure to delete the stock from the following tables
+Stock, StockStreak, DailyPriceData
+
+Exec RemoveStock @StockId
+
 # How the Stocks were imported
 
 1. The project has two .xlsx files located in Documents\Stocks of this project.

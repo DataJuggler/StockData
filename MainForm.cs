@@ -175,8 +175,7 @@ namespace StockData
             int count = 0;
             bool saved = false;
             ContinueTypeEnum continueType = ContinueTypeEnum.Even;
-            StockStreak streak = null;
-            StockStreak prevStreak = null;
+            StockStreak streak = null;           
             decimal oneHundred = 100;
 
             // <ticker>,<per>,<date>,<open>,<high>,<low>,<close>,<vol>
