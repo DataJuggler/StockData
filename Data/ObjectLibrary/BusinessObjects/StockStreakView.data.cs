@@ -21,6 +21,9 @@ namespace ObjectLibrary.BusinessObjects
         private string industry;
         private double lastClose;
         private string name;
+        private double percentChange;
+        private bool reverseSplit;
+        private double reverseSplitDivisor;
         private string sector;
         private int stockId;
         private int streak;
@@ -104,6 +107,48 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     name = value;
+                }
+            }
+            #endregion
+
+            #region double PercentChange
+            public double PercentChange
+            {
+                get
+                {
+                    return percentChange;
+                }
+                set
+                {
+                    percentChange = value;
+                }
+            }
+            #endregion
+
+            #region bool ReverseSplit
+            public bool ReverseSplit
+            {
+                get
+                {
+                    return reverseSplit;
+                }
+                set
+                {
+                    reverseSplit = value;
+                }
+            }
+            #endregion
+
+            #region double ReverseSplitDivisor
+            public double ReverseSplitDivisor
+            {
+                get
+                {
+                    return reverseSplitDivisor;
+                }
+                set
+                {
+                    reverseSplitDivisor = value;
                 }
             }
             #endregion

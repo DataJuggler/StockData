@@ -117,7 +117,7 @@ namespace DataAccessComponent.DataManager.Writers
             internal static SqlParameter[] CreateInsertParameters(StockStreak stockStreak)
             {
                 // Initial Values
-                SqlParameter[] parameters = new SqlParameter[9];
+                SqlParameter[] parameters = new SqlParameter[11];
                 SqlParameter param = null;
 
                 // verify stockStreakexists
@@ -135,17 +135,29 @@ namespace DataAccessComponent.DataManager.Writers
                     // set parameters[1]
                     parameters[1] = param;
 
-                    // Create [StockId] parameter
-                    param = new SqlParameter("@StockId", stockStreak.StockId);
+                    // Create [ReverseSplit] parameter
+                    param = new SqlParameter("@ReverseSplit", stockStreak.ReverseSplit);
 
                     // set parameters[2]
                     parameters[2] = param;
 
-                    // Create [StreakDays] parameter
-                    param = new SqlParameter("@StreakDays", stockStreak.StreakDays);
+                    // Create [ReverseSplitDivisor] parameter
+                    param = new SqlParameter("@ReverseSplitDivisor", stockStreak.ReverseSplitDivisor);
 
                     // set parameters[3]
                     parameters[3] = param;
+
+                    // Create [StockId] parameter
+                    param = new SqlParameter("@StockId", stockStreak.StockId);
+
+                    // set parameters[4]
+                    parameters[4] = param;
+
+                    // Create [StreakDays] parameter
+                    param = new SqlParameter("@StreakDays", stockStreak.StreakDays);
+
+                    // set parameters[5]
+                    parameters[5] = param;
 
                     // Create [StreakEndDate] Parameter
                     param = new SqlParameter("@StreakEndDate", SqlDbType.DateTime);
@@ -161,14 +173,14 @@ namespace DataAccessComponent.DataManager.Writers
                         // Set the parameter value
                         param.Value = stockStreak.StreakEndDate;
                     }
-                    // set parameters[4]
-                    parameters[4] = param;
+                    // set parameters[6]
+                    parameters[6] = param;
 
                     // Create [StreakEndPrice] parameter
                     param = new SqlParameter("@StreakEndPrice", stockStreak.StreakEndPrice);
 
-                    // set parameters[5]
-                    parameters[5] = param;
+                    // set parameters[7]
+                    parameters[7] = param;
 
                     // Create [StreakStartDate] Parameter
                     param = new SqlParameter("@StreakStartDate", SqlDbType.DateTime);
@@ -184,20 +196,20 @@ namespace DataAccessComponent.DataManager.Writers
                         // Set the parameter value
                         param.Value = stockStreak.StreakStartDate;
                     }
-                    // set parameters[6]
-                    parameters[6] = param;
+                    // set parameters[8]
+                    parameters[8] = param;
 
                     // Create [StreakStartPrice] parameter
                     param = new SqlParameter("@StreakStartPrice", stockStreak.StreakStartPrice);
 
-                    // set parameters[7]
-                    parameters[7] = param;
+                    // set parameters[9]
+                    parameters[9] = param;
 
                     // Create [StreakType] parameter
                     param = new SqlParameter("@StreakType", stockStreak.StreakType);
 
-                    // set parameters[8]
-                    parameters[8] = param;
+                    // set parameters[10]
+                    parameters[10] = param;
                 }
 
                 // return value
@@ -244,7 +256,7 @@ namespace DataAccessComponent.DataManager.Writers
             internal static SqlParameter[] CreateUpdateParameters(StockStreak stockStreak)
             {
                 // Initial Values
-                SqlParameter[] parameters = new SqlParameter[10];
+                SqlParameter[] parameters = new SqlParameter[12];
                 SqlParameter param = null;
 
                 // verify stockStreakexists
@@ -262,17 +274,29 @@ namespace DataAccessComponent.DataManager.Writers
                     // set parameters[1]
                     parameters[1] = param;
 
-                    // Create parameter for [StockId]
-                    param = new SqlParameter("@StockId", stockStreak.StockId);
+                    // Create parameter for [ReverseSplit]
+                    param = new SqlParameter("@ReverseSplit", stockStreak.ReverseSplit);
 
                     // set parameters[2]
                     parameters[2] = param;
 
-                    // Create parameter for [StreakDays]
-                    param = new SqlParameter("@StreakDays", stockStreak.StreakDays);
+                    // Create parameter for [ReverseSplitDivisor]
+                    param = new SqlParameter("@ReverseSplitDivisor", stockStreak.ReverseSplitDivisor);
 
                     // set parameters[3]
                     parameters[3] = param;
+
+                    // Create parameter for [StockId]
+                    param = new SqlParameter("@StockId", stockStreak.StockId);
+
+                    // set parameters[4]
+                    parameters[4] = param;
+
+                    // Create parameter for [StreakDays]
+                    param = new SqlParameter("@StreakDays", stockStreak.StreakDays);
+
+                    // set parameters[5]
+                    parameters[5] = param;
 
                     // Create parameter for [StreakEndDate]
                     // Create [StreakEndDate] Parameter
@@ -290,14 +314,14 @@ namespace DataAccessComponent.DataManager.Writers
                         param.Value = stockStreak.StreakEndDate;
                     }
 
-                    // set parameters[4]
-                    parameters[4] = param;
+                    // set parameters[6]
+                    parameters[6] = param;
 
                     // Create parameter for [StreakEndPrice]
                     param = new SqlParameter("@StreakEndPrice", stockStreak.StreakEndPrice);
 
-                    // set parameters[5]
-                    parameters[5] = param;
+                    // set parameters[7]
+                    parameters[7] = param;
 
                     // Create parameter for [StreakStartDate]
                     // Create [StreakStartDate] Parameter
@@ -315,24 +339,24 @@ namespace DataAccessComponent.DataManager.Writers
                         param.Value = stockStreak.StreakStartDate;
                     }
 
-                    // set parameters[6]
-                    parameters[6] = param;
+                    // set parameters[8]
+                    parameters[8] = param;
 
                     // Create parameter for [StreakStartPrice]
                     param = new SqlParameter("@StreakStartPrice", stockStreak.StreakStartPrice);
 
-                    // set parameters[7]
-                    parameters[7] = param;
+                    // set parameters[9]
+                    parameters[9] = param;
 
                     // Create parameter for [StreakType]
                     param = new SqlParameter("@StreakType", stockStreak.StreakType);
 
-                    // set parameters[8]
-                    parameters[8] = param;
+                    // set parameters[10]
+                    parameters[10] = param;
 
                     // Create parameter for [Id]
                     param = new SqlParameter("@Id", stockStreak.Id);
-                    parameters[9] = param;
+                    parameters[11] = param;
                 }
 
                 // return value

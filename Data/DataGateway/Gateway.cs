@@ -122,6 +122,154 @@ namespace DataGateway
             }
             #endregion
         
+            #region DeleteIndustry(int id, Industry tempIndustry = null)
+            /// <summary>
+            /// This method is used to delete Industry objects.
+            /// </summary>
+            /// <param name="id">Delete the Industry with this id</param>
+            /// <param name="tempIndustry">Pass in a tempIndustry to perform a custom delete.</param>
+            public bool DeleteIndustry(int id, Industry tempIndustry = null)
+            {
+                // initial value
+                bool deleted = false;
+        
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempIndustry does not exist
+                    if (tempIndustry == null)
+                    {
+                        // create a temp Industry
+                        tempIndustry = new Industry();
+                    }
+        
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempIndustry.UpdateIdentity(id);
+                    }
+        
+                    // perform the delete
+                    deleted = this.AppController.ControllerManager.IndustryController.Delete(tempIndustry);
+                }
+        
+                // return value
+                return deleted;
+            }
+            #endregion
+        
+            #region DeleteIndustryHistory(int id, IndustryHistory tempIndustryHistory = null)
+            /// <summary>
+            /// This method is used to delete IndustryHistory objects.
+            /// </summary>
+            /// <param name="id">Delete the IndustryHistory with this id</param>
+            /// <param name="tempIndustryHistory">Pass in a tempIndustryHistory to perform a custom delete.</param>
+            public bool DeleteIndustryHistory(int id, IndustryHistory tempIndustryHistory = null)
+            {
+                // initial value
+                bool deleted = false;
+        
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempIndustryHistory does not exist
+                    if (tempIndustryHistory == null)
+                    {
+                        // create a temp IndustryHistory
+                        tempIndustryHistory = new IndustryHistory();
+                    }
+        
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempIndustryHistory.UpdateIdentity(id);
+                    }
+        
+                    // perform the delete
+                    deleted = this.AppController.ControllerManager.IndustryHistoryController.Delete(tempIndustryHistory);
+                }
+        
+                // return value
+                return deleted;
+            }
+            #endregion
+        
+            #region DeleteSector(int id, Sector tempSector = null)
+            /// <summary>
+            /// This method is used to delete Sector objects.
+            /// </summary>
+            /// <param name="id">Delete the Sector with this id</param>
+            /// <param name="tempSector">Pass in a tempSector to perform a custom delete.</param>
+            public bool DeleteSector(int id, Sector tempSector = null)
+            {
+                // initial value
+                bool deleted = false;
+        
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempSector does not exist
+                    if (tempSector == null)
+                    {
+                        // create a temp Sector
+                        tempSector = new Sector();
+                    }
+        
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempSector.UpdateIdentity(id);
+                    }
+        
+                    // perform the delete
+                    deleted = this.AppController.ControllerManager.SectorController.Delete(tempSector);
+                }
+        
+                // return value
+                return deleted;
+            }
+            #endregion
+        
+            #region DeleteSectorHistory(int id, SectorHistory tempSectorHistory = null)
+            /// <summary>
+            /// This method is used to delete SectorHistory objects.
+            /// </summary>
+            /// <param name="id">Delete the SectorHistory with this id</param>
+            /// <param name="tempSectorHistory">Pass in a tempSectorHistory to perform a custom delete.</param>
+            public bool DeleteSectorHistory(int id, SectorHistory tempSectorHistory = null)
+            {
+                // initial value
+                bool deleted = false;
+        
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempSectorHistory does not exist
+                    if (tempSectorHistory == null)
+                    {
+                        // create a temp SectorHistory
+                        tempSectorHistory = new SectorHistory();
+                    }
+        
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempSectorHistory.UpdateIdentity(id);
+                    }
+        
+                    // perform the delete
+                    deleted = this.AppController.ControllerManager.SectorHistoryController.Delete(tempSectorHistory);
+                }
+        
+                // return value
+                return deleted;
+            }
+            #endregion
+        
             #region DeleteStock(int id, Stock tempStock = null)
             /// <summary>
             /// This method is used to delete Stock objects.
@@ -313,6 +461,154 @@ namespace DataGateway
 
                 // return value
                 return dailyPriceData;
+            }
+            #endregion
+
+            #region FindIndustry(int id, Industry tempIndustry = null)
+            /// <summary>
+            /// This method is used to find 'Industry' objects.
+            /// </summary>
+            /// <param name="id">Find the Industry with this id</param>
+            /// <param name="tempIndustry">Pass in a tempIndustry to perform a custom find.</param>
+            public Industry FindIndustry(int id, Industry tempIndustry = null)
+            {
+                // initial value
+                Industry industry = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempIndustry does not exist
+                    if (tempIndustry == null)
+                    {
+                        // create a temp Industry
+                        tempIndustry = new Industry();
+                    }
+
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempIndustry.UpdateIdentity(id);
+                    }
+
+                    // perform the find
+                    industry = this.AppController.ControllerManager.IndustryController.Find(tempIndustry);
+                }
+
+                // return value
+                return industry;
+            }
+            #endregion
+
+            #region FindIndustryHistory(int id, IndustryHistory tempIndustryHistory = null)
+            /// <summary>
+            /// This method is used to find 'IndustryHistory' objects.
+            /// </summary>
+            /// <param name="id">Find the IndustryHistory with this id</param>
+            /// <param name="tempIndustryHistory">Pass in a tempIndustryHistory to perform a custom find.</param>
+            public IndustryHistory FindIndustryHistory(int id, IndustryHistory tempIndustryHistory = null)
+            {
+                // initial value
+                IndustryHistory industryHistory = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempIndustryHistory does not exist
+                    if (tempIndustryHistory == null)
+                    {
+                        // create a temp IndustryHistory
+                        tempIndustryHistory = new IndustryHistory();
+                    }
+
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempIndustryHistory.UpdateIdentity(id);
+                    }
+
+                    // perform the find
+                    industryHistory = this.AppController.ControllerManager.IndustryHistoryController.Find(tempIndustryHistory);
+                }
+
+                // return value
+                return industryHistory;
+            }
+            #endregion
+
+            #region FindSector(int id, Sector tempSector = null)
+            /// <summary>
+            /// This method is used to find 'Sector' objects.
+            /// </summary>
+            /// <param name="id">Find the Sector with this id</param>
+            /// <param name="tempSector">Pass in a tempSector to perform a custom find.</param>
+            public Sector FindSector(int id, Sector tempSector = null)
+            {
+                // initial value
+                Sector sector = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempSector does not exist
+                    if (tempSector == null)
+                    {
+                        // create a temp Sector
+                        tempSector = new Sector();
+                    }
+
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempSector.UpdateIdentity(id);
+                    }
+
+                    // perform the find
+                    sector = this.AppController.ControllerManager.SectorController.Find(tempSector);
+                }
+
+                // return value
+                return sector;
+            }
+            #endregion
+
+            #region FindSectorHistory(int id, SectorHistory tempSectorHistory = null)
+            /// <summary>
+            /// This method is used to find 'SectorHistory' objects.
+            /// </summary>
+            /// <param name="id">Find the SectorHistory with this id</param>
+            /// <param name="tempSectorHistory">Pass in a tempSectorHistory to perform a custom find.</param>
+            public SectorHistory FindSectorHistory(int id, SectorHistory tempSectorHistory = null)
+            {
+                // initial value
+                SectorHistory sectorHistory = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempSectorHistory does not exist
+                    if (tempSectorHistory == null)
+                    {
+                        // create a temp SectorHistory
+                        tempSectorHistory = new SectorHistory();
+                    }
+
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempSectorHistory.UpdateIdentity(id);
+                    }
+
+                    // perform the find
+                    sectorHistory = this.AppController.ControllerManager.SectorHistoryController.Find(tempSectorHistory);
+                }
+
+                // return value
+                return sectorHistory;
             }
             #endregion
 
@@ -594,6 +890,90 @@ namespace DataGateway
             }
             #endregion
 
+            #region LoadIndustryHistorys(IndustryHistory tempIndustryHistory = null)
+            /// <summary>
+            /// This method loads a collection of 'IndustryHistory' objects.
+            /// </summary>
+            public List<IndustryHistory> LoadIndustryHistorys(IndustryHistory tempIndustryHistory = null)
+            {
+                // initial value
+                List<IndustryHistory> industryHistorys = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    industryHistorys = this.AppController.ControllerManager.IndustryHistoryController.FetchAll(tempIndustryHistory);
+                }
+
+                // return value
+                return industryHistorys;
+            }
+            #endregion
+
+            #region LoadIndustrys(Industry tempIndustry = null)
+            /// <summary>
+            /// This method loads a collection of 'Industry' objects.
+            /// </summary>
+            public List<Industry> LoadIndustrys(Industry tempIndustry = null)
+            {
+                // initial value
+                List<Industry> industrys = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    industrys = this.AppController.ControllerManager.IndustryController.FetchAll(tempIndustry);
+                }
+
+                // return value
+                return industrys;
+            }
+            #endregion
+
+            #region LoadSectorHistorys(SectorHistory tempSectorHistory = null)
+            /// <summary>
+            /// This method loads a collection of 'SectorHistory' objects.
+            /// </summary>
+            public List<SectorHistory> LoadSectorHistorys(SectorHistory tempSectorHistory = null)
+            {
+                // initial value
+                List<SectorHistory> sectorHistorys = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    sectorHistorys = this.AppController.ControllerManager.SectorHistoryController.FetchAll(tempSectorHistory);
+                }
+
+                // return value
+                return sectorHistorys;
+            }
+            #endregion
+
+            #region LoadSectors(Sector tempSector = null)
+            /// <summary>
+            /// This method loads a collection of 'Sector' objects.
+            /// </summary>
+            public List<Sector> LoadSectors(Sector tempSector = null)
+            {
+                // initial value
+                List<Sector> sectors = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    sectors = this.AppController.ControllerManager.SectorController.FetchAll(tempSector);
+                }
+
+                // return value
+                return sectors;
+            }
+            #endregion
+
             #region LoadStocks(Stock tempStock = null)
             /// <summary>
             /// This method loads a collection of 'Stock' objects.
@@ -694,6 +1074,94 @@ namespace DataGateway
                 {
                     // perform the save
                     saved = this.AppController.ControllerManager.DailyPriceDataController.Save(ref dailyPriceData);
+                }
+
+                // return value
+                return saved;
+            }
+            #endregion
+
+            #region SaveIndustry(ref Industry industry)
+            /// <summary>
+            /// This method is used to save 'Industry' objects.
+            /// </summary>
+            /// <param name="industry">The Industry to save.</param>
+            public bool SaveIndustry(ref Industry industry)
+            {
+                // initial value
+                bool saved = false;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the save
+                    saved = this.AppController.ControllerManager.IndustryController.Save(ref industry);
+                }
+
+                // return value
+                return saved;
+            }
+            #endregion
+
+            #region SaveIndustryHistory(ref IndustryHistory industryHistory)
+            /// <summary>
+            /// This method is used to save 'IndustryHistory' objects.
+            /// </summary>
+            /// <param name="industryHistory">The IndustryHistory to save.</param>
+            public bool SaveIndustryHistory(ref IndustryHistory industryHistory)
+            {
+                // initial value
+                bool saved = false;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the save
+                    saved = this.AppController.ControllerManager.IndustryHistoryController.Save(ref industryHistory);
+                }
+
+                // return value
+                return saved;
+            }
+            #endregion
+
+            #region SaveSector(ref Sector sector)
+            /// <summary>
+            /// This method is used to save 'Sector' objects.
+            /// </summary>
+            /// <param name="sector">The Sector to save.</param>
+            public bool SaveSector(ref Sector sector)
+            {
+                // initial value
+                bool saved = false;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the save
+                    saved = this.AppController.ControllerManager.SectorController.Save(ref sector);
+                }
+
+                // return value
+                return saved;
+            }
+            #endregion
+
+            #region SaveSectorHistory(ref SectorHistory sectorHistory)
+            /// <summary>
+            /// This method is used to save 'SectorHistory' objects.
+            /// </summary>
+            /// <param name="sectorHistory">The SectorHistory to save.</param>
+            public bool SaveSectorHistory(ref SectorHistory sectorHistory)
+            {
+                // initial value
+                bool saved = false;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the save
+                    saved = this.AppController.ControllerManager.SectorHistoryController.Save(ref sectorHistory);
                 }
 
                 // return value

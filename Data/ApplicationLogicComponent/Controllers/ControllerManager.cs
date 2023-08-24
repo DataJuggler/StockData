@@ -28,6 +28,10 @@ namespace ApplicationLogicComponent.Controllers
         private AdminController adminController;
         private DailyPriceDataController dailypricedataController;
         private DailyPriceDataViewController dailypricedataviewController;
+        private IndustryController industryController;
+        private IndustryHistoryController industryhistoryController;
+        private SectorController sectorController;
+        private SectorHistoryController sectorhistoryController;
         private StockController stockController;
         private StockStreakController stockstreakController;
         private StockStreakViewController stockstreakviewController;
@@ -60,6 +64,10 @@ namespace ApplicationLogicComponent.Controllers
                 this.AdminController = new AdminController(this.ErrorProcessor, this.AppController);
                 this.DailyPriceDataController = new DailyPriceDataController(this.ErrorProcessor, this.AppController);
                 this.DailyPriceDataViewController = new DailyPriceDataViewController(this.ErrorProcessor, this.AppController);
+                this.IndustryController = new IndustryController(this.ErrorProcessor, this.AppController);
+                this.IndustryHistoryController = new IndustryHistoryController(this.ErrorProcessor, this.AppController);
+                this.SectorController = new SectorController(this.ErrorProcessor, this.AppController);
+                this.SectorHistoryController = new SectorHistoryController(this.ErrorProcessor, this.AppController);
                 this.StockController = new StockController(this.ErrorProcessor, this.AppController);
                 this.StockStreakController = new StockStreakController(this.ErrorProcessor, this.AppController);
                 this.StockStreakViewController = new StockStreakViewController(this.ErrorProcessor, this.AppController);
@@ -107,6 +115,38 @@ namespace ApplicationLogicComponent.Controllers
             {
                 get { return dailypricedataviewController; }
                 set { dailypricedataviewController = value; }
+            }
+            #endregion
+
+            #region IndustryController
+            public IndustryController IndustryController
+            {
+                get { return industryController; }
+                set { industryController = value; }
+            }
+            #endregion
+
+            #region IndustryHistoryController
+            public IndustryHistoryController IndustryHistoryController
+            {
+                get { return industryhistoryController; }
+                set { industryhistoryController = value; }
+            }
+            #endregion
+
+            #region SectorController
+            public SectorController SectorController
+            {
+                get { return sectorController; }
+                set { sectorController = value; }
+            }
+            #endregion
+
+            #region SectorHistoryController
+            public SectorHistoryController SectorHistoryController
+            {
+                get { return sectorhistoryController; }
+                set { sectorhistoryController = value; }
             }
             #endregion
 

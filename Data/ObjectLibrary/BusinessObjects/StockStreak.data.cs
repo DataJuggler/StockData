@@ -19,6 +19,8 @@ namespace ObjectLibrary.BusinessObjects
         private bool currentStreak;
         private int id;
         private double percentChange;
+        private bool reverseSplit;
+        private double reverseSplitDivisor;
         private int stockId;
         private int streakDays;
         private DateTime streakEndDate;
@@ -80,6 +82,34 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     percentChange = value;
+                }
+            }
+            #endregion
+
+            #region bool ReverseSplit
+            public bool ReverseSplit
+            {
+                get
+                {
+                    return reverseSplit;
+                }
+                set
+                {
+                    reverseSplit = value;
+                }
+            }
+            #endregion
+
+            #region double ReverseSplitDivisor
+            public double ReverseSplitDivisor
+            {
+                get
+                {
+                    return reverseSplitDivisor;
+                }
+                set
+                {
+                    reverseSplitDivisor = value;
                 }
             }
             #endregion

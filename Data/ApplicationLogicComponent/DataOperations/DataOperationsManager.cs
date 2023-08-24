@@ -32,6 +32,10 @@ namespace ApplicationLogicComponent.DataOperations
         private AdminMethods adminMethods;
         private DailyPriceDataMethods dailypricedataMethods;
         private DailyPriceDataViewMethods dailypricedataviewMethods;
+        private IndustryMethods industryMethods;
+        private IndustryHistoryMethods industryhistoryMethods;
+        private SectorMethods sectorMethods;
+        private SectorHistoryMethods sectorhistoryMethods;
         private StockMethods stockMethods;
         private StockStreakMethods stockstreakMethods;
         private StockStreakViewMethods stockstreakviewMethods;
@@ -64,6 +68,10 @@ namespace ApplicationLogicComponent.DataOperations
                 this.AdminMethods = new AdminMethods(this.DataManager);
                 this.DailyPriceDataMethods = new DailyPriceDataMethods(this.DataManager);
                 this.DailyPriceDataViewMethods = new DailyPriceDataViewMethods(this.DataManager);
+                this.IndustryMethods = new IndustryMethods(this.DataManager);
+                this.IndustryHistoryMethods = new IndustryHistoryMethods(this.DataManager);
+                this.SectorMethods = new SectorMethods(this.DataManager);
+                this.SectorHistoryMethods = new SectorHistoryMethods(this.DataManager);
                 this.StockMethods = new StockMethods(this.DataManager);
                 this.StockStreakMethods = new StockStreakMethods(this.DataManager);
                 this.StockStreakViewMethods = new StockStreakViewMethods(this.DataManager);
@@ -111,6 +119,38 @@ namespace ApplicationLogicComponent.DataOperations
             {
                 get { return dailypricedataviewMethods; }
                 set { dailypricedataviewMethods = value; }
+            }
+            #endregion
+
+            #region IndustryMethods
+            public IndustryMethods IndustryMethods
+            {
+                get { return industryMethods; }
+                set { industryMethods = value; }
+            }
+            #endregion
+
+            #region IndustryHistoryMethods
+            public IndustryHistoryMethods IndustryHistoryMethods
+            {
+                get { return industryhistoryMethods; }
+                set { industryhistoryMethods = value; }
+            }
+            #endregion
+
+            #region SectorMethods
+            public SectorMethods SectorMethods
+            {
+                get { return sectorMethods; }
+                set { sectorMethods = value; }
+            }
+            #endregion
+
+            #region SectorHistoryMethods
+            public SectorHistoryMethods SectorHistoryMethods
+            {
+                get { return sectorhistoryMethods; }
+                set { sectorhistoryMethods = value; }
             }
             #endregion
 

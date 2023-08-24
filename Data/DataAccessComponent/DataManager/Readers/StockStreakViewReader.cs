@@ -41,14 +41,17 @@ namespace DataAccessComponent.DataManager.Readers
                 int industryfield = 2;
                 int lastClosefield = 3;
                 int namefield = 4;
-                int sectorfield = 5;
-                int stockIdfield = 6;
-                int streakfield = 7;
-                int streakEndDatefield = 8;
-                int streakEndPricefield = 9;
-                int streakStartDatefield = 10;
-                int streakStartPricefield = 11;
-                int symbolfield = 12;
+                int percentChangefield = 5;
+                int reverseSplitfield = 6;
+                int reverseSplitDivisorfield = 7;
+                int sectorfield = 8;
+                int stockIdfield = 9;
+                int streakfield = 10;
+                int streakEndDatefield = 11;
+                int streakEndPricefield = 12;
+                int streakStartDatefield = 13;
+                int streakStartPricefield = 14;
+                int symbolfield = 15;
 
                 try
                 {
@@ -58,6 +61,9 @@ namespace DataAccessComponent.DataManager.Readers
                     stockStreakView.Industry = DataHelper.ParseString(dataRow.ItemArray[industryfield]);
                     stockStreakView.LastClose = DataHelper.ParseDouble(dataRow.ItemArray[lastClosefield], 0);
                     stockStreakView.Name = DataHelper.ParseString(dataRow.ItemArray[namefield]);
+                    stockStreakView.PercentChange = DataHelper.ParseDouble(dataRow.ItemArray[percentChangefield], 0);
+                    stockStreakView.ReverseSplit = DataHelper.ParseBoolean(dataRow.ItemArray[reverseSplitfield], false);
+                    stockStreakView.ReverseSplitDivisor = DataHelper.ParseDouble(dataRow.ItemArray[reverseSplitDivisorfield], 0);
                     stockStreakView.Sector = DataHelper.ParseString(dataRow.ItemArray[sectorfield]);
                     stockStreakView.StockId = DataHelper.ParseInteger(dataRow.ItemArray[stockIdfield], 0);
                     stockStreakView.Streak = DataHelper.ParseInteger(dataRow.ItemArray[streakfield], 0);

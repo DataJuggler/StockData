@@ -385,6 +385,7 @@ namespace StockData
 
                                                                 // Start a new streak
                                                                 streak.StreakStartDate = data.StockDate;
+                                                                streak.StreakEndDate = data.StockDate;
                                                                 streak.StockId = stock.Id;
                                                                 streak.CurrentStreak = true;
                                                                 streak.StreakStartPrice = stock.LastClose;
@@ -412,6 +413,7 @@ namespace StockData
 
                                                             // Start a new streak
                                                             streak.StreakStartDate = data.StockDate;
+                                                            streak.StreakEndDate = data.StockDate;
                                                             streak.StockId = stock.Id;
                                                             streak.CurrentStreak = true;
                                                             streak.StreakStartPrice = data.OpenPrice;
@@ -795,6 +797,7 @@ namespace StockData
         #endregion
 
         #endregion
+
     }
     #endregion
 

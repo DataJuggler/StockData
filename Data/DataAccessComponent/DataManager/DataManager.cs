@@ -31,6 +31,10 @@ namespace DataAccessComponent.DataManager
         private AdminManager adminManager;
         private DailyPriceDataManager dailypricedataManager;
         private DailyPriceDataViewManager dailypricedataviewManager;
+        private IndustryManager industryManager;
+        private IndustryHistoryManager industryhistoryManager;
+        private SectorManager sectorManager;
+        private SectorHistoryManager sectorhistoryManager;
         private StockManager stockManager;
         private StockStreakManager stockstreakManager;
         private StockStreakViewManager stockstreakviewManager;
@@ -66,6 +70,10 @@ namespace DataAccessComponent.DataManager
                 this.AdminManager = new AdminManager(this);
                 this.DailyPriceDataManager = new DailyPriceDataManager(this);
                 this.DailyPriceDataViewManager = new DailyPriceDataViewManager(this);
+                this.IndustryManager = new IndustryManager(this);
+                this.IndustryHistoryManager = new IndustryHistoryManager(this);
+                this.SectorManager = new SectorManager(this);
+                this.SectorHistoryManager = new SectorHistoryManager(this);
                 this.StockManager = new StockManager(this);
                 this.StockStreakManager = new StockStreakManager(this);
                 this.StockStreakViewManager = new StockStreakViewManager(this);
@@ -113,6 +121,38 @@ namespace DataAccessComponent.DataManager
             {
                 get { return dailypricedataviewManager; }
                 set { dailypricedataviewManager = value; }
+            }
+            #endregion
+
+            #region IndustryManager
+            public IndustryManager IndustryManager
+            {
+                get { return industryManager; }
+                set { industryManager = value; }
+            }
+            #endregion
+
+            #region IndustryHistoryManager
+            public IndustryHistoryManager IndustryHistoryManager
+            {
+                get { return industryhistoryManager; }
+                set { industryhistoryManager = value; }
+            }
+            #endregion
+
+            #region SectorManager
+            public SectorManager SectorManager
+            {
+                get { return sectorManager; }
+                set { sectorManager = value; }
+            }
+            #endregion
+
+            #region SectorHistoryManager
+            public SectorHistoryManager SectorHistoryManager
+            {
+                get { return sectorhistoryManager; }
+                set { sectorhistoryManager = value; }
             }
             #endregion
 

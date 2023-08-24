@@ -39,13 +39,15 @@ namespace DataAccessComponent.DataManager.Readers
                 int currentStreakfield = 0;
                 int idfield = 1;
                 int percentChangefield = 2;
-                int stockIdfield = 3;
-                int streakDaysfield = 4;
-                int streakEndDatefield = 5;
-                int streakEndPricefield = 6;
-                int streakStartDatefield = 7;
-                int streakStartPricefield = 8;
-                int streakTypefield = 9;
+                int reverseSplitfield = 3;
+                int reverseSplitDivisorfield = 4;
+                int stockIdfield = 5;
+                int streakDaysfield = 6;
+                int streakEndDatefield = 7;
+                int streakEndPricefield = 8;
+                int streakStartDatefield = 9;
+                int streakStartPricefield = 10;
+                int streakTypefield = 11;
 
                 try
                 {
@@ -53,6 +55,8 @@ namespace DataAccessComponent.DataManager.Readers
                     stockStreak.CurrentStreak = DataHelper.ParseBoolean(dataRow.ItemArray[currentStreakfield], false);
                     stockStreak.UpdateIdentity(DataHelper.ParseInteger(dataRow.ItemArray[idfield], 0));
                     stockStreak.PercentChange = DataHelper.ParseDouble(dataRow.ItemArray[percentChangefield], 0);
+                    stockStreak.ReverseSplit = DataHelper.ParseBoolean(dataRow.ItemArray[reverseSplitfield], false);
+                    stockStreak.ReverseSplitDivisor = DataHelper.ParseDouble(dataRow.ItemArray[reverseSplitDivisorfield], 0);
                     stockStreak.StockId = DataHelper.ParseInteger(dataRow.ItemArray[stockIdfield], 0);
                     stockStreak.StreakDays = DataHelper.ParseInteger(dataRow.ItemArray[streakDaysfield], 0);
                     stockStreak.StreakEndDate = DataHelper.ParseDate(dataRow.ItemArray[streakEndDatefield]);
