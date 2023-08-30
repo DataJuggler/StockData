@@ -41,15 +41,17 @@ namespace DataAccessComponent.DataManager.Readers
                 int highPricefield = 2;
                 int idfield = 3;
                 int lowPricefield = 4;
-                int openPricefield = 5;
-                int percentChangefield = 6;
-                int spreadfield = 7;
-                int spreadScorefield = 8;
-                int stockDatefield = 9;
-                int streakfield = 10;
-                int symbolfield = 11;
-                int volumefield = 12;
-                int volumeScorefield = 13;
+                int mostRecentfield = 5;
+                int openPricefield = 6;
+                int percentChangefield = 7;
+                int priceUnchangedfield = 8;
+                int spreadfield = 9;
+                int spreadScorefield = 10;
+                int stockDatefield = 11;
+                int streakfield = 12;
+                int symbolfield = 13;
+                int volumefield = 14;
+                int volumeScorefield = 15;
 
                 try
                 {
@@ -59,8 +61,10 @@ namespace DataAccessComponent.DataManager.Readers
                     dailyPriceData.HighPrice = DataHelper.ParseDouble(dataRow.ItemArray[highPricefield], 0);
                     dailyPriceData.UpdateIdentity(DataHelper.ParseInteger(dataRow.ItemArray[idfield], 0));
                     dailyPriceData.LowPrice = DataHelper.ParseDouble(dataRow.ItemArray[lowPricefield], 0);
+                    dailyPriceData.MostRecent = DataHelper.ParseBoolean(dataRow.ItemArray[mostRecentfield], false);
                     dailyPriceData.OpenPrice = DataHelper.ParseDouble(dataRow.ItemArray[openPricefield], 0);
                     dailyPriceData.PercentChange = DataHelper.ParseDouble(dataRow.ItemArray[percentChangefield], 0);
+                    dailyPriceData.PriceUnchanged = DataHelper.ParseBoolean(dataRow.ItemArray[priceUnchangedfield], false);
                     dailyPriceData.Spread = DataHelper.ParseDouble(dataRow.ItemArray[spreadfield], 0);
                     dailyPriceData.SpreadScore = DataHelper.ParseDouble(dataRow.ItemArray[spreadScorefield], 0);
                     dailyPriceData.StockDate = DataHelper.ParseDate(dataRow.ItemArray[stockDatefield]);

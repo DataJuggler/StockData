@@ -33,9 +33,12 @@ namespace DataAccessComponent.DataManager
         private DailyPriceDataViewManager dailypricedataviewManager;
         private IndustryManager industryManager;
         private IndustryHistoryManager industryhistoryManager;
+        private IndustryViewManager industryviewManager;
         private SectorManager sectorManager;
         private SectorHistoryManager sectorhistoryManager;
+        private SectorViewManager sectorviewManager;
         private StockManager stockManager;
+        private StockDayManager stockdayManager;
         private StockStreakManager stockstreakManager;
         private StockStreakViewManager stockstreakviewManager;
         #endregion
@@ -72,9 +75,12 @@ namespace DataAccessComponent.DataManager
                 this.DailyPriceDataViewManager = new DailyPriceDataViewManager(this);
                 this.IndustryManager = new IndustryManager(this);
                 this.IndustryHistoryManager = new IndustryHistoryManager(this);
+                this.IndustryViewManager = new IndustryViewManager(this);
                 this.SectorManager = new SectorManager(this);
                 this.SectorHistoryManager = new SectorHistoryManager(this);
+                this.SectorViewManager = new SectorViewManager(this);
                 this.StockManager = new StockManager(this);
+                this.StockDayManager = new StockDayManager(this);
                 this.StockStreakManager = new StockStreakManager(this);
                 this.StockStreakViewManager = new StockStreakViewManager(this);
             }
@@ -140,6 +146,14 @@ namespace DataAccessComponent.DataManager
             }
             #endregion
 
+            #region IndustryViewManager
+            public IndustryViewManager IndustryViewManager
+            {
+                get { return industryviewManager; }
+                set { industryviewManager = value; }
+            }
+            #endregion
+
             #region SectorManager
             public SectorManager SectorManager
             {
@@ -156,11 +170,27 @@ namespace DataAccessComponent.DataManager
             }
             #endregion
 
+            #region SectorViewManager
+            public SectorViewManager SectorViewManager
+            {
+                get { return sectorviewManager; }
+                set { sectorviewManager = value; }
+            }
+            #endregion
+
             #region StockManager
             public StockManager StockManager
             {
                 get { return stockManager; }
                 set { stockManager = value; }
+            }
+            #endregion
+
+            #region StockDayManager
+            public StockDayManager StockDayManager
+            {
+                get { return stockdayManager; }
+                set { stockdayManager = value; }
             }
             #endregion
 

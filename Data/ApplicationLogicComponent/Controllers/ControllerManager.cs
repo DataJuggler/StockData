@@ -30,9 +30,12 @@ namespace ApplicationLogicComponent.Controllers
         private DailyPriceDataViewController dailypricedataviewController;
         private IndustryController industryController;
         private IndustryHistoryController industryhistoryController;
+        private IndustryViewController industryviewController;
         private SectorController sectorController;
         private SectorHistoryController sectorhistoryController;
+        private SectorViewController sectorviewController;
         private StockController stockController;
+        private StockDayController stockdayController;
         private StockStreakController stockstreakController;
         private StockStreakViewController stockstreakviewController;
         #endregion
@@ -66,9 +69,12 @@ namespace ApplicationLogicComponent.Controllers
                 this.DailyPriceDataViewController = new DailyPriceDataViewController(this.ErrorProcessor, this.AppController);
                 this.IndustryController = new IndustryController(this.ErrorProcessor, this.AppController);
                 this.IndustryHistoryController = new IndustryHistoryController(this.ErrorProcessor, this.AppController);
+                this.IndustryViewController = new IndustryViewController(this.ErrorProcessor, this.AppController);
                 this.SectorController = new SectorController(this.ErrorProcessor, this.AppController);
                 this.SectorHistoryController = new SectorHistoryController(this.ErrorProcessor, this.AppController);
+                this.SectorViewController = new SectorViewController(this.ErrorProcessor, this.AppController);
                 this.StockController = new StockController(this.ErrorProcessor, this.AppController);
+                this.StockDayController = new StockDayController(this.ErrorProcessor, this.AppController);
                 this.StockStreakController = new StockStreakController(this.ErrorProcessor, this.AppController);
                 this.StockStreakViewController = new StockStreakViewController(this.ErrorProcessor, this.AppController);
             }
@@ -134,6 +140,14 @@ namespace ApplicationLogicComponent.Controllers
             }
             #endregion
 
+            #region IndustryViewController
+            public IndustryViewController IndustryViewController
+            {
+                get { return industryviewController; }
+                set { industryviewController = value; }
+            }
+            #endregion
+
             #region SectorController
             public SectorController SectorController
             {
@@ -150,11 +164,27 @@ namespace ApplicationLogicComponent.Controllers
             }
             #endregion
 
+            #region SectorViewController
+            public SectorViewController SectorViewController
+            {
+                get { return sectorviewController; }
+                set { sectorviewController = value; }
+            }
+            #endregion
+
             #region StockController
             public StockController StockController
             {
                 get { return stockController; }
                 set { stockController = value; }
+            }
+            #endregion
+
+            #region StockDayController
+            public StockDayController StockDayController
+            {
+                get { return stockdayController; }
+                set { stockdayController = value; }
             }
             #endregion
 

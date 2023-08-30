@@ -16,6 +16,7 @@ namespace ObjectLibrary.BusinessObjects
 
         #region Private Variables
         private bool loadBySymbol;
+        private bool findBySymbolAndMostRecent;
         #endregion
 
         #region Constructor
@@ -41,6 +42,17 @@ namespace ObjectLibrary.BusinessObjects
         #endregion
 
         #region Properties
+
+            #region FindBySymbolAndMostRecent
+            /// <summary>
+            /// This property gets or sets the value for 'FindBySymbolAndMostRecent'.
+            /// </summary>
+            public bool FindBySymbolAndMostRecent
+            {
+                get { return findBySymbolAndMostRecent; }
+                set { findBySymbolAndMostRecent = value; }
+            }
+            #endregion
 
             #region LoadBySymbol
             /// <summary>

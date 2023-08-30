@@ -56,7 +56,7 @@ namespace DataAccessComponent.DataManager.Readers
                     stockStreak.UpdateIdentity(DataHelper.ParseInteger(dataRow.ItemArray[idfield], 0));
                     stockStreak.PercentChange = DataHelper.ParseDouble(dataRow.ItemArray[percentChangefield], 0);
                     stockStreak.ReverseSplit = DataHelper.ParseBoolean(dataRow.ItemArray[reverseSplitfield], false);
-                    stockStreak.ReverseSplitDivisor = DataHelper.ParseDouble(dataRow.ItemArray[reverseSplitDivisorfield], 0);
+                    stockStreak.ReverseSplitDivisor = DataHelper.ParseInteger(dataRow.ItemArray[reverseSplitDivisorfield], 0);
                     stockStreak.StockId = DataHelper.ParseInteger(dataRow.ItemArray[stockIdfield], 0);
                     stockStreak.StreakDays = DataHelper.ParseInteger(dataRow.ItemArray[streakDaysfield], 0);
                     stockStreak.StreakEndDate = DataHelper.ParseDate(dataRow.ItemArray[streakEndDatefield]);

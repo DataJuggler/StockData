@@ -57,6 +57,48 @@ namespace DataAccessComponent.DataManager.Writers
             }
             #endregion
             
+            #region CreateFindDailyPriceDataStoredProcedure(DailyPriceData dailyPriceData)
+            /// <summary>
+            /// This method creates an instance of a
+            /// 'FindDailyPriceDataStoredProcedure' object and
+            /// creates the sql parameter[] array needed
+            /// to execute the procedure 'DailyPriceData_Find'.
+            /// </summary>
+            /// <param name="dailyPriceData">The 'DailyPriceData' to use to
+            /// get the primary key parameter.</param>
+            /// <returns>An instance of an FetchUserStoredProcedure</returns>
+            public static new FindDailyPriceDataStoredProcedure CreateFindDailyPriceDataStoredProcedure(DailyPriceData dailyPriceData)
+            {
+                // Initial Value
+                FindDailyPriceDataStoredProcedure findDailyPriceDataStoredProcedure = null;
+
+                // verify dailyPriceData exists
+                if(dailyPriceData != null)
+                {
+                    // Instanciate findDailyPriceDataStoredProcedure
+                    findDailyPriceDataStoredProcedure = new FindDailyPriceDataStoredProcedure();
+
+                    // if dailyPriceData.FindBySymbolAndMostRecent is true
+                    if (dailyPriceData.FindBySymbolAndMostRecent)
+                    {
+                            // Change the procedure name
+                            findDailyPriceDataStoredProcedure.ProcedureName = "DailyPriceData_FindBySymbolAndMostRecent";
+                            
+                            // Create the SymbolAndMostRecent field set parameters
+                            findDailyPriceDataStoredProcedure.Parameters = SqlParameterHelper.CreateSqlParameters("@MostRecent", dailyPriceData.MostRecent, "@Symbol", dailyPriceData.Symbol);
+                    }
+                    else
+                    {
+                        // Now create parameters for this procedure
+                        findDailyPriceDataStoredProcedure.Parameters = CreatePrimaryKeyParameter(dailyPriceData);
+                    }
+                }
+
+                // return value
+                return findDailyPriceDataStoredProcedure;
+            }
+            #endregion
+            
         #endregion
 
     }

@@ -34,9 +34,12 @@ namespace ApplicationLogicComponent.DataOperations
         private DailyPriceDataViewMethods dailypricedataviewMethods;
         private IndustryMethods industryMethods;
         private IndustryHistoryMethods industryhistoryMethods;
+        private IndustryViewMethods industryviewMethods;
         private SectorMethods sectorMethods;
         private SectorHistoryMethods sectorhistoryMethods;
+        private SectorViewMethods sectorviewMethods;
         private StockMethods stockMethods;
+        private StockDayMethods stockdayMethods;
         private StockStreakMethods stockstreakMethods;
         private StockStreakViewMethods stockstreakviewMethods;
         #endregion
@@ -70,9 +73,12 @@ namespace ApplicationLogicComponent.DataOperations
                 this.DailyPriceDataViewMethods = new DailyPriceDataViewMethods(this.DataManager);
                 this.IndustryMethods = new IndustryMethods(this.DataManager);
                 this.IndustryHistoryMethods = new IndustryHistoryMethods(this.DataManager);
+                this.IndustryViewMethods = new IndustryViewMethods(this.DataManager);
                 this.SectorMethods = new SectorMethods(this.DataManager);
                 this.SectorHistoryMethods = new SectorHistoryMethods(this.DataManager);
+                this.SectorViewMethods = new SectorViewMethods(this.DataManager);
                 this.StockMethods = new StockMethods(this.DataManager);
+                this.StockDayMethods = new StockDayMethods(this.DataManager);
                 this.StockStreakMethods = new StockStreakMethods(this.DataManager);
                 this.StockStreakViewMethods = new StockStreakViewMethods(this.DataManager);
             }
@@ -138,6 +144,14 @@ namespace ApplicationLogicComponent.DataOperations
             }
             #endregion
 
+            #region IndustryViewMethods
+            public IndustryViewMethods IndustryViewMethods
+            {
+                get { return industryviewMethods; }
+                set { industryviewMethods = value; }
+            }
+            #endregion
+
             #region SectorMethods
             public SectorMethods SectorMethods
             {
@@ -154,11 +168,27 @@ namespace ApplicationLogicComponent.DataOperations
             }
             #endregion
 
+            #region SectorViewMethods
+            public SectorViewMethods SectorViewMethods
+            {
+                get { return sectorviewMethods; }
+                set { sectorviewMethods = value; }
+            }
+            #endregion
+
             #region StockMethods
             public StockMethods StockMethods
             {
                 get { return stockMethods; }
                 set { stockMethods = value; }
+            }
+            #endregion
+
+            #region StockDayMethods
+            public StockDayMethods StockDayMethods
+            {
+                get { return stockdayMethods; }
+                set { stockdayMethods = value; }
             }
             #endregion
 

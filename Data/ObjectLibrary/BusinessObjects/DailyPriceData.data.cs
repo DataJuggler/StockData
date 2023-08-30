@@ -21,8 +21,10 @@ namespace ObjectLibrary.BusinessObjects
         private double highPrice;
         private int id;
         private double lowPrice;
+        private bool mostRecent;
         private double openPrice;
         private double percentChange;
+        private bool priceUnchanged;
         private double spread;
         private double spreadScore;
         private DateTime stockDate;
@@ -116,6 +118,20 @@ namespace ObjectLibrary.BusinessObjects
             }
             #endregion
 
+            #region bool MostRecent
+            public bool MostRecent
+            {
+                get
+                {
+                    return mostRecent;
+                }
+                set
+                {
+                    mostRecent = value;
+                }
+            }
+            #endregion
+
             #region double OpenPrice
             public double OpenPrice
             {
@@ -140,6 +156,20 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     percentChange = value;
+                }
+            }
+            #endregion
+
+            #region bool PriceUnchanged
+            public bool PriceUnchanged
+            {
+                get
+                {
+                    return priceUnchanged;
+                }
+                set
+                {
+                    priceUnchanged = value;
                 }
             }
             #endregion

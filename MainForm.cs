@@ -28,6 +28,7 @@ namespace StockData
         #region Private Variables
         private Gateway gateway;
         private Admin admin;
+        private bool stockDayProcessed;
         #endregion
 
         #region Constructor
@@ -46,6 +47,112 @@ namespace StockData
 
         #region Events
 
+        #region ImportIndustryButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// event is fired when the 'ImportIndustryButton' is clicked.
+        /// </summary>
+        private void ImportIndustryButton_Click(object sender, EventArgs e)
+        {
+            // local
+            bool saved = false;
+
+            // Create a new instance of a 'WorksheetInfo' object.
+            WorksheetInfo worksheetInfo = new WorksheetInfo();
+
+            // set the properties
+            worksheetInfo.SheetName = "Industry";
+            worksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadAllColumnsExceptExcluded;
+            worksheetInfo.Path = "C:\\Temp\\Industry And Sector.xlsx";
+
+            // load the worksheet
+            Worksheet worksheet = ExcelDataLoader.LoadWorksheet(worksheetInfo);
+
+            // Load the NASDAQ entries
+            List<StockData.Objects.Industry> industries = StockData.Objects.Industry.Load(worksheet);
+
+            // If the industries collection exists and has one or more items
+            if (ListHelper.HasOneOrMoreItems(industries))
+            {
+                // Setup the Graph
+                SetupGraph("Importing Industries", industries.Count, true);
+
+                // iterate the industries
+                foreach (StockData.Objects.Industry industry in industries)
+                {
+                    // perofrm the save
+                    ObjectLibrary.BusinessObjects.Industry dataIndustry = new ObjectLibrary.BusinessObjects.Industry();
+                    dataIndustry.Name = industry.Name;
+
+                    // perform the save
+                    saved = Gateway.SaveIndustry(ref dataIndustry);
+
+                    // if the value for saved is true
+                    if (saved)
+                    {
+                        // Increment the value for Graph
+                        Graph.Value++;
+                    }
+                }
+
+                // Setup the Graph
+                SetupGraph("Finished Importing Industries", 0, false);
+            }
+        }
+        #endregion
+
+        #region ImportSectorsButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// event is fired when the 'ImportSectorsButton' is clicked.
+        /// </summary>
+        private void ImportSectorsButton_Click(object sender, EventArgs e)
+        {
+            // local
+            bool saved = false;
+
+            // Create a new instance of a 'WorksheetInfo' object.
+            WorksheetInfo worksheetInfo = new WorksheetInfo();
+
+            // set the properties
+            worksheetInfo.SheetName = "Sector";
+            worksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadAllColumnsExceptExcluded;
+            worksheetInfo.Path = "C:\\Temp\\Industry And Sector.xlsx";
+
+            // load the worksheet
+            Worksheet worksheet = ExcelDataLoader.LoadWorksheet(worksheetInfo);
+
+            // Load the NASDAQ entries
+            List<StockData.Objects.Sector> sectors = StockData.Objects.Sector.Load(worksheet);
+
+            // If the sectors collection exists and has one or more items
+            if (ListHelper.HasOneOrMoreItems(sectors))
+            {
+                // Setup the Graph
+                SetupGraph("Importing Sectors", sectors.Count, true);
+
+                // iterate the industries
+                foreach (StockData.Objects.Sector sector in sectors)
+                {
+                    // perofrm the save
+                    ObjectLibrary.BusinessObjects.Sector dataSector = new ObjectLibrary.BusinessObjects.Sector();
+                    dataSector.Name = sector.Name;
+
+                    // perform the save
+                    saved = Gateway.SaveSector(ref dataSector);
+
+                    // if the value for saved is true
+                    if (saved)
+                    {
+                        // Increment the value for Graph
+                        Graph.Value++;
+                    }
+                }
+
+                // Setup the Graph
+                SetupGraph("Finished Importing Sectors", 0, false);
+            }     
+        }
+        #endregion
+            
         #region ImportStocksButton_Click(object sender, EventArgs e)
         /// <summary>
         /// event is fired when the 'ImportStocksButton' is clicked.
@@ -176,8 +283,7 @@ namespace StockData
             bool saved = false;
             ContinueTypeEnum continueType = ContinueTypeEnum.Even;
             StockStreak streak = null;           
-            decimal oneHundred = 100;
-
+            
             // <ticker>,<per>,<date>,<open>,<high>,<low>,<close>,<vol>
 
             // if the Directory Exists
@@ -205,6 +311,7 @@ namespace StockData
                             {
                                 // reset
                                 count = 0;
+                                StockDayProcessed = false;
 
                                 // Iterate the collection of TextLine objects
                                 foreach (TextLine line in lines)
@@ -235,151 +342,204 @@ namespace StockData
                                             data.Spread = Math.Round(data.HighPrice - data.LowPrice, 2);
                                             data.SpreadScore = Math.Round(data.ClosePrice - data.LowPrice, 2);
 
-                                            // if the Spread is set
-                                            if ((data.Spread > 0) && (data.SpreadScore > 0))
-                                            {
-                                                // Set the SpreadScore
-                                                data.CloseScore = 100 / data.Spread * data.SpreadScore;
-                                            }
-                                            else if (data.HighPrice == data.ClosePrice)
-                                            {
-                                                // if it closes at the high
-                                                data.CloseScore = 100;
-                                            }
-                                            else if (data.LowPrice == data.ClosePrice)
-                                            {
-                                                // if it closes at the low
-                                                data.CloseScore = 0;
-                                            }
-
-                                            // round to 2 digits
-                                            data.CloseScore = Math.Round(data.CloseScore, 2);
-
                                             // find this stock
                                             Stock stock = Gateway.FindStockBySymbol(data.Symbol);
 
-                                            // If the stock object exists
-                                            if (NullHelper.Exists(stock))
+                                            // if this stock should be tracked
+                                            if ((NullHelper.Exists(stock)) && (stock.Track))
                                             {
-                                                // if Track is true
-                                                if (stock.Track)
+                                                // set the current date
+                                                if (!StockDayProcessed)
                                                 {
-                                                    // if less than 100,000 shares, or whatever value Admin.MinVolume is set to.
-                                                    if (data.Volume < MinVolume)
-                                                    {
-                                                        // set this to false
-                                                        stock.Track = false;
+                                                    // process the stock day entry
+                                                    ProcessStockDay(stock, data.StockDate);
+                                                }
 
-                                                        // perform the save
-                                                        saved = Gateway.SaveStock(ref stock);
-                                                    }
-                                                    else
+                                                // Find the most recent DailyPriceData
+                                                DailyPriceData previous = Gateway.FindDailyPriceDataBySymbolAndMostRecent(true, data.Symbol);
+
+                                                // If the previous object exists
+                                                if (NullHelper.Exists(previous))
+                                                {
+                                                    // no longer the most recent
+                                                    previous.MostRecent = false;
+
+                                                    // update the database
+                                                    saved = Gateway.SaveDailyPriceData(ref previous);
+                                                }
+
+                                                // Set this as the most recent
+                                                data.MostRecent = true;
+
+                                                if (data.HighPrice == data.ClosePrice)
+                                                {
+                                                    // if it closes at the high
+                                                    data.CloseScore = 100;
+                                                }
+                                                else if (data.LowPrice == data.ClosePrice)
+                                                {
+                                                    // if it closes at the low
+                                                    data.CloseScore = 0;
+                                                }
+                                                // if the Spread is set
+                                                else if ((data.Spread > 0) && (data.SpreadScore > 0))
+                                                {
+                                                    // Set the SpreadScore
+                                                    data.CloseScore = 100 / data.Spread * data.SpreadScore;
+                                                }
+
+                                                // round to 2 digits
+                                                data.CloseScore = Math.Round(data.CloseScore, 2);
+                                           
+                                                // If the stock object exists
+                                                if (NullHelper.Exists(stock))
+                                                {
+                                                    // if Track is true
+                                                    if (stock.Track)
                                                     {
-                                                        // if the LastClose has been set
-                                                        if (stock.LastClose > 0)
+                                                        // if less than 100,000 shares, or whatever value Admin.MinVolume is set to.
+                                                        if (data.Volume < MinVolume)
                                                         {
-                                                            // set the values
-                                                            decimal stockLastClose = (decimal)stock.LastClose;
-                                                            decimal closePrice = (decimal)data.ClosePrice;
+                                                            // set this to false
+                                                            stock.Track = false;
 
-                                                            // set the percent change                                                        
-                                                            data.PercentChange = (double)(Math.Round((oneHundred / stockLastClose * closePrice), 2) - 100);
+                                                            // perform the save
+                                                            saved = Gateway.SaveStock(ref stock);
                                                         }
-
-                                                        // if the price went up
-                                                        if ((stock.LastClose < data.ClosePrice) && (stock.LastClose > 0))
+                                                        else
                                                         {
-                                                            // the price went up
-
-                                                            // if on a winning streak
-                                                            if (stock.Streak > 0)
+                                                            // if the LastClose has been set
+                                                            if (stock.LastClose > 0)
                                                             {
-                                                                // still on a streak
-                                                                continueType = ContinueTypeEnum.ContinueStreakAdvancing;
-
-                                                                // continue the streak                                                            
-                                                                stock.Streak++;
+                                                                // set the percent change                                                                
+                                                                data.PercentChange = NumericHelper.DivideDoublesAsDecimals(100, stock.LastClose, 2) * data.ClosePrice - 100;
                                                             }
-                                                            else
+
+                                                            // if the price went up
+                                                            if ((stock.LastClose < data.ClosePrice) && (stock.LastClose > 0))
                                                             {
+                                                                // the price went up
+
+                                                                // if on a winning streak
+                                                                if (stock.Streak > 0)
+                                                                {
+                                                                    // still on a streak
+                                                                    continueType = ContinueTypeEnum.ContinueStreakAdvancing;
+
+                                                                    // continue the streak                                                            
+                                                                    stock.Streak++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    // set to NewStreakAdvancing
+                                                                    continueType = ContinueTypeEnum.NewStreakAdvancing;
+
+                                                                    // reset to 1
+                                                                    stock.Streak = 1;
+                                                                }
+                                                            }
+                                                            else if (stock.LastClose > data.ClosePrice)
+                                                            {
+                                                                // the price went down
+
+                                                                // if on a losing streak
+                                                                if (stock.Streak < 0)
+                                                                {
+                                                                    // continue the streak
+                                                                    continueType = ContinueTypeEnum.ContinueStreakDeclining;
+
+                                                                    // continue the streak                                                            
+                                                                    stock.Streak--;
+                                                                }
+                                                                else
+                                                                {
+                                                                    // set to false
+                                                                    continueType = ContinueTypeEnum.NewStreakDeclining;
+
+                                                                    // reset to -1
+                                                                    stock.Streak = -1;
+                                                                }
+                                                            }
+                                                            else if (stock.LastClose == data.ClosePrice)
+                                                            {
+                                                                // Set to Even
+                                                                continueType = ContinueTypeEnum.Even;
+
+                                                                // The price did not change (needed to set IndustryScore and SectorScore
+                                                                data.PriceUnchanged = true;
+                                                            }
+                                                            else if (stock.LastClose == 0)
+                                                            {
+                                                                // only the first time
+
                                                                 // set to NewStreakAdvancing
                                                                 continueType = ContinueTypeEnum.NewStreakAdvancing;
 
                                                                 // reset to 1
                                                                 stock.Streak = 1;
                                                             }
-                                                        }
-                                                        else if (stock.LastClose > data.ClosePrice)
-                                                        {
-                                                            // the price went down
 
-                                                            // if on a losing streak
-                                                            if (stock.Streak < 0)
+                                                            // find the current streak for this stock
+                                                            streak = Gateway.FindStockStreakByStockIdAndCurrentStreak(true, stock.Id);
+
+                                                            // if the streak exists
+                                                            if (NullHelper.Exists(streak))
                                                             {
-                                                                // continue the streak
-                                                                continueType = ContinueTypeEnum.ContinueStreakDeclining;
+                                                                // if the streak is continueing advancing, continueing declining or even. 
+                                                                if ((continueType == ContinueTypeEnum.ContinueStreakAdvancing) || (continueType == ContinueTypeEnum.ContinueStreakDeclining) || (continueType == ContinueTypeEnum.Even))
+                                                                {
+                                                                    // continue the streak
+                                                                    streak.StreakDays = stock.Streak;
 
-                                                                // continue the streak                                                            
-                                                                stock.Streak--;
+                                                                    // Set the StreakEndDate, in case it ends
+                                                                    streak.StreakEndDate = data.StockDate;
+                                                                    streak.StreakEndPrice = data.ClosePrice;
+
+                                                                    // Set the PercentChange
+                                                                    streak.PercentChange = SetStreakPercentChange(streak);
+                                                                }
+                                                                else
+                                                                {
+                                                                    // close the old streak and start a new oone
+
+                                                                    // no longer the current
+                                                                    streak.CurrentStreak = false;
+
+                                                                    // Set the percent change
+                                                                    streak.PercentChange = SetStreakPercentChange(streak);
+
+                                                                    // Save this stock streak
+                                                                    saved = Gateway.SaveStockStreak(ref streak);
+
+                                                                    // create a new streak
+                                                                    streak = new StockStreak();
+
+                                                                    // Start a new streak
+                                                                    streak.StreakStartDate = data.StockDate;
+                                                                    streak.StreakEndDate = data.StockDate;
+                                                                    streak.StockId = stock.Id;
+                                                                    streak.CurrentStreak = true;
+                                                                    streak.StreakStartPrice = stock.LastClose;
+                                                                    streak.StreakEndPrice = data.ClosePrice;
+
+                                                                    // if this is a streak going up
+                                                                    if (stock.Streak > 0)
+                                                                    {
+                                                                        // This is a winning streak
+                                                                        streak.StreakType = StreakTypeEnum.PriceIncreasing;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        // This is a losing streak
+                                                                        streak.StreakType = StreakTypeEnum.PriceDecreasing;
+                                                                    }
+                                                                }
                                                             }
                                                             else
                                                             {
-                                                                // set to false
-                                                                continueType = ContinueTypeEnum.NewStreakDeclining;
+                                                                // start a new streak
 
-                                                                // reset to -1
-                                                                stock.Streak = -1;
-                                                            }
-                                                        }
-                                                        else if (stock.LastClose == data.ClosePrice)
-                                                        {
-                                                            // Set to Even
-                                                            continueType = ContinueTypeEnum.Even;
-                                                        }
-                                                        else if (stock.LastClose == 0)
-                                                        {
-                                                            // only the first time
-
-                                                            // set to NewStreakAdvancing
-                                                            continueType = ContinueTypeEnum.NewStreakAdvancing;
-
-                                                            // reset to 1
-                                                            stock.Streak = 1;
-                                                        }
-
-                                                        // find the current streak for this stock
-                                                        streak = Gateway.FindStockStreakByStockIdAndCurrentStreak(true, stock.Id);
-
-                                                        // if the streak exists
-                                                        if (NullHelper.Exists(streak))
-                                                        {
-                                                            // if the streak is continueing advancing, continueing declining or even. 
-                                                            if ((continueType == ContinueTypeEnum.ContinueStreakAdvancing) || (continueType == ContinueTypeEnum.ContinueStreakDeclining) || (continueType == ContinueTypeEnum.Even))
-                                                            {
-                                                                // continue the streak
-                                                                streak.StreakDays = stock.Streak;
-
-                                                                // Set the StreakEndDate, in case it ends
-                                                                streak.StreakEndDate = data.StockDate;
-                                                                streak.StreakEndPrice = data.ClosePrice;
-
-                                                                // Set the PercentChange
-                                                                streak.PercentChange = SetStreakPercentChange(streak);
-                                                            }
-                                                            else
-                                                            {
-                                                                // close the old streak and start a new oone
-
-                                                                // no longer the current
-                                                                streak.CurrentStreak = false;
-
-                                                                // Set the percent change
-                                                                streak.PercentChange = SetStreakPercentChange(streak);
-
-                                                                // Save this stock streak
-                                                                saved = Gateway.SaveStockStreak(ref streak);
-
-                                                                // create a new streak
+                                                                // create the streak
                                                                 streak = new StockStreak();
 
                                                                 // Start a new streak
@@ -387,7 +547,7 @@ namespace StockData
                                                                 streak.StreakEndDate = data.StockDate;
                                                                 streak.StockId = stock.Id;
                                                                 streak.CurrentStreak = true;
-                                                                streak.StreakStartPrice = stock.LastClose;
+                                                                streak.StreakStartPrice = data.OpenPrice;
                                                                 streak.StreakEndPrice = data.ClosePrice;
 
                                                                 // if this is a streak going up
@@ -396,94 +556,64 @@ namespace StockData
                                                                     // This is a winning streak
                                                                     streak.StreakType = StreakTypeEnum.PriceIncreasing;
                                                                 }
-                                                                else
+                                                                else if (stock.Streak < 0)
                                                                 {
                                                                     // This is a losing streak
                                                                     streak.StreakType = StreakTypeEnum.PriceDecreasing;
                                                                 }
                                                             }
-                                                        }
-                                                        else
-                                                        {
-                                                            // start a new streak
 
-                                                            // create the streak
-                                                            streak = new StockStreak();
+                                                            // Set the streak from the stock
+                                                            data.Streak = stock.Streak;
 
-                                                            // Start a new streak
-                                                            streak.StreakStartDate = data.StockDate;
-                                                            streak.StreakEndDate = data.StockDate;
-                                                            streak.StockId = stock.Id;
-                                                            streak.CurrentStreak = true;
-                                                            streak.StreakStartPrice = data.OpenPrice;
-                                                            streak.StreakEndPrice = data.ClosePrice;
+                                                            // Set the LastClose at the stock level
+                                                            stock.LastClose = data.ClosePrice;
 
-                                                            // if this is a streak going up
-                                                            if (stock.Streak > 0)
+                                                            // perform the save
+                                                            saved = Gateway.SaveDailyPriceData(ref data);
+
+                                                            // Set the AverageDailyVolume (in 1,000's)
+                                                            stock.AverageDailyVolume = SetAverageDailyVolume(data.Symbol);
+
+                                                            // Get a comparision of the average volume for the last 50 trading days vs this day's volume
+                                                            if (stock.AverageDailyVolume > 0)
                                                             {
-                                                                // This is a winning streak
-                                                                streak.StreakType = StreakTypeEnum.PriceIncreasing;
+                                                                // Set the VolumeScore
+                                                                data.VolumeScore = NumericHelper.DivideDoublesAsDecimals(100, stock.AverageDailyVolume, 2) - 100;                                                                                                                                                                                                
                                                             }
-                                                            else if (stock.Streak < 0)
+
+                                                            // perform the save again now that VolumeScore is set
+                                                            saved = Gateway.SaveDailyPriceData(ref data);
+
+                                                            // Save the Stock
+                                                            saved = Gateway.SaveStock(ref stock);
+
+                                                            // Set the StreakDays
+                                                            streak.StreakDays = stock.Streak;
+
+                                                            // since this is a new streak,
+                                                            streak.PercentChange = SetStreakPercentChange(streak);
+
+                                                            // Save the stockStreak
+                                                            saved = Gateway.SaveStockStreak(ref streak);
+
+                                                            // I am leaving this here, to show you how to get the last exception.
+                                                            // I had dropped a column from StockStreak and forgot to execute
+                                                            // the stored procedures when I rebuilt with DataTier.Net. This 
+                                                            // Showed me the error.
+
+                                                            // if not saved
+                                                            if (!saved)
                                                             {
-                                                                // This is a losing streak
-                                                                streak.StreakType = StreakTypeEnum.PriceDecreasing;
-                                                            }
-                                                        }
+                                                                // Get the last error
+                                                                Exception error = Gateway.GetLastException();
 
-                                                        // Set the streak from the stock
-                                                        data.Streak = stock.Streak;
-
-                                                        // Set the LastClose at the stock level
-                                                        stock.LastClose = data.ClosePrice;
-
-                                                        // perform the save
-                                                        saved = Gateway.SaveDailyPriceData(ref data);
-
-                                                        // Set the AverageDailyVolume (in 1,000's)
-                                                        stock.AverageDailyVolume = SetAverageDailyVolume(data.Symbol);
-
-                                                        // Get a comparision of the average volume for the last 50 trading days vs this day's volume
-                                                        if (stock.AverageDailyVolume > 0)
-                                                        {
-                                                            decimal averageDailyVolume = stock.AverageDailyVolume;
-                                                            decimal temp = oneHundred / averageDailyVolume;
-                                                            decimal temp2 = Math.Round(temp * data.Volume, 2);
-                                                            decimal volumeScore = temp2 - oneHundred;
-                                                            data.VolumeScore = (double)volumeScore;
-                                                        }
-
-                                                        // perform the save again now that VolumeScore is set
-                                                        saved = Gateway.SaveDailyPriceData(ref data);
-
-                                                        // Save the Stock
-                                                        saved = Gateway.SaveStock(ref stock);
-
-                                                        // Set the StreakDays
-                                                        streak.StreakDays = stock.Streak;
-
-                                                        // since this is a new streak,
-                                                        streak.PercentChange = SetStreakPercentChange(streak);
-
-                                                        // Save the stockStreak
-                                                        saved = Gateway.SaveStockStreak(ref streak);
-
-                                                        // I am leaving this here, to show you how to get the last exception.
-                                                        // I had dropped a column from StockStreak and forgot to execute
-                                                        // the stored procedures when I rebuilt with DataTier.Net. This 
-                                                        // Showed me the error.
-
-                                                        // if not saved
-                                                        if (!saved)
-                                                        {
-                                                            // Get the last error
-                                                            Exception error = Gateway.GetLastException();
-
-                                                            // If the error object exists
-                                                            if (NullHelper.Exists(error))
-                                                            {
-                                                                // set the error
-                                                                string err = error.ToString();
+                                                                // If the error object exists
+                                                                if (NullHelper.Exists(error))
+                                                                {
+                                                                    // set the error
+                                                                    string err = error.ToString();
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -516,8 +646,67 @@ namespace StockData
                             DebugHelper.WriteDebugError("ProcessFilesButton_Click", "MainForm.cs", error);
                         }
                     }
-                }
 
+                    // Now Process Industries & Sectors
+                    List<StockDay> stockDays = Gateway.LoadStockDaysThatNeedsProcessing(false, false);
+
+                    // If the stockDays collection exists and has one or more items
+                    if (ListHelper.HasOneOrMoreItems(stockDays))
+                    {
+                        // Setup the graph for Industries
+                        SetupGraph("Updating Industries", stockDays.Count, true);
+
+                        // Iterate the collection of StockDay objects
+                        foreach (StockDay stockDay in stockDays)
+                        {
+                            // Process the industry for this date
+                            if (!stockDay.IndustryProcessed)
+                            {
+                                // Set the values for Advancers, Decliners. AveragePercentage and Streaks
+                                UpdateIndustries(stockDay.Date);
+                            }
+
+                            // This industry has been processed
+                            stockDay.IndustryProcessed = true;
+
+                            // Get a copy so this can be saved
+                            StockDay clone = stockDay.Clone();
+
+                            // perform the save
+                            saved = Gateway.SaveStockDay(ref clone);
+
+                            // Increment the value for Graph
+                            Graph.Value++;
+                        }
+                    }
+
+                    // Setup the graph for Sectors
+                    SetupGraph("Updating Sectors", stockDays.Count, true);
+
+                    // Iterate the collection of StockDay objects
+                    foreach (StockDay stockDay in stockDays)
+                    {
+                        // Process the industry for this date
+                        if (!stockDay.SectorProcessed)
+                        {
+                            // Set the values for Advancers, Decliners. AveragePercentage and Streaks
+                            UpdateSectors(stockDay.Date);
+                        }
+
+                        // This industry has been processed
+                        stockDay.SectorProcessed = true;
+
+                        // Get a copy so this can be saved
+                        StockDay clone = stockDay.Clone();
+
+                        // perform the save
+                        saved = Gateway.SaveStockDay(ref clone);
+
+                        // Increment the value for Graph
+                        Graph.Value++;
+                    }
+                }
+                
                 // Show finished
                 SetupGraph("Finished", 0, false);
             }
@@ -542,6 +731,41 @@ namespace StockData
         }
         #endregion
 
+        #region ProcessStockDay()
+        /// <summary>
+        /// Process Stock Day
+        /// </summary>
+        public void ProcessStockDay(Stock stock, DateTime currentDate)
+        {
+            // if the stock exists and this is the first stock for this date (NASDAQ is before NYSE).                                                )
+            if (stock.Exchange == "NASDAQ")
+            {
+                // Create a new instance of a 'StockDay' object.
+                StockDay stockDay = new StockDay();
+
+                // Set the properties
+                stockDay.Date = currentDate;
+                stockDay.IndustryProcessed = false;
+                stockDay.SectorProcessed = false;
+
+                // Save this value
+                bool saved = Gateway.SaveStockDay(ref stockDay);
+
+                // if the value for saved is true
+                if (saved)
+                {
+                    // stockDay has been processed
+                    StockDayProcessed = true;
+                }
+            }
+            else
+            {
+                // stockDay has been processed
+                StockDayProcessed = true;
+            }
+        }
+        #endregion
+            
         #region SaveWorksheetCallback(SaveWorksheetResponse resonse)
         /// <summary>
         /// Save Worksheet Callback
@@ -593,7 +817,7 @@ namespace StockData
                     double temp = sumVolume / dailyPriceData.Count;
 
                     // Set the AverageDailyVolume
-                    averageDailyVolume = (int)temp;
+                    averageDailyVolume = (int) temp;
 
                     // now put back the three digits
                     averageDailyVolume = averageDailyVolume * 1000;
@@ -610,11 +834,77 @@ namespace StockData
         }
         #endregion
 
+        #region SetIndustryAveragePercentChange()
+        /// <summary>
+        /// returns the Industry Average Percent Change
+        /// </summary>
+        public static double SetIndustryAveragePercentChange(List<IndustryView> industryViews)
+        {
+            // initial value
+            double industryAveragePercentChange = 0;
+
+            // If the industryViews collection exists and has one or more items
+            if (ListHelper.HasOneOrMoreItems(industryViews))
+            {
+                // reload
+                industryViews = industryViews.Where(x => x.Track == true).ToList();
+
+                // cast the percentChange total as a decimal so divisiion works
+                decimal totalPercentChange = (decimal) industryViews.Where(x => x.Track == true).Sum(x => x.PercentChange);
+                decimal numberStocks = (decimal) industryViews.Where(x => x.Track == true).Count();
+                decimal averagePercentChange = totalPercentChange / numberStocks;
+
+                // if the number of stocks has been set
+                if ((numberStocks > 0) && (averagePercentChange > 0))
+                {
+                    averagePercentChange = Math.Round(averagePercentChange, 2);
+                    industryAveragePercentChange = (double) averagePercentChange;
+                }
+            }
+                
+            // return value
+            return industryAveragePercentChange;
+        }
+        #endregion
+
+        #region SetSectorAveragePercentChange()
+        /// <summary>
+        /// returns the Sector Average Percent Change
+        /// </summary>
+        public static double SetSectorAveragePercentChange(List<SectorView> sectorViews)
+        {
+            // initial value
+            double sectorAveragePercentChange = 0;
+
+            // If the sectorViews collection exists and has one or more items
+            if (ListHelper.HasOneOrMoreItems(sectorViews))
+            {
+                // reload
+                sectorViews = sectorViews.Where(x => x.Track == true).ToList();
+
+                // cast the percentChange total as a decimal so divisiion works
+                decimal totalPercentChange = (decimal) sectorViews.Where(x => x.Track == true).Sum(x => x.PercentChange);
+                decimal numberStocks = (decimal) sectorViews.Where(x => x.Track == true).Count();
+                decimal averagePercentChange = totalPercentChange / numberStocks;
+
+                // if the number of stocks has been set
+                if ((numberStocks > 0) && (averagePercentChange > 0))
+                {
+                    averagePercentChange = Math.Round(averagePercentChange, 2);
+                    sectorAveragePercentChange = (double) averagePercentChange;
+                }
+            }
+                
+            // return value
+            return sectorAveragePercentChange;
+        }
+        #endregion
+            
         #region SetStreakPercentChange(StockStreak currentStreak)
         /// <summary>
         /// returns the Streak Percent Change
         /// </summary>
-        public double SetStreakPercentChange(StockStreak streak)
+        public static double SetStreakPercentChange(StockStreak streak)
         {
             // initial value
             double streakPercentChange = 0;
@@ -660,6 +950,293 @@ namespace StockData
         }
         #endregion
 
+        #region UpdateIndustries(DateTime stockDate)
+        /// <summary>
+        /// Update Industries
+        /// </summary>
+        public void UpdateIndustries(DateTime stockDate)
+        {
+            // load aall the industries
+            List<ObjectLibrary.BusinessObjects.Industry> industries = Gateway.LoadIndustrys();
+
+            // local
+            bool saved = false;
+
+            // If the industries collection exists and has one or more items
+            if (ListHelper.HasOneOrMoreItems(industries))
+            {
+                // iterate the industries
+                foreach (ObjectLibrary.BusinessObjects.Industry industry in industries)
+                {
+                    // if there is data
+                    if ((industry.Advancers > 0) || (industry.Decliners > 0))
+                    {
+                        // save the history entry
+                        IndustryHistory history = new IndustryHistory();
+
+                        // Store the current industry values as history
+                        history.Advancers = industry.Advancers;
+                        history.IndustryId = industry.Id;
+                        history.AveragePercentChange = industry.AveragePercentChange;
+                        history.Date = industry.LastUpdated;
+                        history.Decliners = industry.Decliners;
+                        history.Score = industry.Score;
+                        history.Streak = industry.Streak;
+                            
+                        // Save the history
+                        saved = Gateway.SaveIndustryHistory(ref history);
+                    }
+
+                    // Now update the Industry object
+                    List<IndustryView> industryViews = Gateway.LoadIndustryViewsForIndustryAndStockDate(industry.Name, stockDate);
+
+                    // If the industryViews collection exists and has one or more items
+                    if (ListHelper.HasOneOrMoreItems(industryViews))
+                    {
+                        // reset
+                        industry.Advancers = 0;
+                        industry.Decliners = 0;
+
+                        // Get the count of IndustryViews that the price did not change (so advancers and decliners has the right values
+
+
+                        // if there are one or more items
+                        foreach (IndustryView view in industryViews)
+                        {
+                            if ((view.Streak > 0) && (!view.PriceUnchanged))
+                            {
+                                // Increment the value for industry
+                                industry.Advancers++;
+                            }
+                            else if ((view.Streak < 0) && (!view.PriceUnchanged))
+                            {
+                                // Increment the value for industry
+                                industry.Decliners++;
+                            }
+
+                            // Set the LastUpdated
+                            industry.LastUpdated = stockDate;
+                        }
+
+                        // if there are more advancers
+                        if (industry.Advancers > industry.Decliners)
+                        {
+                            // if the streak is continueing
+                            if (industry.Streak > 0)
+                            {
+                                // Increment the value for industry
+                                industry.Streak++;
+                            }
+                            else
+                            {
+                                // start a new streak
+                                industry.Streak = 1;
+                            }
+                        }
+                        else if (industry.Decliners > industry.Advancers)
+                        {
+                            // if the streak is continueing
+                            if (industry.Streak < 0)
+                            {
+                                // Increment the value for industry
+                                industry.Streak--;
+                            }
+                            else
+                            {
+                                // start a new streak
+                                industry.Streak = -1;
+                            }
+                        }
+
+                        // Set the number of stocks
+                        industry.NumberStocks = industryViews.Where(x => x.Track == true).Count();
+
+                        // Set the Score
+                        if (industry.NumberStocks > 0)
+                        {
+                            // if numbers match exactly
+                            if (industry.Advancers == industry.Decliners)
+                            {
+                                // break point only
+                                industry.Score = 50.0;
+                            }
+                            else if (industry.Advancers == industry.NumberStocks)
+                            {
+                                // if all advance
+                                industry.Score = 100.0;
+                            }
+                            else if (industry.Advancers == 0)
+                            {
+                                // All declined is 0
+                                industry.Score = 0;
+                            }
+                            else
+                            {
+                                // Set the Score
+                                industry.Score = NumericHelper.DivideDoublesAsDecimals(100, industry.NumberStocks, 2) * industry.Advancers;
+                            }
+
+                            // Set the AveragePercentChange
+                            industry.AveragePercentChange = SetIndustryAveragePercentChange(industryViews);
+                            industry.AveragePercentChange = Math.Round(industry.AveragePercentChange, 2);
+
+                            // Set the LastUpdated
+                            industry.LastUpdated = stockDate;
+
+                            // Perform a clone
+                            ObjectLibrary.BusinessObjects.Industry clone = industry.Clone();
+
+                            // Perform the save
+                            saved = Gateway.SaveIndustry(ref clone);
+                        }
+                    }
+                }                
+            }
+        }
+        #endregion
+
+        #region UpdateSectors(DateTime stockDate)
+        /// <summary>
+        /// Update Sectors
+        /// </summary>
+        public void UpdateSectors(DateTime stockDate)
+        {
+            // load aall the industries
+            List<ObjectLibrary.BusinessObjects.Sector> sectors = Gateway.LoadSectors();
+
+            // local
+            bool saved = false;
+
+            // If the sectors collection exists and has one or more items
+            if (ListHelper.HasOneOrMoreItems(sectors))
+            {
+                // iterate the industries
+                foreach (ObjectLibrary.BusinessObjects.Sector sector in sectors)
+                {
+                    // if there is data
+                    if ((sector.Advancers > 0) || (sector.Decliners > 0))
+                    {
+                        // save the history entry
+                        SectorHistory history = new SectorHistory();
+
+                        // Store the current sector values as history
+                        history.Advancers = sector.Advancers;
+                        history.SectorId = sector.Id;
+                        history.AveragePercentChange = sector.AveragePercentChange;
+                        history.Date = sector.LastUpdated;
+                        history.Decliners = sector.Decliners;
+                        history.Score = sector.Score;
+                        history.Streak = sector.Streak;
+                            
+                        // Save the history
+                        saved = Gateway.SaveSectorHistory(ref history);
+                    }
+
+                    // Now update the Sector object
+                    List<SectorView> sectorViews = Gateway.LoadSectorViewsForSectorAndStockDate(sector.Name, stockDate);
+
+                    // If the sectorsViews collection exists and has one or more items
+                    if (ListHelper.HasOneOrMoreItems(sectorViews))
+                    {
+                        // reset
+                        sector.Advancers = 0;
+                        sector.Decliners = 0;
+
+                        // if there are one or more items
+                        foreach (SectorView view in sectorViews)
+                        {
+                            if (view.Streak > 0)
+                            {
+                                // Increment the value for industry
+                                sector.Advancers++;
+                            }
+                            else if (view.Streak < 0)
+                            {
+                                // Increment the value for industry
+                                sector.Decliners++;
+                            }
+
+                            // Set the LastUpdated
+                            sector.LastUpdated = stockDate;
+                        }
+
+                        // if there are more advancers
+                        if (sector.Advancers > sector.Decliners)
+                        {
+                            // if the streak is continueing
+                            if (sector.Streak > 0)
+                            {
+                                // Increment the value for sector.Streak
+                                sector.Streak++;
+                            }
+                            else
+                            {
+                                // start a new streak
+                                sector.Streak = 1;
+                            }
+                        }
+                        else if (sector.Decliners > sector.Advancers)
+                        {
+                            // if the streak is continueing
+                            if (sector.Streak < 0)
+                            {
+                                // Decrement the value for sector.Streak
+                                sector.Streak--;
+                            }
+                            else
+                            {
+                                // start a new streak
+                                sector.Streak = -1;
+                            }
+                        }
+
+                        // Set the number of stocks
+                        sector.NumberStocks = sectorViews.Where(x => x.Track == true).Count();
+
+                        // Set the Score
+                        if (sector.NumberStocks > 0)
+                        {
+                            // if numbers match exactly
+                            if (sector.Advancers == sector.Decliners)
+                            {
+                                // break point only
+                                sector.Score = 50.0;
+                            }
+                            else if (sector.Advancers == sector.NumberStocks)
+                            {
+                                // if all advance
+                                sector.Score = 100.0;
+                            }
+                            else if (sector.Advancers == 0)
+                            {
+                                // All declined is 0
+                                sector.Score = 0;
+                            }
+                            else
+                            {
+                                // Set the Score
+                                sector.Score = NumericHelper.DivideDoublesAsDecimals(100, sector.NumberStocks, 2) * sector.Advancers;
+                            }
+                            
+                            // Set the AveragePercentChange
+                            sector.AveragePercentChange = SetSectorAveragePercentChange(sectorViews);
+                            sector.AveragePercentChange = Math.Round(sector.AveragePercentChange, 2);
+
+                            // Set the LastUpdated
+                            sector.LastUpdated = stockDate;
+
+                            // Perform a clone
+                            ObjectLibrary.BusinessObjects.Sector clone = sector.Clone();
+
+                            // Perform the save
+                            saved = Gateway.SaveSector(ref clone);
+                        }
+                    }
+                }                
+            }
+        }
+        #endregion
+            
         #endregion
 
         #region Properties
@@ -795,6 +1372,17 @@ namespace StockData
         }
         #endregion
 
+        #region StockDayProcessed
+        /// <summary>
+        /// This property gets or sets the value for 'StockDayProcessed'.
+        /// </summary>
+        public bool StockDayProcessed
+        {
+            get { return stockDayProcessed; }
+            set { stockDayProcessed = value; }
+        }
+        #endregion
+            
         #endregion
 
     }

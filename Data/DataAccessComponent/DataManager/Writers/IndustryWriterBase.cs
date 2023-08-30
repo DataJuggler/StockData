@@ -117,7 +117,7 @@ namespace DataAccessComponent.DataManager.Writers
             internal static SqlParameter[] CreateInsertParameters(Industry industry)
             {
                 // Initial Values
-                SqlParameter[] parameters = new SqlParameter[7];
+                SqlParameter[] parameters = new SqlParameter[8];
                 SqlParameter param = null;
 
                 // verify industryexists
@@ -141,29 +141,46 @@ namespace DataAccessComponent.DataManager.Writers
                     // set parameters[2]
                     parameters[2] = param;
 
-                    // Create [Name] parameter
-                    param = new SqlParameter("@Name", industry.Name);
+                    // Create [LastUpdated] Parameter
+                    param = new SqlParameter("@LastUpdated", SqlDbType.DateTime);
 
+                    // If industry.LastUpdated does not exist.
+                    if (industry.LastUpdated.Year < 1900)
+                    {
+                        // Set the value to 1/1/1900
+                        param.Value = new DateTime(1900, 1, 1);
+                    }
+                    else
+                    {
+                        // Set the parameter value
+                        param.Value = industry.LastUpdated;
+                    }
                     // set parameters[3]
                     parameters[3] = param;
 
-                    // Create [NumberStocks] parameter
-                    param = new SqlParameter("@NumberStocks", industry.NumberStocks);
+                    // Create [Name] parameter
+                    param = new SqlParameter("@Name", industry.Name);
 
                     // set parameters[4]
                     parameters[4] = param;
 
-                    // Create [Score] parameter
-                    param = new SqlParameter("@Score", industry.Score);
+                    // Create [NumberStocks] parameter
+                    param = new SqlParameter("@NumberStocks", industry.NumberStocks);
 
                     // set parameters[5]
                     parameters[5] = param;
 
-                    // Create [Streak] parameter
-                    param = new SqlParameter("@Streak", industry.Streak);
+                    // Create [Score] parameter
+                    param = new SqlParameter("@Score", industry.Score);
 
                     // set parameters[6]
                     parameters[6] = param;
+
+                    // Create [Streak] parameter
+                    param = new SqlParameter("@Streak", industry.Streak);
+
+                    // set parameters[7]
+                    parameters[7] = param;
                 }
 
                 // return value
@@ -210,7 +227,7 @@ namespace DataAccessComponent.DataManager.Writers
             internal static SqlParameter[] CreateUpdateParameters(Industry industry)
             {
                 // Initial Values
-                SqlParameter[] parameters = new SqlParameter[8];
+                SqlParameter[] parameters = new SqlParameter[9];
                 SqlParameter param = null;
 
                 // verify industryexists
@@ -234,33 +251,52 @@ namespace DataAccessComponent.DataManager.Writers
                     // set parameters[2]
                     parameters[2] = param;
 
-                    // Create parameter for [Name]
-                    param = new SqlParameter("@Name", industry.Name);
+                    // Create parameter for [LastUpdated]
+                    // Create [LastUpdated] Parameter
+                    param = new SqlParameter("@LastUpdated", SqlDbType.DateTime);
+
+                    // If industry.LastUpdated does not exist.
+                    if (industry.LastUpdated.Year < 1900)
+                    {
+                        // Set the value to 1/1/1900
+                        param.Value = new DateTime(1900, 1, 1);
+                    }
+                    else
+                    {
+                        // Set the parameter value
+                        param.Value = industry.LastUpdated;
+                    }
 
                     // set parameters[3]
                     parameters[3] = param;
 
-                    // Create parameter for [NumberStocks]
-                    param = new SqlParameter("@NumberStocks", industry.NumberStocks);
+                    // Create parameter for [Name]
+                    param = new SqlParameter("@Name", industry.Name);
 
                     // set parameters[4]
                     parameters[4] = param;
 
-                    // Create parameter for [Score]
-                    param = new SqlParameter("@Score", industry.Score);
+                    // Create parameter for [NumberStocks]
+                    param = new SqlParameter("@NumberStocks", industry.NumberStocks);
 
                     // set parameters[5]
                     parameters[5] = param;
 
-                    // Create parameter for [Streak]
-                    param = new SqlParameter("@Streak", industry.Streak);
+                    // Create parameter for [Score]
+                    param = new SqlParameter("@Score", industry.Score);
 
                     // set parameters[6]
                     parameters[6] = param;
 
+                    // Create parameter for [Streak]
+                    param = new SqlParameter("@Streak", industry.Streak);
+
+                    // set parameters[7]
+                    parameters[7] = param;
+
                     // Create parameter for [Id]
                     param = new SqlParameter("@Id", industry.Id);
-                    parameters[7] = param;
+                    parameters[8] = param;
                 }
 
                 // return value

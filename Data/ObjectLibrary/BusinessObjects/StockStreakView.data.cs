@@ -23,7 +23,7 @@ namespace ObjectLibrary.BusinessObjects
         private string name;
         private double percentChange;
         private bool reverseSplit;
-        private double reverseSplitDivisor;
+        private int reverseSplitDivisor;
         private string sector;
         private int stockId;
         private int streak;
@@ -139,8 +139,8 @@ namespace ObjectLibrary.BusinessObjects
             }
             #endregion
 
-            #region double ReverseSplitDivisor
-            public double ReverseSplitDivisor
+            #region int ReverseSplitDivisor
+            public int ReverseSplitDivisor
             {
                 get
                 {

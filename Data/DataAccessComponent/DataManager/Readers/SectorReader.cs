@@ -40,10 +40,11 @@ namespace DataAccessComponent.DataManager.Readers
                 int averagePercentChangefield = 1;
                 int declinersfield = 2;
                 int idfield = 3;
-                int namefield = 4;
-                int numberStocksfield = 5;
-                int scorefield = 6;
-                int streakfield = 7;
+                int lastUpdatedfield = 4;
+                int namefield = 5;
+                int numberStocksfield = 6;
+                int scorefield = 7;
+                int streakfield = 8;
 
                 try
                 {
@@ -52,6 +53,7 @@ namespace DataAccessComponent.DataManager.Readers
                     sector.AveragePercentChange = DataHelper.ParseDouble(dataRow.ItemArray[averagePercentChangefield], 0);
                     sector.Decliners = DataHelper.ParseInteger(dataRow.ItemArray[declinersfield], 0);
                     sector.UpdateIdentity(DataHelper.ParseInteger(dataRow.ItemArray[idfield], 0));
+                    sector.LastUpdated = DataHelper.ParseDate(dataRow.ItemArray[lastUpdatedfield]);
                     sector.Name = DataHelper.ParseString(dataRow.ItemArray[namefield]);
                     sector.NumberStocks = DataHelper.ParseInteger(dataRow.ItemArray[numberStocksfield], 0);
                     sector.Score = DataHelper.ParseDouble(dataRow.ItemArray[scorefield], 0);

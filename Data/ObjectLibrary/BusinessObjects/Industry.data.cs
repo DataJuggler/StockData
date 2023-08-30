@@ -20,6 +20,7 @@ namespace ObjectLibrary.BusinessObjects
         private double averagePercentChange;
         private int decliners;
         private int id;
+        private DateTime lastUpdated;
         private string name;
         private int numberStocks;
         private double score;
@@ -92,6 +93,20 @@ namespace ObjectLibrary.BusinessObjects
                 get
                 {
                     return id;
+                }
+            }
+            #endregion
+
+            #region DateTime LastUpdated
+            public DateTime LastUpdated
+            {
+                get
+                {
+                    return lastUpdated;
+                }
+                set
+                {
+                    lastUpdated = value;
                 }
             }
             #endregion
