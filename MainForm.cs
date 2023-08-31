@@ -578,8 +578,12 @@ namespace StockData
                                                             // Get a comparision of the average volume for the last 50 trading days vs this day's volume
                                                             if (stock.AverageDailyVolume > 0)
                                                             {
-                                                                // Set the VolumeScore
-                                                                data.VolumeScore = NumericHelper.DivideDoublesAsDecimals(100, stock.AverageDailyVolume, 2) - 100;                                                                                                                                                                                                
+                                                                decimal oneHundred = 100;
+                                                                decimal averageDailyVolume = stock.AverageDailyVolume;
+                                                                decimal temp = oneHundred / averageDailyVolume;
+                                                                decimal temp2 = Math.Round(temp * data.Volume, 2);
+                                                                decimal volumeScore = temp2 - oneHundred;
+                                                                data.VolumeScore = (double)volumeScore;
                                                             }
 
                                                             // perform the save again now that VolumeScore is set
