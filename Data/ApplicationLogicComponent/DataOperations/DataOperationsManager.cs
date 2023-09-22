@@ -35,6 +35,8 @@ namespace ApplicationLogicComponent.DataOperations
         private IndustryMethods industryMethods;
         private IndustryHistoryMethods industryhistoryMethods;
         private IndustryViewMethods industryviewMethods;
+        private RecommendationLogMethods recommendationlogMethods;
+        private RecommendationViewMethods recommendationviewMethods;
         private SectorMethods sectorMethods;
         private SectorHistoryMethods sectorhistoryMethods;
         private SectorViewMethods sectorviewMethods;
@@ -74,6 +76,8 @@ namespace ApplicationLogicComponent.DataOperations
                 this.IndustryMethods = new IndustryMethods(this.DataManager);
                 this.IndustryHistoryMethods = new IndustryHistoryMethods(this.DataManager);
                 this.IndustryViewMethods = new IndustryViewMethods(this.DataManager);
+                this.RecommendationLogMethods = new RecommendationLogMethods(this.DataManager);
+                this.RecommendationViewMethods = new RecommendationViewMethods(this.DataManager);
                 this.SectorMethods = new SectorMethods(this.DataManager);
                 this.SectorHistoryMethods = new SectorHistoryMethods(this.DataManager);
                 this.SectorViewMethods = new SectorViewMethods(this.DataManager);
@@ -149,6 +153,22 @@ namespace ApplicationLogicComponent.DataOperations
             {
                 get { return industryviewMethods; }
                 set { industryviewMethods = value; }
+            }
+            #endregion
+
+            #region RecommendationLogMethods
+            public RecommendationLogMethods RecommendationLogMethods
+            {
+                get { return recommendationlogMethods; }
+                set { recommendationlogMethods = value; }
+            }
+            #endregion
+
+            #region RecommendationViewMethods
+            public RecommendationViewMethods RecommendationViewMethods
+            {
+                get { return recommendationviewMethods; }
+                set { recommendationviewMethods = value; }
             }
             #endregion
 

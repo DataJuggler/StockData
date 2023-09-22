@@ -31,6 +31,8 @@ namespace ApplicationLogicComponent.Controllers
         private IndustryController industryController;
         private IndustryHistoryController industryhistoryController;
         private IndustryViewController industryviewController;
+        private RecommendationLogController recommendationlogController;
+        private RecommendationViewController recommendationviewController;
         private SectorController sectorController;
         private SectorHistoryController sectorhistoryController;
         private SectorViewController sectorviewController;
@@ -70,6 +72,8 @@ namespace ApplicationLogicComponent.Controllers
                 this.IndustryController = new IndustryController(this.ErrorProcessor, this.AppController);
                 this.IndustryHistoryController = new IndustryHistoryController(this.ErrorProcessor, this.AppController);
                 this.IndustryViewController = new IndustryViewController(this.ErrorProcessor, this.AppController);
+                this.RecommendationLogController = new RecommendationLogController(this.ErrorProcessor, this.AppController);
+                this.RecommendationViewController = new RecommendationViewController(this.ErrorProcessor, this.AppController);
                 this.SectorController = new SectorController(this.ErrorProcessor, this.AppController);
                 this.SectorHistoryController = new SectorHistoryController(this.ErrorProcessor, this.AppController);
                 this.SectorViewController = new SectorViewController(this.ErrorProcessor, this.AppController);
@@ -145,6 +149,22 @@ namespace ApplicationLogicComponent.Controllers
             {
                 get { return industryviewController; }
                 set { industryviewController = value; }
+            }
+            #endregion
+
+            #region RecommendationLogController
+            public RecommendationLogController RecommendationLogController
+            {
+                get { return recommendationlogController; }
+                set { recommendationlogController = value; }
+            }
+            #endregion
+
+            #region RecommendationViewController
+            public RecommendationViewController RecommendationViewController
+            {
+                get { return recommendationviewController; }
+                set { recommendationviewController = value; }
             }
             #endregion
 

@@ -202,30 +202,33 @@ namespace StockData
                 // Iterate the collection of NASDAQ objects
                 foreach (NASDAQ entry in nasdaqEntries)
                 {
-                    // Create a new instance of a 'Stock' object.
-                    Stock stock = new Stock();
-
-                    // set the properties of the stock object
-                    stock.IPOYear = entry.IPOYear;
-                    stock.LastClose = 0;
-                    stock.Track = true;
-                    stock.AverageDailyVolume = 0;
-                    stock.Exchange = "NASDAQ";
-                    stock.Industry = entry.Industry;
-                    stock.Sector = entry.Sector;
-                    stock.Streak = 0;
-                    stock.Symbol = entry.Symbol;
-                    stock.Name = entry.Name;
-
-                    // perform the stock
-                    saved = Gateway.SaveStock(ref stock);
-
-                    // if the value for saved is true
-                    if (saved)
+                    // We have to determine if this stock is in the list
+                    Stock tempStock = Gateway.FindStockBySymbol(entry.Symbol);                    
+                    
+                    // If the tempStock object does not exist
+                    if (NullHelper.IsNull(tempStock))
                     {
-                        // Increment the value for Graph
-                        Graph.Value++;
+                        // Create a new instance of a 'Stock' object.
+                        Stock stock = new Stock();
+
+                        // set the properties of the stock object
+                        stock.IPOYear = entry.IPOYear;
+                        stock.LastClose = 0;
+                        stock.Track = true;
+                        stock.AverageDailyVolume = 0;
+                        stock.Exchange = "NASDAQ";
+                        stock.Industry = entry.Industry;
+                        stock.Sector = entry.Sector;
+                        stock.Streak = 0;
+                        stock.Symbol = entry.Symbol;
+                        stock.Name = entry.Name;
+
+                        // perform the stock
+                        saved = Gateway.SaveStock(ref stock);
                     }
+                   
+                    // Increment the value for Graph
+                    Graph.Value++;
                 }
 
                 // Setup our graph
@@ -234,30 +237,33 @@ namespace StockData
                 // Iterate the collection of NYSE objects
                 foreach (NYSE entry in nyseEntries)
                 {
-                    // Create a new instance of a 'Stock' object.
-                    Stock stock = new Stock();
-
-                    // set the properties of the stock object
-                    stock.IPOYear = entry.IPOYear;
-                    stock.LastClose = 0;
-                    stock.Track = true;
-                    stock.AverageDailyVolume = 0;
-                    stock.Exchange = "NYSE";
-                    stock.Industry = entry.Industry;
-                    stock.Sector = entry.Sector;
-                    stock.Streak = 0;
-                    stock.Symbol = entry.Symbol;
-                    stock.Name = entry.Name;
-
-                    // perform the stock
-                    saved = Gateway.SaveStock(ref stock);
-
-                    // if the value for saved is true
-                    if (saved)
+                    // We have to determine if this stock is in the list
+                    Stock tempStock = Gateway.FindStockBySymbol(entry.Symbol);                    
+                    
+                    // If the tempStock object does not exist
+                    if (NullHelper.IsNull(tempStock))
                     {
-                        // Increment the value for Graph
-                        Graph.Value++;
+                        // Create a new instance of a 'Stock' object.
+                        Stock stock = new Stock();
+
+                        // set the properties of the stock object
+                        stock.IPOYear = entry.IPOYear;
+                        stock.LastClose = 0;
+                        stock.Track = true;
+                        stock.AverageDailyVolume = 0;
+                        stock.Exchange = "NYSE";
+                        stock.Industry = entry.Industry;
+                        stock.Sector = entry.Sector;
+                        stock.Streak = 0;
+                        stock.Symbol = entry.Symbol;
+                        stock.Name = entry.Name;
+
+                        // perform the stock
+                        saved = Gateway.SaveStock(ref stock);
                     }
+                    
+                    // Increment the value for Graph
+                    Graph.Value++;
                 }
             }
 
@@ -295,16 +301,19 @@ namespace StockData
                 // If the files collection exists and has one or more items
                 if (ListHelper.HasOneOrMoreItems(files))
                 {
+                    // Convert the files to StockFile
+                    List<StockFile> stockFiles = ConvertFilesToStockFiles(files);
+
                     // Setup the graph
-                    SetupGraph("Processing Files In Documents Folder", files.Count, true);
+                    SetupGraph("Processing Files In Documents Folder", stockFiles.Count, true);
 
                     // Iterate the collection of string objects
-                    foreach (string file in files)
+                    foreach (StockFile file in stockFiles)
                     {
                         try
                         {
                             // Get the textLines from this file
-                            List<TextLine> lines = TextHelper.GetTextLinesFromFile(file, true, delimiter);
+                            List<TextLine> lines = TextHelper.GetTextLinesFromFile(file.Path, true, delimiter);
 
                             // If the lines collection exists and has one or more items
                             if (ListHelper.HasOneOrMoreItems(lines))
@@ -628,17 +637,56 @@ namespace StockData
                                 }
                             }
 
+                            // increment the graph
+                            Graph.Value++;
+
+                            // only update the RecommendationLog every other file
+                            if (Graph.Value % 2 == 0)
+                            {
+                                 // 9.21.2023 Adding RecommendationLog
+                                List<RecommendationView> recommendationView = Gateway.LoadRecommendationViews();
+
+                                // If the recommendationView collection exists and has one or more items
+                                if (ListHelper.HasOneOrMoreItems(recommendationView))
+                                {
+                                    // Iterate the collection of RecommendationView objects
+                                    foreach (RecommendationView recommendation in recommendationView)
+                                    {
+                                        // Create a new instance of a 'RecommendationLog' object.
+                                        RecommendationLog log = new RecommendationLog();
+
+                                        // store each property
+                                        log.Score = recommendation.Score;
+                                        log.StockName = recommendation.StockName;
+                                        log.Symbol = recommendation.Symbol;
+                                        log.StockDate = recommendation.StockDate;
+                                        log.LastClose = recommendation.LastClose;
+                                        log.CloseScore = recommendation.CloseScore;
+                                        log.VolumeScore = recommendation.VolumeScore;
+                                        log.Streak = recommendation.Streak;
+                                        log.LastPercentChange = recommendation.LastPercentChange;
+                                        log.StreakPercentChange = recommendation.StreakPercentChange;
+                                        log.Industry = recommendation.Industry;
+                                        log.IndustryScore = recommendation.IndustryScore;
+                                        log.IndustryStreak = recommendation.IndustryStreak;
+                                        log.Sector = recommendation.Sector;
+                                        log.SectorScore = recommendation.SectorScore;
+                                        log.SectorStreak = recommendation.SectorStreak;
+
+                                        // Store
+                                        saved = Gateway.SaveRecommendationLog(ref log);
+                                    }
+                                }
+                            }
+
                             // Create a new instance of a 'FileInfo' object.
-                            FileInfo fileInfo = new FileInfo(file);
+                            FileInfo fileInfo = new FileInfo(file.Path);
 
                             // set the destinationPath
                             string destinationPath = Path.Combine(ProcessedFolder, fileInfo.Name);
 
                             // move the file to the processed folder
-                            File.Move(file, destinationPath);
-
-                            // increment the graph
-                            Graph.Value++;
+                            File.Move(file.Path, destinationPath);
 
                             // Update everything
                             Refresh();
@@ -721,6 +769,48 @@ namespace StockData
 
         #region Methods
 
+        #region ConvertFilesToStockFiles(List<string> files)
+        /// <summary>
+        /// returns a list of Files To Stock Files
+        /// </summary>
+        public List<StockFile> ConvertFilesToStockFiles(List<string> files)
+        {
+            // initial value
+            List<StockFile> stockFiles = null;
+
+            // If the files collection exists and has one or more items
+            if (ListHelper.HasOneOrMoreItems(files))
+            {
+                // Create a new collection of 'StockFile' objects.
+                stockFiles = new List<StockFile>();
+
+                // Iterate the collection of string objects
+                foreach (string file in files)
+                {
+                    // Create a new instance of a 'StockFile' object.
+                    StockFile stockFile = new StockFile();
+
+                    // Create a new instance of a 'FileInfo' object.
+                    FileInfo fileInfo = new FileInfo(file);
+
+                    // Set the Name
+                    stockFile.Name = fileInfo.Name;
+                    stockFile.Path = file;
+                    stockFile.Date = ParseDateFromFileName(stockFile.Name);
+
+                    // Add this file
+                    stockFiles.Add(stockFile);
+                }
+
+                // now sort the list
+                stockFiles = stockFiles.OrderBy(x => x.Date).ToList();
+            }
+                
+            // return value
+            return stockFiles;
+        }
+        #endregion
+            
         #region Init()
         /// <summary>
         ///  This method performs initializations for this object.
@@ -735,6 +825,40 @@ namespace StockData
         }
         #endregion
 
+        #region ParseDateFromFileName(string fileName)
+        /// <summary>
+        /// returns the Date From File Name
+        /// </summary>
+        public DateTime ParseDateFromFileName(string fileName)
+        {
+            // initial value
+            DateTime date = new DateTime();
+
+            // If the fileName string exists
+            if (TextHelper.Exists(fileName))
+            {
+                // get the fileName without the extension
+                string temp = FileHelper.GetFileNameWithoutExtension(fileName);
+
+                // get the index of the underscore
+                int index = temp.IndexOf("_");
+
+                // if the index was found
+                if (index >= 0)
+                {
+                    // Get the date portion of the fileName
+                    string temp2 = temp.Substring(index + 1);
+
+                    // parse the date
+                    date = DateHelper.ParseEightDigitDate(temp2);
+                }
+            }
+                
+            // return value
+            return date;
+        }
+        #endregion
+            
         #region ProcessStockDay()
         /// <summary>
         /// Process Stock Day

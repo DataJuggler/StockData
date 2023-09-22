@@ -37,41 +37,59 @@ namespace DataAccessComponent.DataManager.Readers
 
                 // Create field Integers
                 int averageDailyVolumefield = 0;
-                int exchangefield = 1;
-                int industryfield = 2;
-                int lastClosefield = 3;
-                int namefield = 4;
-                int percentChangefield = 5;
-                int reverseSplitfield = 6;
-                int reverseSplitDivisorfield = 7;
-                int sectorfield = 8;
-                int stockIdfield = 9;
-                int streakfield = 10;
-                int streakEndDatefield = 11;
-                int streakEndPricefield = 12;
-                int streakStartDatefield = 13;
-                int streakStartPricefield = 14;
-                int symbolfield = 15;
+                int closeScorefield = 1;
+                int exchangefield = 2;
+                int industryfield = 3;
+                int industryScorefield = 4;
+                int industryStreakfield = 5;
+                int lastClosefield = 6;
+                int lastPercentChangefield = 7;
+                int namefield = 8;
+                int percentChangefield = 9;
+                int reverseSplitfield = 10;
+                int reverseSplitDivisorfield = 11;
+                int sectorfield = 12;
+                int sectorScorefield = 13;
+                int sectorStreakfield = 14;
+                int stockDatefield = 15;
+                int stockIdfield = 16;
+                int streakfield = 17;
+                int streakEndDatefield = 18;
+                int streakEndPricefield = 19;
+                int streakPercentChangefield = 20;
+                int streakStartDatefield = 21;
+                int streakStartPricefield = 22;
+                int symbolfield = 23;
+                int volumeScorefield = 24;
 
                 try
                 {
                     // Load Each field
                     stockStreakView.AverageDailyVolume = DataHelper.ParseInteger(dataRow.ItemArray[averageDailyVolumefield], 0);
+                    stockStreakView.CloseScore = DataHelper.ParseDouble(dataRow.ItemArray[closeScorefield], 0);
                     stockStreakView.Exchange = DataHelper.ParseString(dataRow.ItemArray[exchangefield]);
                     stockStreakView.Industry = DataHelper.ParseString(dataRow.ItemArray[industryfield]);
+                    stockStreakView.IndustryScore = DataHelper.ParseDouble(dataRow.ItemArray[industryScorefield], 0);
+                    stockStreakView.IndustryStreak = DataHelper.ParseInteger(dataRow.ItemArray[industryStreakfield], 0);
                     stockStreakView.LastClose = DataHelper.ParseDouble(dataRow.ItemArray[lastClosefield], 0);
+                    stockStreakView.LastPercentChange = DataHelper.ParseDouble(dataRow.ItemArray[lastPercentChangefield], 0);
                     stockStreakView.Name = DataHelper.ParseString(dataRow.ItemArray[namefield]);
                     stockStreakView.PercentChange = DataHelper.ParseDouble(dataRow.ItemArray[percentChangefield], 0);
                     stockStreakView.ReverseSplit = DataHelper.ParseBoolean(dataRow.ItemArray[reverseSplitfield], false);
                     stockStreakView.ReverseSplitDivisor = DataHelper.ParseInteger(dataRow.ItemArray[reverseSplitDivisorfield], 0);
                     stockStreakView.Sector = DataHelper.ParseString(dataRow.ItemArray[sectorfield]);
+                    stockStreakView.SectorScore = DataHelper.ParseDouble(dataRow.ItemArray[sectorScorefield], 0);
+                    stockStreakView.SectorStreak = DataHelper.ParseInteger(dataRow.ItemArray[sectorStreakfield], 0);
+                    stockStreakView.StockDate = DataHelper.ParseDate(dataRow.ItemArray[stockDatefield]);
                     stockStreakView.StockId = DataHelper.ParseInteger(dataRow.ItemArray[stockIdfield], 0);
                     stockStreakView.Streak = DataHelper.ParseInteger(dataRow.ItemArray[streakfield], 0);
                     stockStreakView.StreakEndDate = DataHelper.ParseDate(dataRow.ItemArray[streakEndDatefield]);
                     stockStreakView.StreakEndPrice = DataHelper.ParseDouble(dataRow.ItemArray[streakEndPricefield], 0);
+                    stockStreakView.StreakPercentChange = DataHelper.ParseDouble(dataRow.ItemArray[streakPercentChangefield], 0);
                     stockStreakView.StreakStartDate = DataHelper.ParseDate(dataRow.ItemArray[streakStartDatefield]);
                     stockStreakView.StreakStartPrice = DataHelper.ParseDouble(dataRow.ItemArray[streakStartPricefield], 0);
                     stockStreakView.Symbol = DataHelper.ParseString(dataRow.ItemArray[symbolfield]);
+                    stockStreakView.VolumeScore = DataHelper.ParseDouble(dataRow.ItemArray[volumeScorefield], 0);
                 }
                 catch
                 {

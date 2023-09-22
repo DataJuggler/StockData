@@ -11,58 +11,47 @@ using System;
 namespace ObjectLibrary.BusinessObjects
 {
 
-    #region class StockStreakView
-    public partial class StockStreakView
+    #region class RecommendationLog
+    public partial class RecommendationLog
     {
 
         #region Private Variables
-        private int averageDailyVolume;
         private double closeScore;
-        private string exchange;
+        private int id;
         private string industry;
         private double industryScore;
         private int industryStreak;
         private double lastClose;
         private double lastPercentChange;
-        private string name;
-        private double percentChange;
-        private bool reverseSplit;
-        private int reverseSplitDivisor;
+        private double score;
         private string sector;
         private double sectorScore;
         private int sectorStreak;
         private DateTime stockDate;
-        private int stockId;
+        private string stockName;
         private int streak;
-        private DateTime streakEndDate;
-        private double streakEndPrice;
         private double streakPercentChange;
-        private DateTime streakStartDate;
-        private double streakStartPrice;
         private string symbol;
         private double volumeScore;
         #endregion
 
         #region Methods
 
+            #region UpdateIdentity(int id)
+            // <summary>
+            // This method provides a 'setter'
+            // functionality for the Identity field.
+            // </summary>
+            public void UpdateIdentity(int id)
+            {
+                // Update The Identity field
+                this.id = id;
+            }
+            #endregion
 
         #endregion
 
         #region Properties
-
-            #region int AverageDailyVolume
-            public int AverageDailyVolume
-            {
-                get
-                {
-                    return averageDailyVolume;
-                }
-                set
-                {
-                    averageDailyVolume = value;
-                }
-            }
-            #endregion
 
             #region double CloseScore
             public double CloseScore
@@ -78,16 +67,12 @@ namespace ObjectLibrary.BusinessObjects
             }
             #endregion
 
-            #region string Exchange
-            public string Exchange
+            #region int Id
+            public int Id
             {
                 get
                 {
-                    return exchange;
-                }
-                set
-                {
-                    exchange = value;
+                    return id;
                 }
             }
             #endregion
@@ -162,58 +147,16 @@ namespace ObjectLibrary.BusinessObjects
             }
             #endregion
 
-            #region string Name
-            public string Name
+            #region double Score
+            public double Score
             {
                 get
                 {
-                    return name;
+                    return score;
                 }
                 set
                 {
-                    name = value;
-                }
-            }
-            #endregion
-
-            #region double PercentChange
-            public double PercentChange
-            {
-                get
-                {
-                    return percentChange;
-                }
-                set
-                {
-                    percentChange = value;
-                }
-            }
-            #endregion
-
-            #region bool ReverseSplit
-            public bool ReverseSplit
-            {
-                get
-                {
-                    return reverseSplit;
-                }
-                set
-                {
-                    reverseSplit = value;
-                }
-            }
-            #endregion
-
-            #region int ReverseSplitDivisor
-            public int ReverseSplitDivisor
-            {
-                get
-                {
-                    return reverseSplitDivisor;
-                }
-                set
-                {
-                    reverseSplitDivisor = value;
+                    score = value;
                 }
             }
             #endregion
@@ -274,16 +217,16 @@ namespace ObjectLibrary.BusinessObjects
             }
             #endregion
 
-            #region int StockId
-            public int StockId
+            #region string StockName
+            public string StockName
             {
                 get
                 {
-                    return stockId;
+                    return stockName;
                 }
                 set
                 {
-                    stockId = value;
+                    stockName = value;
                 }
             }
             #endregion
@@ -302,34 +245,6 @@ namespace ObjectLibrary.BusinessObjects
             }
             #endregion
 
-            #region DateTime StreakEndDate
-            public DateTime StreakEndDate
-            {
-                get
-                {
-                    return streakEndDate;
-                }
-                set
-                {
-                    streakEndDate = value;
-                }
-            }
-            #endregion
-
-            #region double StreakEndPrice
-            public double StreakEndPrice
-            {
-                get
-                {
-                    return streakEndPrice;
-                }
-                set
-                {
-                    streakEndPrice = value;
-                }
-            }
-            #endregion
-
             #region double StreakPercentChange
             public double StreakPercentChange
             {
@@ -340,34 +255,6 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     streakPercentChange = value;
-                }
-            }
-            #endregion
-
-            #region DateTime StreakStartDate
-            public DateTime StreakStartDate
-            {
-                get
-                {
-                    return streakStartDate;
-                }
-                set
-                {
-                    streakStartDate = value;
-                }
-            }
-            #endregion
-
-            #region double StreakStartPrice
-            public double StreakStartPrice
-            {
-                get
-                {
-                    return streakStartPrice;
-                }
-                set
-                {
-                    streakStartPrice = value;
                 }
             }
             #endregion
@@ -396,6 +283,20 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     volumeScore = value;
+                }
+            }
+            #endregion
+
+            #region bool IsNew
+            public bool IsNew
+            {
+                get
+                {
+                    // Initial Value
+                    bool isNew = (this.Id < 1);
+
+                    // return value
+                    return isNew;
                 }
             }
             #endregion

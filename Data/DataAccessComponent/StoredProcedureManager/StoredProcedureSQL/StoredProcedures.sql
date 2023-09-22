@@ -6,7 +6,7 @@ Go
 -- =========================================================
 -- Procure Name: Admin_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Insert a new Admin
 -- =========================================================
 
@@ -66,7 +66,7 @@ Go
 -- =========================================================
 -- Procure Name: Admin_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Update an existing Admin
 -- =========================================================
 
@@ -128,7 +128,7 @@ Go
 -- =========================================================
 -- Procure Name: Admin_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Find an existing Admin
 -- =========================================================
 
@@ -185,7 +185,7 @@ Go
 -- =========================================================
 -- Procure Name: Admin_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Delete an existing Admin
 -- =========================================================
 
@@ -239,7 +239,7 @@ Go
 -- =========================================================
 -- Procure Name: Admin_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all Admin objects
 -- =========================================================
 
@@ -290,7 +290,7 @@ Go
 -- =========================================================
 -- Procure Name: DailyPriceData_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Insert a new DailyPriceData
 -- =========================================================
 
@@ -362,7 +362,7 @@ Go
 -- =========================================================
 -- Procure Name: DailyPriceData_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Update an existing DailyPriceData
 -- =========================================================
 
@@ -448,7 +448,7 @@ Go
 -- =========================================================
 -- Procure Name: DailyPriceData_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Find an existing DailyPriceData
 -- =========================================================
 
@@ -505,7 +505,7 @@ Go
 -- =========================================================
 -- Procure Name: DailyPriceData_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Delete an existing DailyPriceData
 -- =========================================================
 
@@ -559,7 +559,7 @@ Go
 -- =========================================================
 -- Procure Name: DailyPriceData_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all DailyPriceData objects
 -- =========================================================
 
@@ -610,7 +610,7 @@ Go
 -- =========================================================
 -- Procure Name: DailyPriceDataView_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all DailyPriceDataView objects
 -- =========================================================
 
@@ -661,7 +661,7 @@ Go
 -- =========================================================
 -- Procure Name: Industry_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Insert a new Industry
 -- =========================================================
 
@@ -726,7 +726,7 @@ Go
 -- =========================================================
 -- Procure Name: Industry_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Update an existing Industry
 -- =========================================================
 
@@ -798,7 +798,7 @@ Go
 -- =========================================================
 -- Procure Name: Industry_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Find an existing Industry
 -- =========================================================
 
@@ -855,7 +855,7 @@ Go
 -- =========================================================
 -- Procure Name: Industry_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Delete an existing Industry
 -- =========================================================
 
@@ -909,7 +909,7 @@ Go
 -- =========================================================
 -- Procure Name: Industry_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all Industry objects
 -- =========================================================
 
@@ -960,7 +960,7 @@ Go
 -- =========================================================
 -- Procure Name: IndustryHistory_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Insert a new IndustryHistory
 -- =========================================================
 
@@ -1024,7 +1024,7 @@ Go
 -- =========================================================
 -- Procure Name: IndustryHistory_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Update an existing IndustryHistory
 -- =========================================================
 
@@ -1094,7 +1094,7 @@ Go
 -- =========================================================
 -- Procure Name: IndustryHistory_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Find an existing IndustryHistory
 -- =========================================================
 
@@ -1151,7 +1151,7 @@ Go
 -- =========================================================
 -- Procure Name: IndustryHistory_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Delete an existing IndustryHistory
 -- =========================================================
 
@@ -1205,7 +1205,7 @@ Go
 -- =========================================================
 -- Procure Name: IndustryHistory_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all IndustryHistory objects
 -- =========================================================
 
@@ -1256,7 +1256,7 @@ Go
 -- =========================================================
 -- Procure Name: IndustryView_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all IndustryView objects
 -- =========================================================
 
@@ -1305,9 +1305,383 @@ set ANSI_NULLS ON
 set QUOTED_IDENTIFIER ON
 Go
 -- =========================================================
+-- Procure Name: RecommendationLog_Insert
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   9/21/2023
+-- Description:    Insert a new RecommendationLog
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('RecommendationLog_Insert'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure RecommendationLog_Insert
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.RecommendationLog_Insert') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure RecommendationLog_Insert >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure RecommendationLog_Insert >>>'
+
+    End
+
+GO
+
+Create PROCEDURE RecommendationLog_Insert
+
+    -- Add the parameters for the stored procedure here
+    @CloseScore float,
+    @Industry nvarchar(80),
+    @IndustryScore float,
+    @IndustryStreak int,
+    @LastClose float,
+    @LastPercentChange float,
+    @Score float,
+    @Sector nvarchar(80),
+    @SectorScore float,
+    @SectorStreak int,
+    @StockDate datetime,
+    @StockName nvarchar(50),
+    @Streak int,
+    @StreakPercentChange float,
+    @Symbol nvarchar(10),
+    @VolumeScore float
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Insert Statement
+    Insert Into [RecommendationLog]
+    ([CloseScore],[Industry],[IndustryScore],[IndustryStreak],[LastClose],[LastPercentChange],[Score],[Sector],[SectorScore],[SectorStreak],[StockDate],[StockName],[Streak],[StreakPercentChange],[Symbol],[VolumeScore])
+
+    -- Begin Values List
+    Values(@CloseScore, @Industry, @IndustryScore, @IndustryStreak, @LastClose, @LastPercentChange, @Score, @Sector, @SectorScore, @SectorStreak, @StockDate, @StockName, @Streak, @StreakPercentChange, @Symbol, @VolumeScore)
+
+    -- Return ID of new record
+    SELECT SCOPE_IDENTITY()
+
+END
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
+-- Procure Name: RecommendationLog_Update
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   9/21/2023
+-- Description:    Update an existing RecommendationLog
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('RecommendationLog_Update'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure RecommendationLog_Update
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.RecommendationLog_Update') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure RecommendationLog_Update >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure RecommendationLog_Update >>>'
+
+    End
+
+GO
+
+Create PROCEDURE RecommendationLog_Update
+
+    -- Add the parameters for the stored procedure here
+    @CloseScore float,
+    @Id int,
+    @Industry nvarchar(80),
+    @IndustryScore float,
+    @IndustryStreak int,
+    @LastClose float,
+    @LastPercentChange float,
+    @Score float,
+    @Sector nvarchar(80),
+    @SectorScore float,
+    @SectorStreak int,
+    @StockDate datetime,
+    @StockName nvarchar(50),
+    @Streak int,
+    @StreakPercentChange float,
+    @Symbol nvarchar(10),
+    @VolumeScore float
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Update Statement
+    Update [RecommendationLog]
+
+    -- Update Each field
+    Set [CloseScore] = @CloseScore,
+    [Industry] = @Industry,
+    [IndustryScore] = @IndustryScore,
+    [IndustryStreak] = @IndustryStreak,
+    [LastClose] = @LastClose,
+    [LastPercentChange] = @LastPercentChange,
+    [Score] = @Score,
+    [Sector] = @Sector,
+    [SectorScore] = @SectorScore,
+    [SectorStreak] = @SectorStreak,
+    [StockDate] = @StockDate,
+    [StockName] = @StockName,
+    [Streak] = @Streak,
+    [StreakPercentChange] = @StreakPercentChange,
+    [Symbol] = @Symbol,
+    [VolumeScore] = @VolumeScore
+
+    -- Update Matching Record
+    Where [Id] = @Id
+
+END
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
+-- Procure Name: RecommendationLog_Find
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   9/21/2023
+-- Description:    Find an existing RecommendationLog
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('RecommendationLog_Find'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure RecommendationLog_Find
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.RecommendationLog_Find') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure RecommendationLog_Find >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure RecommendationLog_Find >>>'
+
+    End
+
+GO
+
+Create PROCEDURE RecommendationLog_Find
+
+    -- Primary Key Paramater
+    @Id int
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Select Statement
+    Select [CloseScore],[Id],[Industry],[IndustryScore],[IndustryStreak],[LastClose],[LastPercentChange],[Score],[Sector],[SectorScore],[SectorStreak],[StockDate],[StockName],[Streak],[StreakPercentChange],[Symbol],[VolumeScore]
+
+    -- From tableName
+    From [RecommendationLog]
+
+    -- Find Matching Record
+    Where [Id] = @Id
+
+END
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
+-- Procure Name: RecommendationLog_Delete
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   9/21/2023
+-- Description:    Delete an existing RecommendationLog
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('RecommendationLog_Delete'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure RecommendationLog_Delete
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.RecommendationLog_Delete') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure RecommendationLog_Delete >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure RecommendationLog_Delete >>>'
+
+    End
+
+GO
+
+Create PROCEDURE RecommendationLog_Delete
+
+    -- Primary Key Paramater
+    @Id int
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Delete Statement
+    Delete From [RecommendationLog]
+
+    -- Delete Matching Record
+    Where [Id] = @Id
+
+END
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
+-- Procure Name: RecommendationLog_FetchAll
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   9/21/2023
+-- Description:    Returns all RecommendationLog objects
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('RecommendationLog_FetchAll'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure RecommendationLog_FetchAll
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.RecommendationLog_FetchAll') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure RecommendationLog_FetchAll >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure RecommendationLog_FetchAll >>>'
+
+    End
+
+GO
+
+Create PROCEDURE RecommendationLog_FetchAll
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Select Statement
+    Select [CloseScore],[Id],[Industry],[IndustryScore],[IndustryStreak],[LastClose],[LastPercentChange],[Score],[Sector],[SectorScore],[SectorStreak],[StockDate],[StockName],[Streak],[StreakPercentChange],[Symbol],[VolumeScore]
+
+    -- From tableName
+    From [RecommendationLog]
+
+END
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
+-- Procure Name: RecommendationView_FetchAll
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   9/21/2023
+-- Description:    Returns all RecommendationView objects
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('RecommendationView_FetchAll'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure RecommendationView_FetchAll
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.RecommendationView_FetchAll') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure RecommendationView_FetchAll >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure RecommendationView_FetchAll >>>'
+
+    End
+
+GO
+
+Create PROCEDURE RecommendationView_FetchAll
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Select Statement
+    Select [CloseScore],[Industry],[IndustryScore],[IndustryStreak],[LastClose],[LastPercentChange],[Score],[Sector],[SectorScore],[SectorStreak],[StockDate],[StockID],[StockName],[Streak],[StreakPercentChange],[Symbol],[VolumeScore]
+
+    -- From tableName
+    From [RecommendationView]
+
+END
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
 -- Procure Name: Sector_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Insert a new Sector
 -- =========================================================
 
@@ -1372,7 +1746,7 @@ Go
 -- =========================================================
 -- Procure Name: Sector_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Update an existing Sector
 -- =========================================================
 
@@ -1444,7 +1818,7 @@ Go
 -- =========================================================
 -- Procure Name: Sector_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Find an existing Sector
 -- =========================================================
 
@@ -1501,7 +1875,7 @@ Go
 -- =========================================================
 -- Procure Name: Sector_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Delete an existing Sector
 -- =========================================================
 
@@ -1555,7 +1929,7 @@ Go
 -- =========================================================
 -- Procure Name: Sector_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all Sector objects
 -- =========================================================
 
@@ -1606,7 +1980,7 @@ Go
 -- =========================================================
 -- Procure Name: SectorHistory_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Insert a new SectorHistory
 -- =========================================================
 
@@ -1670,7 +2044,7 @@ Go
 -- =========================================================
 -- Procure Name: SectorHistory_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Update an existing SectorHistory
 -- =========================================================
 
@@ -1740,7 +2114,7 @@ Go
 -- =========================================================
 -- Procure Name: SectorHistory_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Find an existing SectorHistory
 -- =========================================================
 
@@ -1797,7 +2171,7 @@ Go
 -- =========================================================
 -- Procure Name: SectorHistory_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Delete an existing SectorHistory
 -- =========================================================
 
@@ -1851,7 +2225,7 @@ Go
 -- =========================================================
 -- Procure Name: SectorHistory_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all SectorHistory objects
 -- =========================================================
 
@@ -1902,7 +2276,7 @@ Go
 -- =========================================================
 -- Procure Name: SectorView_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all SectorView objects
 -- =========================================================
 
@@ -1953,7 +2327,7 @@ Go
 -- =========================================================
 -- Procure Name: Stock_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Insert a new Stock
 -- =========================================================
 
@@ -2020,7 +2394,7 @@ Go
 -- =========================================================
 -- Procure Name: Stock_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Update an existing Stock
 -- =========================================================
 
@@ -2096,7 +2470,7 @@ Go
 -- =========================================================
 -- Procure Name: Stock_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Find an existing Stock
 -- =========================================================
 
@@ -2153,7 +2527,7 @@ Go
 -- =========================================================
 -- Procure Name: Stock_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Delete an existing Stock
 -- =========================================================
 
@@ -2207,7 +2581,7 @@ Go
 -- =========================================================
 -- Procure Name: Stock_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all Stock objects
 -- =========================================================
 
@@ -2258,7 +2632,7 @@ Go
 -- =========================================================
 -- Procure Name: StockDay_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Insert a new StockDay
 -- =========================================================
 
@@ -2318,7 +2692,7 @@ Go
 -- =========================================================
 -- Procure Name: StockDay_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Update an existing StockDay
 -- =========================================================
 
@@ -2380,7 +2754,7 @@ Go
 -- =========================================================
 -- Procure Name: StockDay_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Find an existing StockDay
 -- =========================================================
 
@@ -2437,7 +2811,7 @@ Go
 -- =========================================================
 -- Procure Name: StockDay_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Delete an existing StockDay
 -- =========================================================
 
@@ -2491,7 +2865,7 @@ Go
 -- =========================================================
 -- Procure Name: StockDay_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all StockDay objects
 -- =========================================================
 
@@ -2542,7 +2916,7 @@ Go
 -- =========================================================
 -- Procure Name: StockStreak_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Insert a new StockStreak
 -- =========================================================
 
@@ -2610,7 +2984,7 @@ Go
 -- =========================================================
 -- Procure Name: StockStreak_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Update an existing StockStreak
 -- =========================================================
 
@@ -2688,7 +3062,7 @@ Go
 -- =========================================================
 -- Procure Name: StockStreak_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Find an existing StockStreak
 -- =========================================================
 
@@ -2745,7 +3119,7 @@ Go
 -- =========================================================
 -- Procure Name: StockStreak_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Delete an existing StockStreak
 -- =========================================================
 
@@ -2799,7 +3173,7 @@ Go
 -- =========================================================
 -- Procure Name: StockStreak_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all StockStreak objects
 -- =========================================================
 
@@ -2850,7 +3224,7 @@ Go
 -- =========================================================
 -- Procure Name: StockStreakView_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all StockStreakView objects
 -- =========================================================
 
@@ -2888,7 +3262,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [AverageDailyVolume],[Exchange],[Industry],[LastClose],[Name],[PercentChange],[ReverseSplit],[ReverseSplitDivisor],[Sector],[StockId],[Streak],[StreakEndDate],[StreakEndPrice],[StreakStartDate],[StreakStartPrice],[Symbol]
+    Select [AverageDailyVolume],[CloseScore],[Exchange],[Industry],[IndustryScore],[IndustryStreak],[LastClose],[LastPercentChange],[Name],[PercentChange],[ReverseSplit],[ReverseSplitDivisor],[Sector],[SectorScore],[SectorStreak],[StockDate],[StockId],[Streak],[StreakEndDate],[StreakEndPrice],[StreakPercentChange],[StreakStartDate],[StreakStartPrice],[Symbol],[VolumeScore]
 
     -- From tableName
     From [StockStreakView]
@@ -2904,7 +3278,7 @@ Go
 -- =========================================================
 -- Procure Name: DailyPriceData_FindBySymbolAndMostRecent
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Find an existing DailyPriceData by
 -- =========================================================
 
@@ -2966,7 +3340,7 @@ Go
 -- =========================================================
 -- Procure Name: Stock_FindBySymbol
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Find an existing Stock for the Symbol given.
 -- =========================================================
 
@@ -3023,7 +3397,7 @@ Go
 -- =========================================================
 -- Procure Name: StockStreak_FindByStockIdAndCurrentStreak
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Find an existing StockStreak by
 -- =========================================================
 
@@ -3085,7 +3459,7 @@ Go
 -- =========================================================
 -- Procure Name: DailyPriceData_FetchAllForSymbol
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all DailyPriceData objects for the Symbol given.
 -- =========================================================
 
@@ -3146,7 +3520,7 @@ Go
 -- =========================================================
 -- Procure Name: IndustryView_FetchAllForIndustryAndStockDate
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all IndustryView objects by
 -- =========================================================
 
@@ -3208,7 +3582,7 @@ Go
 -- =========================================================
 -- Procure Name: SectorView_FetchAllForSectorAndStockDate
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all SectorView objects by
 -- =========================================================
 
@@ -3270,7 +3644,7 @@ Go
 -- =========================================================
 -- Procure Name: StockDay_FetchAllForNeedsProcessing
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   8/30/2023
+-- Create Date:   9/21/2023
 -- Description:    Returns all StockDay objects by
 -- =========================================================
 

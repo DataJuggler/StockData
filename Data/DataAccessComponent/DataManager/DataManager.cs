@@ -34,6 +34,8 @@ namespace DataAccessComponent.DataManager
         private IndustryManager industryManager;
         private IndustryHistoryManager industryhistoryManager;
         private IndustryViewManager industryviewManager;
+        private RecommendationLogManager recommendationlogManager;
+        private RecommendationViewManager recommendationviewManager;
         private SectorManager sectorManager;
         private SectorHistoryManager sectorhistoryManager;
         private SectorViewManager sectorviewManager;
@@ -76,6 +78,8 @@ namespace DataAccessComponent.DataManager
                 this.IndustryManager = new IndustryManager(this);
                 this.IndustryHistoryManager = new IndustryHistoryManager(this);
                 this.IndustryViewManager = new IndustryViewManager(this);
+                this.RecommendationLogManager = new RecommendationLogManager(this);
+                this.RecommendationViewManager = new RecommendationViewManager(this);
                 this.SectorManager = new SectorManager(this);
                 this.SectorHistoryManager = new SectorHistoryManager(this);
                 this.SectorViewManager = new SectorViewManager(this);
@@ -151,6 +155,22 @@ namespace DataAccessComponent.DataManager
             {
                 get { return industryviewManager; }
                 set { industryviewManager = value; }
+            }
+            #endregion
+
+            #region RecommendationLogManager
+            public RecommendationLogManager RecommendationLogManager
+            {
+                get { return recommendationlogManager; }
+                set { recommendationlogManager = value; }
+            }
+            #endregion
+
+            #region RecommendationViewManager
+            public RecommendationViewManager RecommendationViewManager
+            {
+                get { return recommendationviewManager; }
+                set { recommendationviewManager = value; }
             }
             #endregion
 

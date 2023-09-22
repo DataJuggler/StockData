@@ -196,6 +196,43 @@ namespace DataGateway
             }
             #endregion
         
+            #region DeleteRecommendationLog(int id, RecommendationLog tempRecommendationLog = null)
+            /// <summary>
+            /// This method is used to delete RecommendationLog objects.
+            /// </summary>
+            /// <param name="id">Delete the RecommendationLog with this id</param>
+            /// <param name="tempRecommendationLog">Pass in a tempRecommendationLog to perform a custom delete.</param>
+            public bool DeleteRecommendationLog(int id, RecommendationLog tempRecommendationLog = null)
+            {
+                // initial value
+                bool deleted = false;
+        
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempRecommendationLog does not exist
+                    if (tempRecommendationLog == null)
+                    {
+                        // create a temp RecommendationLog
+                        tempRecommendationLog = new RecommendationLog();
+                    }
+        
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempRecommendationLog.UpdateIdentity(id);
+                    }
+        
+                    // perform the delete
+                    deleted = this.AppController.ControllerManager.RecommendationLogController.Delete(tempRecommendationLog);
+                }
+        
+                // return value
+                return deleted;
+            }
+            #endregion
+        
             #region DeleteSector(int id, Sector tempSector = null)
             /// <summary>
             /// This method is used to delete Sector objects.
@@ -601,6 +638,43 @@ namespace DataGateway
 
                 // return value
                 return industryHistory;
+            }
+            #endregion
+
+            #region FindRecommendationLog(int id, RecommendationLog tempRecommendationLog = null)
+            /// <summary>
+            /// This method is used to find 'RecommendationLog' objects.
+            /// </summary>
+            /// <param name="id">Find the RecommendationLog with this id</param>
+            /// <param name="tempRecommendationLog">Pass in a tempRecommendationLog to perform a custom find.</param>
+            public RecommendationLog FindRecommendationLog(int id, RecommendationLog tempRecommendationLog = null)
+            {
+                // initial value
+                RecommendationLog recommendationLog = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempRecommendationLog does not exist
+                    if (tempRecommendationLog == null)
+                    {
+                        // create a temp RecommendationLog
+                        tempRecommendationLog = new RecommendationLog();
+                    }
+
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempRecommendationLog.UpdateIdentity(id);
+                    }
+
+                    // perform the find
+                    recommendationLog = this.AppController.ControllerManager.RecommendationLogController.Find(tempRecommendationLog);
+                }
+
+                // return value
+                return recommendationLog;
             }
             #endregion
 
@@ -1084,7 +1158,49 @@ namespace DataGateway
                     return industryViews;
                 }
                 #endregion
-                
+
+            #region LoadRecommendationLogs(RecommendationLog tempRecommendationLog = null)
+            /// <summary>
+            /// This method loads a collection of 'RecommendationLog' objects.
+            /// </summary>
+            public List<RecommendationLog> LoadRecommendationLogs(RecommendationLog tempRecommendationLog = null)
+            {
+                // initial value
+                List<RecommendationLog> recommendationLogs = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    recommendationLogs = this.AppController.ControllerManager.RecommendationLogController.FetchAll(tempRecommendationLog);
+                }
+
+                // return value
+                return recommendationLogs;
+            }
+            #endregion
+
+            #region LoadRecommendationViews(RecommendationView tempRecommendationView = null)
+            /// <summary>
+            /// This method loads a collection of 'RecommendationView' objects.
+            /// </summary>
+            public List<RecommendationView> LoadRecommendationViews(RecommendationView tempRecommendationView = null)
+            {
+                // initial value
+                List<RecommendationView> recommendationViews = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    recommendationViews = this.AppController.ControllerManager.RecommendationViewController.FetchAll(tempRecommendationView);
+                }
+
+                // return value
+                return recommendationViews;
+            }
+            #endregion
+
             #region LoadSectorHistorys(SectorHistory tempSectorHistory = null)
             /// <summary>
             /// This method loads a collection of 'SectorHistory' objects.
@@ -1371,6 +1487,28 @@ namespace DataGateway
                 {
                     // perform the save
                     saved = this.AppController.ControllerManager.IndustryHistoryController.Save(ref industryHistory);
+                }
+
+                // return value
+                return saved;
+            }
+            #endregion
+
+            #region SaveRecommendationLog(ref RecommendationLog recommendationLog)
+            /// <summary>
+            /// This method is used to save 'RecommendationLog' objects.
+            /// </summary>
+            /// <param name="recommendationLog">The RecommendationLog to save.</param>
+            public bool SaveRecommendationLog(ref RecommendationLog recommendationLog)
+            {
+                // initial value
+                bool saved = false;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the save
+                    saved = this.AppController.ControllerManager.RecommendationLogController.Save(ref recommendationLog);
                 }
 
                 // return value
