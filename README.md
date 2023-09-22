@@ -8,12 +8,16 @@ https://youtu.be/hF8LkvwOXQY
 
 # Setup Instructions
 
+Update 9.21.2023: If you don't want to rerun the program, you can now download the full database from
+https://datajuggler.com - click on the Download Tab, and the StockDataDatabaseWithData.zip is available.
+
 1. Create a SQL Server database named StockData and execute StockDataDatabase.sql located in the SQL folder.
 2. Create a connection string * and set a User level environment variable named StockDataConnString and 
-set the connection string as the value.
+set the connection string as the value. Your connection string should something like the following:
+Data Source=(ServerName);Initial Catalog=StockData;Integrated Security=True;Encrypt=False;
 3. Copy the NASDAQ.txt and NYSE.txt files from the ProcessedFolder, to the Documents folder.
 4. If you ever need to rerun the files, repeat step 3 and excecute ResetStocks.sql and 
-DropAndCreateDailyPriceDataAndStockStreak.sql, which are both located in the SQL folder of this project.
+ResetAll.sql, which are both located in the SQL folder of this project.
 5. Import Stocks before you process the files.
 
 The site eoddata.com is used to create the NASDAQ.txt and NYSE.txt files. I download the latest two files
