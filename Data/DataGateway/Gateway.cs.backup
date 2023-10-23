@@ -122,6 +122,43 @@ namespace DataGateway
             }
             #endregion
         
+            #region DeleteDoNotTrack(int id, DoNotTrack tempDoNotTrack = null)
+            /// <summary>
+            /// This method is used to delete DoNotTrack objects.
+            /// </summary>
+            /// <param name="id">Delete the DoNotTrack with this id</param>
+            /// <param name="tempDoNotTrack">Pass in a tempDoNotTrack to perform a custom delete.</param>
+            public bool DeleteDoNotTrack(int id, DoNotTrack tempDoNotTrack = null)
+            {
+                // initial value
+                bool deleted = false;
+        
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempDoNotTrack does not exist
+                    if (tempDoNotTrack == null)
+                    {
+                        // create a temp DoNotTrack
+                        tempDoNotTrack = new DoNotTrack();
+                    }
+        
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempDoNotTrack.UpdateIdentity(id);
+                    }
+        
+                    // perform the delete
+                    deleted = this.AppController.ControllerManager.DoNotTrackController.Delete(tempDoNotTrack);
+                }
+        
+                // return value
+                return deleted;
+            }
+            #endregion
+        
             #region DeleteIndustry(int id, Industry tempIndustry = null)
             /// <summary>
             /// This method is used to delete Industry objects.
@@ -564,6 +601,69 @@ namespace DataGateway
                     
                     // return value
                     return dailyPriceData;
+                }
+                #endregion
+                
+            #region FindDoNotTrack(int id, DoNotTrack tempDoNotTrack = null)
+            /// <summary>
+            /// This method is used to find 'DoNotTrack' objects.
+            /// </summary>
+            /// <param name="id">Find the DoNotTrack with this id</param>
+            /// <param name="tempDoNotTrack">Pass in a tempDoNotTrack to perform a custom find.</param>
+            public DoNotTrack FindDoNotTrack(int id, DoNotTrack tempDoNotTrack = null)
+            {
+                // initial value
+                DoNotTrack doNotTrack = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempDoNotTrack does not exist
+                    if (tempDoNotTrack == null)
+                    {
+                        // create a temp DoNotTrack
+                        tempDoNotTrack = new DoNotTrack();
+                    }
+
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempDoNotTrack.UpdateIdentity(id);
+                    }
+
+                    // perform the find
+                    doNotTrack = this.AppController.ControllerManager.DoNotTrackController.Find(tempDoNotTrack);
+                }
+
+                // return value
+                return doNotTrack;
+            }
+            #endregion
+
+                #region FindDoNotTrackBySymbol(string symbol)
+                /// <summary>
+                /// This method is used to find 'DoNotTrack' objects for the Symbol given.
+                /// </summary>
+                public DoNotTrack FindDoNotTrackBySymbol(string symbol)
+                {
+                    // initial value
+                    DoNotTrack doNotTrack = null;
+                    
+                    // Create a temp DoNotTrack object
+                    DoNotTrack tempDoNotTrack = new DoNotTrack();
+                    
+                    // Set the value for FindBySymbol to true
+                    tempDoNotTrack.FindBySymbol = true;
+                    
+                    // Set the value for Symbol
+                    tempDoNotTrack.Symbol = symbol;
+                    
+                    // Perform the find
+                    doNotTrack = FindDoNotTrack(0, tempDoNotTrack);
+                    
+                    // return value
+                    return doNotTrack;
                 }
                 #endregion
                 
@@ -1067,6 +1167,27 @@ namespace DataGateway
             }
             #endregion
 
+            #region LoadDoNotTracks(DoNotTrack tempDoNotTrack = null)
+            /// <summary>
+            /// This method loads a collection of 'DoNotTrack' objects.
+            /// </summary>
+            public List<DoNotTrack> LoadDoNotTracks(DoNotTrack tempDoNotTrack = null)
+            {
+                // initial value
+                List<DoNotTrack> doNotTracks = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    doNotTracks = this.AppController.ControllerManager.DoNotTrackController.FetchAll(tempDoNotTrack);
+                }
+
+                // return value
+                return doNotTracks;
+            }
+            #endregion
+
             #region LoadIndustryHistorys(IndustryHistory tempIndustryHistory = null)
             /// <summary>
             /// This method loads a collection of 'IndustryHistory' objects.
@@ -1106,6 +1227,27 @@ namespace DataGateway
 
                 // return value
                 return industrys;
+            }
+            #endregion
+
+            #region LoadIndustrySummarys(IndustrySummary tempIndustrySummary = null)
+            /// <summary>
+            /// This method loads a collection of 'IndustrySummary' objects.
+            /// </summary>
+            public List<IndustrySummary> LoadIndustrySummarys(IndustrySummary tempIndustrySummary = null)
+            {
+                // initial value
+                List<IndustrySummary> industrySummarys = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    industrySummarys = this.AppController.ControllerManager.IndustrySummaryController.FetchAll(tempIndustrySummary);
+                }
+
+                // return value
+                return industrySummarys;
             }
             #endregion
 
@@ -1158,6 +1300,27 @@ namespace DataGateway
                     return industryViews;
                 }
                 #endregion
+
+            #region LoadMarketSummarys(MarketSummary tempMarketSummary = null)
+            /// <summary>
+            /// This method loads a collection of 'MarketSummary' objects.
+            /// </summary>
+            public List<MarketSummary> LoadMarketSummarys(MarketSummary tempMarketSummary = null)
+            {
+                // initial value
+                List<MarketSummary> marketSummarys = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    marketSummarys = this.AppController.ControllerManager.MarketSummaryController.FetchAll(tempMarketSummary);
+                }
+
+                // return value
+                return marketSummarys;
+            }
+            #endregion
 
             #region LoadRecommendationLogs(RecommendationLog tempRecommendationLog = null)
             /// <summary>
@@ -1240,6 +1403,27 @@ namespace DataGateway
 
                 // return value
                 return sectors;
+            }
+            #endregion
+
+            #region LoadSectorSummarys(SectorSummary tempSectorSummary = null)
+            /// <summary>
+            /// This method loads a collection of 'SectorSummary' objects.
+            /// </summary>
+            public List<SectorSummary> LoadSectorSummarys(SectorSummary tempSectorSummary = null)
+            {
+                // initial value
+                List<SectorSummary> sectorSummarys = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    sectorSummarys = this.AppController.ControllerManager.SectorSummaryController.FetchAll(tempSectorSummary);
+                }
+
+                // return value
+                return sectorSummarys;
             }
             #endregion
 
@@ -1443,6 +1627,28 @@ namespace DataGateway
                 {
                     // perform the save
                     saved = this.AppController.ControllerManager.DailyPriceDataController.Save(ref dailyPriceData);
+                }
+
+                // return value
+                return saved;
+            }
+            #endregion
+
+            #region SaveDoNotTrack(ref DoNotTrack doNotTrack)
+            /// <summary>
+            /// This method is used to save 'DoNotTrack' objects.
+            /// </summary>
+            /// <param name="doNotTrack">The DoNotTrack to save.</param>
+            public bool SaveDoNotTrack(ref DoNotTrack doNotTrack)
+            {
+                // initial value
+                bool saved = false;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the save
+                    saved = this.AppController.ControllerManager.DoNotTrackController.Save(ref doNotTrack);
                 }
 
                 // return value
@@ -1692,8 +1898,4 @@ namespace DataGateway
     #endregion
 
 }
-
-
-
-
 

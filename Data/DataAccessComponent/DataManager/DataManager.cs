@@ -31,13 +31,17 @@ namespace DataAccessComponent.DataManager
         private AdminManager adminManager;
         private DailyPriceDataManager dailypricedataManager;
         private DailyPriceDataViewManager dailypricedataviewManager;
+        private DoNotTrackManager donottrackManager;
         private IndustryManager industryManager;
         private IndustryHistoryManager industryhistoryManager;
+        private IndustrySummaryManager industrysummaryManager;
         private IndustryViewManager industryviewManager;
+        private MarketSummaryManager marketsummaryManager;
         private RecommendationLogManager recommendationlogManager;
         private RecommendationViewManager recommendationviewManager;
         private SectorManager sectorManager;
         private SectorHistoryManager sectorhistoryManager;
+        private SectorSummaryManager sectorsummaryManager;
         private SectorViewManager sectorviewManager;
         private StockManager stockManager;
         private StockDayManager stockdayManager;
@@ -75,13 +79,17 @@ namespace DataAccessComponent.DataManager
                 this.AdminManager = new AdminManager(this);
                 this.DailyPriceDataManager = new DailyPriceDataManager(this);
                 this.DailyPriceDataViewManager = new DailyPriceDataViewManager(this);
+                this.DoNotTrackManager = new DoNotTrackManager(this);
                 this.IndustryManager = new IndustryManager(this);
                 this.IndustryHistoryManager = new IndustryHistoryManager(this);
+                this.IndustrySummaryManager = new IndustrySummaryManager(this);
                 this.IndustryViewManager = new IndustryViewManager(this);
+                this.MarketSummaryManager = new MarketSummaryManager(this);
                 this.RecommendationLogManager = new RecommendationLogManager(this);
                 this.RecommendationViewManager = new RecommendationViewManager(this);
                 this.SectorManager = new SectorManager(this);
                 this.SectorHistoryManager = new SectorHistoryManager(this);
+                this.SectorSummaryManager = new SectorSummaryManager(this);
                 this.SectorViewManager = new SectorViewManager(this);
                 this.StockManager = new StockManager(this);
                 this.StockDayManager = new StockDayManager(this);
@@ -134,6 +142,14 @@ namespace DataAccessComponent.DataManager
             }
             #endregion
 
+            #region DoNotTrackManager
+            public DoNotTrackManager DoNotTrackManager
+            {
+                get { return donottrackManager; }
+                set { donottrackManager = value; }
+            }
+            #endregion
+
             #region IndustryManager
             public IndustryManager IndustryManager
             {
@@ -150,11 +166,27 @@ namespace DataAccessComponent.DataManager
             }
             #endregion
 
+            #region IndustrySummaryManager
+            public IndustrySummaryManager IndustrySummaryManager
+            {
+                get { return industrysummaryManager; }
+                set { industrysummaryManager = value; }
+            }
+            #endregion
+
             #region IndustryViewManager
             public IndustryViewManager IndustryViewManager
             {
                 get { return industryviewManager; }
                 set { industryviewManager = value; }
+            }
+            #endregion
+
+            #region MarketSummaryManager
+            public MarketSummaryManager MarketSummaryManager
+            {
+                get { return marketsummaryManager; }
+                set { marketsummaryManager = value; }
             }
             #endregion
 
@@ -187,6 +219,14 @@ namespace DataAccessComponent.DataManager
             {
                 get { return sectorhistoryManager; }
                 set { sectorhistoryManager = value; }
+            }
+            #endregion
+
+            #region SectorSummaryManager
+            public SectorSummaryManager SectorSummaryManager
+            {
+                get { return sectorsummaryManager; }
+                set { sectorsummaryManager = value; }
             }
             #endregion
 

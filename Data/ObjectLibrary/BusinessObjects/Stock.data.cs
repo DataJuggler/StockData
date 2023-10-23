@@ -17,6 +17,8 @@ namespace ObjectLibrary.BusinessObjects
 
         #region Private Variables
         private int averageDailyVolume;
+        private string country;
+        private int daysBelowMinVolume;
         private string exchange;
         private int id;
         private string industry;
@@ -57,6 +59,34 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     averageDailyVolume = value;
+                }
+            }
+            #endregion
+
+            #region string Country
+            public string Country
+            {
+                get
+                {
+                    return country;
+                }
+                set
+                {
+                    country = value;
+                }
+            }
+            #endregion
+
+            #region int DaysBelowMinVolume
+            public int DaysBelowMinVolume
+            {
+                get
+                {
+                    return daysBelowMinVolume;
+                }
+                set
+                {
+                    daysBelowMinVolume = value;
                 }
             }
             #endregion

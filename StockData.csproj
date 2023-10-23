@@ -35,7 +35,7 @@
 
   <ItemGroup>
     <PackageReference Include="DataJuggler.Excelerate" Version="7.4.6" />
-    <PackageReference Include="DataJuggler.Win.Controls" Version="7.1.8" />
+    <PackageReference Include="DataJuggler.Win.Controls" Version="7.2.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -117,7 +117,7 @@ namespace DataAccessComponent.DataManager.Writers
             internal static SqlParameter[] CreateInsertParameters(Stock stock)
             {
                 // Initial Values
-                SqlParameter[] parameters = new SqlParameter[10];
+                SqlParameter[] parameters = new SqlParameter[12];
                 SqlParameter param = null;
 
                 // verify stockexists
@@ -129,59 +129,71 @@ namespace DataAccessComponent.DataManager.Writers
                     // set parameters[0]
                     parameters[0] = param;
 
-                    // Create [Exchange] parameter
-                    param = new SqlParameter("@Exchange", stock.Exchange);
+                    // Create [Country] parameter
+                    param = new SqlParameter("@Country", stock.Country);
 
                     // set parameters[1]
                     parameters[1] = param;
 
-                    // Create [Industry] parameter
-                    param = new SqlParameter("@Industry", stock.Industry);
+                    // Create [DaysBelowMinVolume] parameter
+                    param = new SqlParameter("@DaysBelowMinVolume", stock.DaysBelowMinVolume);
 
                     // set parameters[2]
                     parameters[2] = param;
 
-                    // Create [IPOYear] parameter
-                    param = new SqlParameter("@IPOYear", stock.IPOYear);
+                    // Create [Exchange] parameter
+                    param = new SqlParameter("@Exchange", stock.Exchange);
 
                     // set parameters[3]
                     parameters[3] = param;
 
-                    // Create [LastClose] parameter
-                    param = new SqlParameter("@LastClose", stock.LastClose);
+                    // Create [Industry] parameter
+                    param = new SqlParameter("@Industry", stock.Industry);
 
                     // set parameters[4]
                     parameters[4] = param;
 
-                    // Create [Name] parameter
-                    param = new SqlParameter("@Name", stock.Name);
+                    // Create [IPOYear] parameter
+                    param = new SqlParameter("@IPOYear", stock.IPOYear);
 
                     // set parameters[5]
                     parameters[5] = param;
 
-                    // Create [Sector] parameter
-                    param = new SqlParameter("@Sector", stock.Sector);
+                    // Create [LastClose] parameter
+                    param = new SqlParameter("@LastClose", stock.LastClose);
 
                     // set parameters[6]
                     parameters[6] = param;
 
-                    // Create [Streak] parameter
-                    param = new SqlParameter("@Streak", stock.Streak);
+                    // Create [Name] parameter
+                    param = new SqlParameter("@Name", stock.Name);
 
                     // set parameters[7]
                     parameters[7] = param;
 
-                    // Create [Symbol] parameter
-                    param = new SqlParameter("@Symbol", stock.Symbol);
+                    // Create [Sector] parameter
+                    param = new SqlParameter("@Sector", stock.Sector);
 
                     // set parameters[8]
                     parameters[8] = param;
 
-                    // Create [Track] parameter
-                    param = new SqlParameter("@Track", stock.Track);
+                    // Create [Streak] parameter
+                    param = new SqlParameter("@Streak", stock.Streak);
 
                     // set parameters[9]
                     parameters[9] = param;
+
+                    // Create [Symbol] parameter
+                    param = new SqlParameter("@Symbol", stock.Symbol);
+
+                    // set parameters[10]
+                    parameters[10] = param;
+
+                    // Create [Track] parameter
+                    param = new SqlParameter("@Track", stock.Track);
+
+                    // set parameters[11]
+                    parameters[11] = param;
                 }
 
                 // return value
@@ -228,7 +240,7 @@ namespace DataAccessComponent.DataManager.Writers
             internal static SqlParameter[] CreateUpdateParameters(Stock stock)
             {
                 // Initial Values
-                SqlParameter[] parameters = new SqlParameter[11];
+                SqlParameter[] parameters = new SqlParameter[13];
                 SqlParameter param = null;
 
                 // verify stockexists
@@ -240,63 +252,75 @@ namespace DataAccessComponent.DataManager.Writers
                     // set parameters[0]
                     parameters[0] = param;
 
-                    // Create parameter for [Exchange]
-                    param = new SqlParameter("@Exchange", stock.Exchange);
+                    // Create parameter for [Country]
+                    param = new SqlParameter("@Country", stock.Country);
 
                     // set parameters[1]
                     parameters[1] = param;
 
-                    // Create parameter for [Industry]
-                    param = new SqlParameter("@Industry", stock.Industry);
+                    // Create parameter for [DaysBelowMinVolume]
+                    param = new SqlParameter("@DaysBelowMinVolume", stock.DaysBelowMinVolume);
 
                     // set parameters[2]
                     parameters[2] = param;
 
-                    // Create parameter for [IPOYear]
-                    param = new SqlParameter("@IPOYear", stock.IPOYear);
+                    // Create parameter for [Exchange]
+                    param = new SqlParameter("@Exchange", stock.Exchange);
 
                     // set parameters[3]
                     parameters[3] = param;
 
-                    // Create parameter for [LastClose]
-                    param = new SqlParameter("@LastClose", stock.LastClose);
+                    // Create parameter for [Industry]
+                    param = new SqlParameter("@Industry", stock.Industry);
 
                     // set parameters[4]
                     parameters[4] = param;
 
-                    // Create parameter for [Name]
-                    param = new SqlParameter("@Name", stock.Name);
+                    // Create parameter for [IPOYear]
+                    param = new SqlParameter("@IPOYear", stock.IPOYear);
 
                     // set parameters[5]
                     parameters[5] = param;
 
-                    // Create parameter for [Sector]
-                    param = new SqlParameter("@Sector", stock.Sector);
+                    // Create parameter for [LastClose]
+                    param = new SqlParameter("@LastClose", stock.LastClose);
 
                     // set parameters[6]
                     parameters[6] = param;
 
-                    // Create parameter for [Streak]
-                    param = new SqlParameter("@Streak", stock.Streak);
+                    // Create parameter for [Name]
+                    param = new SqlParameter("@Name", stock.Name);
 
                     // set parameters[7]
                     parameters[7] = param;
 
-                    // Create parameter for [Symbol]
-                    param = new SqlParameter("@Symbol", stock.Symbol);
+                    // Create parameter for [Sector]
+                    param = new SqlParameter("@Sector", stock.Sector);
 
                     // set parameters[8]
                     parameters[8] = param;
 
-                    // Create parameter for [Track]
-                    param = new SqlParameter("@Track", stock.Track);
+                    // Create parameter for [Streak]
+                    param = new SqlParameter("@Streak", stock.Streak);
 
                     // set parameters[9]
                     parameters[9] = param;
 
+                    // Create parameter for [Symbol]
+                    param = new SqlParameter("@Symbol", stock.Symbol);
+
+                    // set parameters[10]
+                    parameters[10] = param;
+
+                    // Create parameter for [Track]
+                    param = new SqlParameter("@Track", stock.Track);
+
+                    // set parameters[11]
+                    parameters[11] = param;
+
                     // Create parameter for [Id]
                     param = new SqlParameter("@Id", stock.Id);
-                    parameters[10] = param;
+                    parameters[12] = param;
                 }
 
                 // return value

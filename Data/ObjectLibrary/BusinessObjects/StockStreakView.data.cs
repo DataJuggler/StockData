@@ -25,7 +25,6 @@ namespace ObjectLibrary.BusinessObjects
         private double lastClose;
         private double lastPercentChange;
         private string name;
-        private double percentChange;
         private bool reverseSplit;
         private int reverseSplitDivisor;
         private string sector;
@@ -172,20 +171,6 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     name = value;
-                }
-            }
-            #endregion
-
-            #region double PercentChange
-            public double PercentChange
-            {
-                get
-                {
-                    return percentChange;
-                }
-                set
-                {
-                    percentChange = value;
                 }
             }
             #endregion

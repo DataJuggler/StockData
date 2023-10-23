@@ -12,6 +12,8 @@ using ApplicationLogicComponent.Connection;
 using ObjectLibrary.BusinessObjects;
 using ObjectLibrary.Enumerations;
 using DataGateway;
+using System.Xml.Schema;
+using System.Text;
 
 #endregion
 
@@ -47,6 +49,61 @@ namespace StockData
 
         #region Events
 
+        #region DoNotTrackButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// event is fired when the 'DoNotTrackButton' is clicked.
+        /// </summary>
+        private void DoNotTrackButton_Click(object sender, EventArgs e)
+        {
+            // set this path (fix for your location or set to relative if you feel like it)
+            string path = "C:\\Projects\\GitHub\\StockData\\Documents\\Stocks\\DoNotTrackSymbols.xlsx";
+
+            // Create a new instance of a 'WorksheetInfo' object.
+            WorksheetInfo worksheetInfo = new WorksheetInfo();
+
+            // set the properties
+            worksheetInfo.SheetName = "DoNotTrack";
+            worksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadAllColumnsExceptExcluded;
+            worksheetInfo.Path = path;
+
+            // load the worksheet
+            Worksheet worksheet = ExcelDataLoader.LoadWorksheet(worksheetInfo);
+
+            // load the list of Symbols
+            List<AddToDoNotTrack> doNotTrackList = AddToDoNotTrack.Load(worksheet);
+
+            // If the doNotTrackList collection exists and has one or more items
+            if (ListHelper.HasOneOrMoreItems(doNotTrackList))
+            {
+                // Setup the Graph
+                SetupGraph("Adding missing items to Do Not Track table", doNotTrackList.Count, true);
+
+                // Iterate the collection of AddToDoNotTrack objects
+                foreach (AddToDoNotTrack addToDoNotTrack in doNotTrackList)
+                {
+                    // Create a new instance of a 'DoNotTrack' object.
+                    DoNotTrack doNotTrack = new DoNotTrack();
+
+                    // Set the Symbol
+                    doNotTrack.Symbol = addToDoNotTrack.Symbol;
+
+                    // perform the save
+                    bool saved = Gateway.SaveDoNotTrack(ref doNotTrack);
+
+                    // if the value for saved is true
+                    if (saved)
+                    {
+                        // Increment the value for Graph
+                        Graph.Value++;
+                    }
+                }
+
+                // Show a finished method
+                SetupGraph("Finished Updating Do Not Track", 0, false);
+            }
+        }
+        #endregion
+
         #region ImportIndustryButton_Click(object sender, EventArgs e)
         /// <summary>
         /// event is fired when the 'ImportIndustryButton' is clicked.
@@ -62,7 +119,7 @@ namespace StockData
             // set the properties
             worksheetInfo.SheetName = "Industry";
             worksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadAllColumnsExceptExcluded;
-            worksheetInfo.Path = "C:\\Temp\\Industry And Sector.xlsx";
+            worksheetInfo.Path = "C:\\Projects\\GitHub\\StockData\\Documents\\Stocks\\Industry And Sector.xlsx";
 
             // load the worksheet
             Worksheet worksheet = ExcelDataLoader.LoadWorksheet(worksheetInfo);
@@ -115,7 +172,7 @@ namespace StockData
             // set the properties
             worksheetInfo.SheetName = "Sector";
             worksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadAllColumnsExceptExcluded;
-            worksheetInfo.Path = "C:\\Temp\\Industry And Sector.xlsx";
+            worksheetInfo.Path = "C:\\Projects\\GitHub\\StockData\\Documents\\Stocks\\Industry And Sector.xlsx";
 
             // load the worksheet
             Worksheet worksheet = ExcelDataLoader.LoadWorksheet(worksheetInfo);
@@ -149,10 +206,10 @@ namespace StockData
 
                 // Setup the Graph
                 SetupGraph("Finished Importing Sectors", 0, false);
-            }     
+            }
         }
         #endregion
-            
+
         #region ImportStocksButton_Click(object sender, EventArgs e)
         /// <summary>
         /// event is fired when the 'ImportStocksButton' is clicked.
@@ -165,19 +222,20 @@ namespace StockData
             // Remove focus from this buttton
             HiddenButton.Focus();
 
+            // locals
+            string worksheetPath = "C:\\Projects\\GitHub\\StockData\\Documents\\Stocks\\NASDAQ.xlsx";
+            string worksheetPath2 = "C:\\Projects\\GitHub\\StockData\\Documents\\Stocks\\NYSE.xlsx";
+
             // Create a new instance of a 'WorksheetInfo' object.
             WorksheetInfo worksheetInfo = new WorksheetInfo();
 
             // set the properties
             worksheetInfo.SheetName = "NASDAQ";
             worksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadAllColumnsExceptExcluded;
-            worksheetInfo.Path = "C:\\Projects\\GitHub\\StockData\\Documents\\Stocks\\NASDAQ.xlsx";
+            worksheetInfo.Path = worksheetPath;
 
             // load the worksheet
             Worksheet worksheet = ExcelDataLoader.LoadWorksheet(worksheetInfo.Path, worksheetInfo);
-
-            // Load the NASDAQ entries
-            List<NASDAQ> nasdaqEntries = NASDAQ.Load(worksheet);
 
             // Create a new instance of a 'WorksheetInfo' object.
             WorksheetInfo worksheetInfo2 = new WorksheetInfo();
@@ -185,10 +243,13 @@ namespace StockData
             // set the properties
             worksheetInfo2.SheetName = "NYSE";
             worksheetInfo2.LoadColumnOptions = LoadColumnOptionsEnum.LoadAllColumnsExceptExcluded;
-            worksheetInfo2.Path = "C:\\Projects\\GitHub\\StockData\\Documents\\Stocks\\NYSE.xlsx";
+            worksheetInfo2.Path = worksheetPath2;
+
+            // Load the NASDAQ entries
+            List<NASDAQ> nasdaqEntries = NASDAQ.Load(worksheet);
 
             // load the worksheet
-            Worksheet worksheet2 = ExcelDataLoader.LoadWorksheet(worksheetInfo2.Path, worksheetInfo2);
+            Worksheet worksheet2 = ExcelDataLoader.LoadWorksheet(worksheetInfo2);
 
             // Load the NYSE entries
             List<NYSE> nyseEntries = NYSE.Load(worksheet2);
@@ -202,31 +263,38 @@ namespace StockData
                 // Iterate the collection of NASDAQ objects
                 foreach (NASDAQ entry in nasdaqEntries)
                 {
-                    // We have to determine if this stock is in the list
-                    Stock tempStock = Gateway.FindStockBySymbol(entry.Symbol);                    
-                    
-                    // If the tempStock object does not exist
-                    if (NullHelper.IsNull(tempStock))
+                    // Check for symbols like carot or slashes
+                    bool doesStockContainSymbol = DoesStockContainSymbol(entry.Symbol);
+
+                    // if the value for doesStockContainSymbol is false
+                    if (!doesStockContainSymbol)
                     {
-                        // Create a new instance of a 'Stock' object.
-                        Stock stock = new Stock();
+                        // We have to determine if this stock is in the list
+                        Stock tempStock = Gateway.FindStockBySymbol(entry.Symbol);
 
-                        // set the properties of the stock object
-                        stock.IPOYear = entry.IPOYear;
-                        stock.LastClose = 0;
-                        stock.Track = true;
-                        stock.AverageDailyVolume = 0;
-                        stock.Exchange = "NASDAQ";
-                        stock.Industry = entry.Industry;
-                        stock.Sector = entry.Sector;
-                        stock.Streak = 0;
-                        stock.Symbol = entry.Symbol;
-                        stock.Name = entry.Name;
+                        // If the tempStock object does not exist
+                        if (NullHelper.IsNull(tempStock))
+                        {  
+                            // Create a new instance of a 'Stock' object.
+                            Stock stock = new Stock();
 
-                        // perform the stock
-                        saved = Gateway.SaveStock(ref stock);
+                            // set the properties of the stock object
+                            stock.IPOYear = entry.IPOYear;
+                            stock.LastClose = 0;
+                            stock.Track = true;
+                            stock.AverageDailyVolume = 0;
+                            stock.Exchange = "NASDAQ";
+                            stock.Industry = entry.Industry;
+                            stock.Sector = entry.Sector;
+                            stock.Streak = 0;
+                            stock.Symbol = entry.Symbol;
+                            stock.Name = entry.Name;
+
+                            // perform the stock
+                            saved = Gateway.SaveStock(ref stock);                        
+                        }
                     }
-                   
+
                     // Increment the value for Graph
                     Graph.Value++;
                 }
@@ -237,31 +305,38 @@ namespace StockData
                 // Iterate the collection of NYSE objects
                 foreach (NYSE entry in nyseEntries)
                 {
-                    // We have to determine if this stock is in the list
-                    Stock tempStock = Gateway.FindStockBySymbol(entry.Symbol);                    
-                    
-                    // If the tempStock object does not exist
-                    if (NullHelper.IsNull(tempStock))
+                    // Check for symbols like carot or slashes
+                    bool doesStockContainSymbol = DoesStockContainSymbol(entry.Symbol);
+
+                    // if the value for doesStockContainSymbol is false
+                    if (!doesStockContainSymbol)
                     {
-                        // Create a new instance of a 'Stock' object.
-                        Stock stock = new Stock();
+                        // We have to determine if this stock is in the list
+                        Stock tempStock = Gateway.FindStockBySymbol(entry.Symbol);
 
-                        // set the properties of the stock object
-                        stock.IPOYear = entry.IPOYear;
-                        stock.LastClose = 0;
-                        stock.Track = true;
-                        stock.AverageDailyVolume = 0;
-                        stock.Exchange = "NYSE";
-                        stock.Industry = entry.Industry;
-                        stock.Sector = entry.Sector;
-                        stock.Streak = 0;
-                        stock.Symbol = entry.Symbol;
-                        stock.Name = entry.Name;
+                        // If the tempStock object does not exist
+                        if (NullHelper.IsNull(tempStock))
+                        { 
+                            // Create a new instance of a 'Stock' object.
+                            Stock stock = new Stock();
 
-                        // perform the stock
-                        saved = Gateway.SaveStock(ref stock);
+                            // set the properties of the stock object
+                            stock.IPOYear = entry.IPOYear;
+                            stock.LastClose = 0;
+                            stock.Track = true;
+                            stock.AverageDailyVolume = 0;
+                            stock.Exchange = "NYSE";
+                            stock.Industry = entry.Industry;
+                            stock.Sector = entry.Sector;
+                            stock.Streak = 0;
+                            stock.Symbol = entry.Symbol;
+                            stock.Name = entry.Name;
+
+                            // perform the stock
+                            saved = Gateway.SaveStock(ref stock);                        
+                        }
                     }
-                    
+
                     // Increment the value for Graph
                     Graph.Value++;
                 }
@@ -288,8 +363,8 @@ namespace StockData
             int count = 0;
             bool saved = false;
             ContinueTypeEnum continueType = ContinueTypeEnum.Even;
-            StockStreak streak = null;           
-            
+            StockStreak streak = null;
+
             // <ticker>,<per>,<date>,<open>,<high>,<low>,<close>,<vol>
 
             // if the Directory Exists
@@ -399,7 +474,7 @@ namespace StockData
 
                                                 // round to 2 digits
                                                 data.CloseScore = Math.Round(data.CloseScore, 2);
-                                           
+
                                                 // If the stock object exists
                                                 if (NullHelper.Exists(stock))
                                                 {
@@ -407,16 +482,45 @@ namespace StockData
                                                     if (stock.Track)
                                                     {
                                                         // if less than 100,000 shares, or whatever value Admin.MinVolume is set to.
-                                                        if (data.Volume < MinVolume)
+                                                        // And this is the 3rd day in a row below the MinVolume
+                                                        if ((data.Volume < MinVolume) && (stock.DaysBelowMinVolume > 2))
                                                         {
                                                             // set this to false
                                                             stock.Track = false;
 
                                                             // perform the save
                                                             saved = Gateway.SaveStock(ref stock);
+
+                                                            // Adding to a new table DoNotTrack
+                                                            DoNotTrack doNotTrack = Gateway.FindDoNotTrackBySymbol(stock.Symbol);
+
+                                                            // if the stock is not already in DoNotTrack
+                                                            if (NullHelper.IsNull(doNotTrack))
+                                                            {
+                                                                // Create a new instance of a 'DoNotTrack' object.
+                                                                doNotTrack = new DoNotTrack();
+
+                                                                // Set the Symbol
+                                                                doNotTrack.Symbol = stock.Symbol;
+
+                                                                // perform the Save
+                                                                saved = Gateway.SaveDoNotTrack(ref doNotTrack);
+                                                            }
                                                         }
                                                         else
                                                         {
+                                                            // if the Volume greater than MinVolume
+                                                            if (data.Volume < MinVolume)
+                                                            {
+                                                                // increment the value for DaysBelowMinVolume
+                                                                stock.DaysBelowMinVolume++;
+                                                            }
+                                                            else
+                                                            {
+                                                                // reset the value for DaysBelowMinVolume
+                                                                stock.DaysBelowMinVolume = 0;
+                                                            }
+
                                                             // if the LastClose has been set
                                                             if (stock.LastClose > 0)
                                                             {
@@ -643,7 +747,7 @@ namespace StockData
                             // only update the RecommendationLog every other file
                             if (Graph.Value % 2 == 0)
                             {
-                                 // 9.21.2023 Adding RecommendationLog
+                                // 9.21.2023 Adding RecommendationLog
                                 List<RecommendationView> recommendationView = Gateway.LoadRecommendationViews();
 
                                 // If the recommendationView collection exists and has one or more items
@@ -758,13 +862,97 @@ namespace StockData
                         Graph.Value++;
                     }
                 }
-                
+
                 // Show finished
                 SetupGraph("Finished", 0, false);
             }
         }
         #endregion
 
+        #region WriteDailyReportButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// event is fired when the 'WriteDailyReportButton' is clicked.
+        /// </summary>
+        private void WriteDailyReportButton_Click(object sender, EventArgs e)
+        {
+            // remove focus from this button
+            HiddenButton.Focus();
+
+            // Create a StringBUilder
+            StringBuilder sb = new StringBuilder("Good morning, today is ");
+            sb.Append(DateTime.Now.ToShortDateString());
+            sb.Append(". ");
+            
+            sb.Append(" My name is Lucas, and welcome to the Bubble Report.");
+
+            MarketSummary summary = Gateway.LoadMarketSummarys().FirstOrDefault();
+
+            // If the summary object exists
+            if (NullHelper.Exists(summary))
+            {
+                sb.Append(" This report is for ");
+                string monthName = DateHelper.GetMonthName(summary.StockDate);
+                sb.Append(monthName);
+                sb.Append(", ");
+                string dayText = GetDayText(summary.StockDate.Day);
+                sb.Append(dayText);
+                sb.Append(". ");
+
+                double score = summary.Score;
+
+                string summaryScore = "";
+
+                if (score >= 75)
+                {
+                    // Set the summaryScore text
+                    summaryScore = " Stocks were mostly up.";
+                }
+                else if (score >= 55)
+                {
+                    // Set the summaryScore text
+                    summaryScore = " Advancers outnumbered decliners.";
+                }
+                else if (score <= 25)
+                {
+                    // Set the summaryScore text
+                    summaryScore = " Stocks took a beating, and were mostly down.";
+                }
+                else if (score <= 45)
+                {
+                    // Set the summaryScore text
+                    summaryScore = " Decliners outnumbered advancers.";
+                }
+                else if (NumericHelper.IsInRange(score, 50.01, 54.99))
+                {
+                    // Set the summaryScore text
+                    summaryScore = " Stocks were about even today, with a little more advancers than decliners.";
+                }
+                else if (NumericHelper.IsInRange(score, 45.01, 49.99))
+                {
+                    // Set the summaryScore text
+                    summaryScore = " Stocks were about even today, with a little more decliners than advancers.";
+                }
+
+                // Append the summary score
+                sb.Append(summaryScore);
+
+                // set Summary2
+                string summary2 = " There were " + summary.Advancers.ToString("N0") + " advancers and " + summary.Decliners.ToString("N0") + " decliners.";
+
+                sb.Append(summary2);
+
+                // Set the report
+                string report = sb.ToString();
+
+                // set the report
+                Clipboard.SetText(report);
+
+                // Report Created
+                MessageBox.Show("Done", "Finished");
+            }
+        }
+        #endregion
+            
         #endregion
 
         #region Methods
@@ -805,9 +993,305 @@ namespace StockData
                 // now sort the list
                 stockFiles = stockFiles.OrderBy(x => x.Date).ToList();
             }
-                
+
             // return value
             return stockFiles;
+        }
+        #endregion
+
+        #region DoesStockContainSymbol(string symbol)
+        /// <summary>
+        /// returns the Stock Contain Symbol
+        /// </summary>
+        public bool DoesStockContainSymbol(string symbol)
+        {
+            // initial value
+            bool doesStockContainSymbol = false;
+
+            // If the symbol string exists
+            if (TextHelper.Exists(symbol))
+            {
+                foreach (char c in symbol)
+                {
+                    // set the return value
+                    doesStockContainSymbol = char.IsSymbol(c);
+
+                    // if the value for doesStockContainSymbol is true
+                    if (doesStockContainSymbol)
+                    {
+                        // stop looking
+                        break;
+                    }
+                }
+            }
+                
+            // return value
+            return doesStockContainSymbol;
+        }
+        #endregion
+            
+        #region GetDayText(int day)
+        /// <summary>
+        /// returns the Day Text
+        /// </summary>
+        public string GetDayText(int day)
+        {
+            // initial value
+            string dayText = "";
+
+            switch (day)
+            {
+                case 1:
+
+                    // set the return value
+                    dayText = "first";
+
+                    // required 
+                    break;
+
+                case 2:
+
+                    // set the return value
+                    dayText = "second";
+
+                    // required 
+                    break;
+
+                 case 3:
+
+                    // set the return value
+                    dayText = "third";
+
+                    // required 
+                    break;
+
+                case 4:
+
+                    // set the return value
+                    dayText = "fourth";
+
+                    // required 
+                    break;
+
+                 case 5:
+
+                    // set the return value
+                    dayText = "fifth";
+
+                    // required 
+                    break;
+
+                case 6:
+
+                    // set the return value
+                    dayText = "sixth";
+
+                    // required 
+                    break;
+
+                case 7:
+
+                    // set the return value
+                    dayText = "seventh";
+
+                    // required 
+                    break;
+
+                case 8:
+
+                    // set the return value
+                    dayText = "eighth";
+
+                    // required 
+                    break;
+
+                case 9:
+
+                    // set the return value
+                    dayText = "nineth";
+
+                    // required 
+                    break;
+
+                 case 10:
+
+                    // set the return value
+                    dayText = "tenth";
+
+                    // required 
+                    break;
+
+                case 11:
+
+                    // set the return value
+                    dayText = "eleventh";
+
+                    // required 
+                    break;
+
+                 case 12:
+
+                    // set the return value
+                    dayText = "twelfth";
+
+                    // required 
+                    break;
+
+                case 13:
+
+                    // set the return value
+                    dayText = "thirteenth";
+
+                    // required 
+                    break;
+
+                case 14:
+
+                    // set the return value
+                    dayText = "fourteenth";
+
+                    // required 
+                    break;
+
+                 case 15:
+
+                    // set the return value
+                    dayText = "fifteenth";
+
+                    // required 
+                    break;
+
+                 case 16:
+
+                    // set the return value
+                    dayText = "sixteenth";
+
+                    // required 
+                    break;
+
+                case 17:
+
+                    // set the return value
+                    dayText = "seventeenth";
+
+                    // required 
+                    break;
+
+                 case 18:
+
+                    // set the return value
+                    dayText = "eighteenth";
+
+                    // required 
+                    break;
+
+                 case 19:
+
+                    // set the return value
+                    dayText = "nineteenth";
+
+                    // required 
+                    break;
+
+                 case 20:
+
+                    // set the return value
+                    dayText = "twentieth";
+
+                    // required 
+                    break;
+
+                case 21:
+
+                    // set the return value
+                    dayText = "twenty first";
+
+                    // required 
+                    break;
+
+                case 22:
+
+                    // set the return value
+                    dayText = "twenty second";
+
+                    // required 
+                    break;
+
+                 case 23:
+
+                    // set the return value
+                    dayText = "twenty third";
+
+                    // required 
+                    break;
+
+                 case 24:
+
+                    // set the return value
+                    dayText = "twenty fourth";
+
+                    // required 
+                    break;
+
+                 case 25:
+
+                    // set the return value
+                    dayText = "twenty fifth";
+
+                    // required 
+                    break;
+
+                case 26:
+
+                    // set the return value
+                    dayText = "twenty sixth";
+
+                    // required 
+                    break;
+
+                case 27:
+
+                    // set the return value
+                    dayText = "twenty seventh";
+
+                    // required 
+                    break;
+
+                case 28:
+
+                    // set the return value
+                    dayText = "twenty eighth";
+
+                    // required 
+                    break;
+
+                 case 29:
+
+                    // set the return value
+                    dayText = "twenty nineth";
+
+                    // required 
+                    break;
+
+                case 30:
+
+                    // set the return value
+                    dayText = "thirtieth";
+
+                    // required 
+                    break;
+
+                case 31:
+
+                    // set the return value
+                    dayText = "thirty first";
+
+                    // required 
+                    break;
+            }
+                
+            // return value
+            return dayText;
         }
         #endregion
             
@@ -853,12 +1337,12 @@ namespace StockData
                     date = DateHelper.ParseEightDigitDate(temp2);
                 }
             }
-                
+
             // return value
             return date;
         }
         #endregion
-            
+
         #region ProcessStockDay()
         /// <summary>
         /// Process Stock Day
@@ -893,7 +1377,7 @@ namespace StockData
             }
         }
         #endregion
-            
+
         #region SaveWorksheetCallback(SaveWorksheetResponse resonse)
         /// <summary>
         /// Save Worksheet Callback
@@ -945,7 +1429,7 @@ namespace StockData
                     double temp = sumVolume / dailyPriceData.Count;
 
                     // Set the AverageDailyVolume
-                    averageDailyVolume = (int) temp;
+                    averageDailyVolume = (int)temp;
 
                     // now put back the three digits
                     averageDailyVolume = averageDailyVolume * 1000;
@@ -978,18 +1462,18 @@ namespace StockData
                 industryViews = industryViews.Where(x => x.Track == true).ToList();
 
                 // cast the percentChange total as a decimal so divisiion works
-                decimal totalPercentChange = (decimal) industryViews.Where(x => x.Track == true).Sum(x => x.PercentChange);
-                decimal numberStocks = (decimal) industryViews.Where(x => x.Track == true).Count();
+                decimal totalPercentChange = (decimal)industryViews.Where(x => x.Track == true).Sum(x => x.PercentChange);
+                decimal numberStocks = (decimal)industryViews.Where(x => x.Track == true).Count();
                 decimal averagePercentChange = totalPercentChange / numberStocks;
 
                 // if the number of stocks has been set
                 if ((numberStocks > 0) && (averagePercentChange > 0))
                 {
                     averagePercentChange = Math.Round(averagePercentChange, 2);
-                    industryAveragePercentChange = (double) averagePercentChange;
+                    industryAveragePercentChange = (double)averagePercentChange;
                 }
             }
-                
+
             // return value
             return industryAveragePercentChange;
         }
@@ -1011,23 +1495,23 @@ namespace StockData
                 sectorViews = sectorViews.Where(x => x.Track == true).ToList();
 
                 // cast the percentChange total as a decimal so divisiion works
-                decimal totalPercentChange = (decimal) sectorViews.Where(x => x.Track == true).Sum(x => x.PercentChange);
-                decimal numberStocks = (decimal) sectorViews.Where(x => x.Track == true).Count();
+                decimal totalPercentChange = (decimal)sectorViews.Where(x => x.Track == true).Sum(x => x.PercentChange);
+                decimal numberStocks = (decimal)sectorViews.Where(x => x.Track == true).Count();
                 decimal averagePercentChange = totalPercentChange / numberStocks;
 
                 // if the number of stocks has been set
                 if ((numberStocks > 0) && (averagePercentChange > 0))
                 {
                     averagePercentChange = Math.Round(averagePercentChange, 2);
-                    sectorAveragePercentChange = (double) averagePercentChange;
+                    sectorAveragePercentChange = (double)averagePercentChange;
                 }
             }
-                
+
             // return value
             return sectorAveragePercentChange;
         }
         #endregion
-            
+
         #region SetStreakPercentChange(StockStreak currentStreak)
         /// <summary>
         /// returns the Streak Percent Change
@@ -1110,7 +1594,7 @@ namespace StockData
                         history.Decliners = industry.Decliners;
                         history.Score = industry.Score;
                         history.Streak = industry.Streak;
-                            
+
                         // Save the history
                         saved = Gateway.SaveIndustryHistory(ref history);
                     }
@@ -1218,7 +1702,7 @@ namespace StockData
                             saved = Gateway.SaveIndustry(ref clone);
                         }
                     }
-                }                
+                }
             }
         }
         #endregion
@@ -1255,7 +1739,7 @@ namespace StockData
                         history.Decliners = sector.Decliners;
                         history.Score = sector.Score;
                         history.Streak = sector.Streak;
-                            
+
                         // Save the history
                         saved = Gateway.SaveSectorHistory(ref history);
                     }
@@ -1345,7 +1829,7 @@ namespace StockData
                                 // Set the Score
                                 sector.Score = NumericHelper.DivideDoublesAsDecimals(100, sector.NumberStocks, 2) * sector.Advancers;
                             }
-                            
+
                             // Set the AveragePercentChange
                             sector.AveragePercentChange = SetSectorAveragePercentChange(sectorViews);
                             sector.AveragePercentChange = Math.Round(sector.AveragePercentChange, 2);
@@ -1360,11 +1844,11 @@ namespace StockData
                             saved = Gateway.SaveSector(ref clone);
                         }
                     }
-                }                
+                }
             }
         }
         #endregion
-            
+
         #endregion
 
         #region Properties
@@ -1510,7 +1994,7 @@ namespace StockData
             set { stockDayProcessed = value; }
         }
         #endregion
-            
+
         #endregion
 
     }

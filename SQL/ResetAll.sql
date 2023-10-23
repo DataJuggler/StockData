@@ -5,6 +5,10 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Stock
 DROP TABLE [dbo].[StockStreak]
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RecommendationLog]') AND type in (N'U'))
+DROP TABLE [dbo].[RecommendationLog]
+GO
+
 /****** Object:  Table [dbo].[StockDay]    Script Date: 8/30/2023 1:24:44 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[StockDay]') AND type in (N'U'))
 DROP TABLE [dbo].[StockDay]
@@ -142,6 +146,38 @@ CREATE TABLE [dbo].[StockStreak](
 	[ReverseSplit] [bit] NOT NULL,
 	[ReverseSplitDivisor] [int] NOT NULL,
  CONSTRAINT [PK_StockStreak] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+/****** Object:  Table [dbo].[RecommendationLog]    Script Date: 9/22/2023 1:46:02 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[RecommendationLog](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Score] [decimal](8, 3) NOT NULL,
+	[StockName] [nvarchar](50) NOT NULL,
+	[Symbol] [nvarchar](10) NOT NULL,
+	[StockDate] [datetime] NOT NULL,
+	[LastClose] [money] NOT NULL,
+	[CloseScore] [decimal](6, 2) NOT NULL,
+	[VolumeScore] [decimal](6, 2) NOT NULL,
+	[Streak] [int] NOT NULL,
+	[LastPercentChange] [decimal](6, 2) NOT NULL,
+	[StreakPercentChange] [decimal](6, 2) NOT NULL,
+	[Industry] [nvarchar](80) NOT NULL,
+	[IndustryScore] [decimal](6, 2) NOT NULL,
+	[IndustryStreak] [int] NOT NULL,
+	[Sector] [nvarchar](80) NOT NULL,
+	[SectorScore] [decimal](6, 2) NOT NULL,
+	[SectorStreak] [int] NOT NULL,
+ CONSTRAINT [PK_RecommendationLog] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]

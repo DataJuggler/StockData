@@ -45,22 +45,21 @@ namespace DataAccessComponent.DataManager.Readers
                 int lastClosefield = 6;
                 int lastPercentChangefield = 7;
                 int namefield = 8;
-                int percentChangefield = 9;
-                int reverseSplitfield = 10;
-                int reverseSplitDivisorfield = 11;
-                int sectorfield = 12;
-                int sectorScorefield = 13;
-                int sectorStreakfield = 14;
-                int stockDatefield = 15;
-                int stockIdfield = 16;
-                int streakfield = 17;
-                int streakEndDatefield = 18;
-                int streakEndPricefield = 19;
-                int streakPercentChangefield = 20;
-                int streakStartDatefield = 21;
-                int streakStartPricefield = 22;
-                int symbolfield = 23;
-                int volumeScorefield = 24;
+                int reverseSplitfield = 9;
+                int reverseSplitDivisorfield = 10;
+                int sectorfield = 11;
+                int sectorScorefield = 12;
+                int sectorStreakfield = 13;
+                int stockDatefield = 14;
+                int stockIdfield = 15;
+                int streakfield = 16;
+                int streakEndDatefield = 17;
+                int streakEndPricefield = 18;
+                int streakPercentChangefield = 19;
+                int streakStartDatefield = 20;
+                int streakStartPricefield = 21;
+                int symbolfield = 22;
+                int volumeScorefield = 23;
 
                 try
                 {
@@ -74,7 +73,6 @@ namespace DataAccessComponent.DataManager.Readers
                     stockStreakView.LastClose = DataHelper.ParseDouble(dataRow.ItemArray[lastClosefield], 0);
                     stockStreakView.LastPercentChange = DataHelper.ParseDouble(dataRow.ItemArray[lastPercentChangefield], 0);
                     stockStreakView.Name = DataHelper.ParseString(dataRow.ItemArray[namefield]);
-                    stockStreakView.PercentChange = DataHelper.ParseDouble(dataRow.ItemArray[percentChangefield], 0);
                     stockStreakView.ReverseSplit = DataHelper.ParseBoolean(dataRow.ItemArray[reverseSplitfield], false);
                     stockStreakView.ReverseSplitDivisor = DataHelper.ParseInteger(dataRow.ItemArray[reverseSplitDivisorfield], 0);
                     stockStreakView.Sector = DataHelper.ParseString(dataRow.ItemArray[sectorfield]);

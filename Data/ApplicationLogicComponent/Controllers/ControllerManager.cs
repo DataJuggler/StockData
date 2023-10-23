@@ -28,13 +28,17 @@ namespace ApplicationLogicComponent.Controllers
         private AdminController adminController;
         private DailyPriceDataController dailypricedataController;
         private DailyPriceDataViewController dailypricedataviewController;
+        private DoNotTrackController donottrackController;
         private IndustryController industryController;
         private IndustryHistoryController industryhistoryController;
+        private IndustrySummaryController industrysummaryController;
         private IndustryViewController industryviewController;
+        private MarketSummaryController marketsummaryController;
         private RecommendationLogController recommendationlogController;
         private RecommendationViewController recommendationviewController;
         private SectorController sectorController;
         private SectorHistoryController sectorhistoryController;
+        private SectorSummaryController sectorsummaryController;
         private SectorViewController sectorviewController;
         private StockController stockController;
         private StockDayController stockdayController;
@@ -69,13 +73,17 @@ namespace ApplicationLogicComponent.Controllers
                 this.AdminController = new AdminController(this.ErrorProcessor, this.AppController);
                 this.DailyPriceDataController = new DailyPriceDataController(this.ErrorProcessor, this.AppController);
                 this.DailyPriceDataViewController = new DailyPriceDataViewController(this.ErrorProcessor, this.AppController);
+                this.DoNotTrackController = new DoNotTrackController(this.ErrorProcessor, this.AppController);
                 this.IndustryController = new IndustryController(this.ErrorProcessor, this.AppController);
                 this.IndustryHistoryController = new IndustryHistoryController(this.ErrorProcessor, this.AppController);
+                this.IndustrySummaryController = new IndustrySummaryController(this.ErrorProcessor, this.AppController);
                 this.IndustryViewController = new IndustryViewController(this.ErrorProcessor, this.AppController);
+                this.MarketSummaryController = new MarketSummaryController(this.ErrorProcessor, this.AppController);
                 this.RecommendationLogController = new RecommendationLogController(this.ErrorProcessor, this.AppController);
                 this.RecommendationViewController = new RecommendationViewController(this.ErrorProcessor, this.AppController);
                 this.SectorController = new SectorController(this.ErrorProcessor, this.AppController);
                 this.SectorHistoryController = new SectorHistoryController(this.ErrorProcessor, this.AppController);
+                this.SectorSummaryController = new SectorSummaryController(this.ErrorProcessor, this.AppController);
                 this.SectorViewController = new SectorViewController(this.ErrorProcessor, this.AppController);
                 this.StockController = new StockController(this.ErrorProcessor, this.AppController);
                 this.StockDayController = new StockDayController(this.ErrorProcessor, this.AppController);
@@ -128,6 +136,14 @@ namespace ApplicationLogicComponent.Controllers
             }
             #endregion
 
+            #region DoNotTrackController
+            public DoNotTrackController DoNotTrackController
+            {
+                get { return donottrackController; }
+                set { donottrackController = value; }
+            }
+            #endregion
+
             #region IndustryController
             public IndustryController IndustryController
             {
@@ -144,11 +160,27 @@ namespace ApplicationLogicComponent.Controllers
             }
             #endregion
 
+            #region IndustrySummaryController
+            public IndustrySummaryController IndustrySummaryController
+            {
+                get { return industrysummaryController; }
+                set { industrysummaryController = value; }
+            }
+            #endregion
+
             #region IndustryViewController
             public IndustryViewController IndustryViewController
             {
                 get { return industryviewController; }
                 set { industryviewController = value; }
+            }
+            #endregion
+
+            #region MarketSummaryController
+            public MarketSummaryController MarketSummaryController
+            {
+                get { return marketsummaryController; }
+                set { marketsummaryController = value; }
             }
             #endregion
 
@@ -181,6 +213,14 @@ namespace ApplicationLogicComponent.Controllers
             {
                 get { return sectorhistoryController; }
                 set { sectorhistoryController = value; }
+            }
+            #endregion
+
+            #region SectorSummaryController
+            public SectorSummaryController SectorSummaryController
+            {
+                get { return sectorsummaryController; }
+                set { sectorsummaryController = value; }
             }
             #endregion
 

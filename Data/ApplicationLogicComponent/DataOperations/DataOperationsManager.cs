@@ -32,13 +32,17 @@ namespace ApplicationLogicComponent.DataOperations
         private AdminMethods adminMethods;
         private DailyPriceDataMethods dailypricedataMethods;
         private DailyPriceDataViewMethods dailypricedataviewMethods;
+        private DoNotTrackMethods donottrackMethods;
         private IndustryMethods industryMethods;
         private IndustryHistoryMethods industryhistoryMethods;
+        private IndustrySummaryMethods industrysummaryMethods;
         private IndustryViewMethods industryviewMethods;
+        private MarketSummaryMethods marketsummaryMethods;
         private RecommendationLogMethods recommendationlogMethods;
         private RecommendationViewMethods recommendationviewMethods;
         private SectorMethods sectorMethods;
         private SectorHistoryMethods sectorhistoryMethods;
+        private SectorSummaryMethods sectorsummaryMethods;
         private SectorViewMethods sectorviewMethods;
         private StockMethods stockMethods;
         private StockDayMethods stockdayMethods;
@@ -73,13 +77,17 @@ namespace ApplicationLogicComponent.DataOperations
                 this.AdminMethods = new AdminMethods(this.DataManager);
                 this.DailyPriceDataMethods = new DailyPriceDataMethods(this.DataManager);
                 this.DailyPriceDataViewMethods = new DailyPriceDataViewMethods(this.DataManager);
+                this.DoNotTrackMethods = new DoNotTrackMethods(this.DataManager);
                 this.IndustryMethods = new IndustryMethods(this.DataManager);
                 this.IndustryHistoryMethods = new IndustryHistoryMethods(this.DataManager);
+                this.IndustrySummaryMethods = new IndustrySummaryMethods(this.DataManager);
                 this.IndustryViewMethods = new IndustryViewMethods(this.DataManager);
+                this.MarketSummaryMethods = new MarketSummaryMethods(this.DataManager);
                 this.RecommendationLogMethods = new RecommendationLogMethods(this.DataManager);
                 this.RecommendationViewMethods = new RecommendationViewMethods(this.DataManager);
                 this.SectorMethods = new SectorMethods(this.DataManager);
                 this.SectorHistoryMethods = new SectorHistoryMethods(this.DataManager);
+                this.SectorSummaryMethods = new SectorSummaryMethods(this.DataManager);
                 this.SectorViewMethods = new SectorViewMethods(this.DataManager);
                 this.StockMethods = new StockMethods(this.DataManager);
                 this.StockDayMethods = new StockDayMethods(this.DataManager);
@@ -132,6 +140,14 @@ namespace ApplicationLogicComponent.DataOperations
             }
             #endregion
 
+            #region DoNotTrackMethods
+            public DoNotTrackMethods DoNotTrackMethods
+            {
+                get { return donottrackMethods; }
+                set { donottrackMethods = value; }
+            }
+            #endregion
+
             #region IndustryMethods
             public IndustryMethods IndustryMethods
             {
@@ -148,11 +164,27 @@ namespace ApplicationLogicComponent.DataOperations
             }
             #endregion
 
+            #region IndustrySummaryMethods
+            public IndustrySummaryMethods IndustrySummaryMethods
+            {
+                get { return industrysummaryMethods; }
+                set { industrysummaryMethods = value; }
+            }
+            #endregion
+
             #region IndustryViewMethods
             public IndustryViewMethods IndustryViewMethods
             {
                 get { return industryviewMethods; }
                 set { industryviewMethods = value; }
+            }
+            #endregion
+
+            #region MarketSummaryMethods
+            public MarketSummaryMethods MarketSummaryMethods
+            {
+                get { return marketsummaryMethods; }
+                set { marketsummaryMethods = value; }
             }
             #endregion
 
@@ -185,6 +217,14 @@ namespace ApplicationLogicComponent.DataOperations
             {
                 get { return sectorhistoryMethods; }
                 set { sectorhistoryMethods = value; }
+            }
+            #endregion
+
+            #region SectorSummaryMethods
+            public SectorSummaryMethods SectorSummaryMethods
+            {
+                get { return sectorsummaryMethods; }
+                set { sectorsummaryMethods = value; }
             }
             #endregion
 

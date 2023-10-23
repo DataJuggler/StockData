@@ -37,21 +37,25 @@ namespace DataAccessComponent.DataManager.Readers
 
                 // Create field Integers
                 int averageDailyVolumefield = 0;
-                int exchangefield = 1;
-                int idfield = 2;
-                int industryfield = 3;
-                int iPOYearfield = 4;
-                int lastClosefield = 5;
-                int namefield = 6;
-                int sectorfield = 7;
-                int streakfield = 8;
-                int symbolfield = 9;
-                int trackfield = 10;
+                int countryfield = 1;
+                int daysBelowMinVolumefield = 2;
+                int exchangefield = 3;
+                int idfield = 4;
+                int industryfield = 5;
+                int iPOYearfield = 6;
+                int lastClosefield = 7;
+                int namefield = 8;
+                int sectorfield = 9;
+                int streakfield = 10;
+                int symbolfield = 11;
+                int trackfield = 12;
 
                 try
                 {
                     // Load Each field
                     stock.AverageDailyVolume = DataHelper.ParseInteger(dataRow.ItemArray[averageDailyVolumefield], 0);
+                    stock.Country = DataHelper.ParseString(dataRow.ItemArray[countryfield]);
+                    stock.DaysBelowMinVolume = DataHelper.ParseInteger(dataRow.ItemArray[daysBelowMinVolumefield], 0);
                     stock.Exchange = DataHelper.ParseString(dataRow.ItemArray[exchangefield]);
                     stock.UpdateIdentity(DataHelper.ParseInteger(dataRow.ItemArray[idfield], 0));
                     stock.Industry = DataHelper.ParseString(dataRow.ItemArray[industryfield]);

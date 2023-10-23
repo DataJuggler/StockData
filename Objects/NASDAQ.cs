@@ -20,6 +20,7 @@ namespace StockData.Objects
 
         #region Private Variables
         private string changedColumns;
+        private string country;
         private string industry;
         private int iPOYear;
         private bool loading;
@@ -27,7 +28,6 @@ namespace StockData.Objects
         private Guid rowId;
         private string sector;
         private string symbol;
-        private int volume;
         #endregion
 
         #region Methods
@@ -48,8 +48,8 @@ namespace StockData.Objects
                     // set values
                     Symbol = row.Columns[0].StringValue;
                     Name = row.Columns[1].StringValue;
-                    IPOYear = row.Columns[2].IntValue;
-                    Volume = row.Columns[3].IntValue;
+                    Country = row.Columns[2].StringValue;
+                    IPOYear = row.Columns[3].IntValue;
                     Sector = row.Columns[4].StringValue;
                     Industry = row.Columns[5].StringValue;
 
@@ -121,16 +121,16 @@ namespace StockData.Objects
                 newRow.Columns.Add(nameColumn);
 
                 // Create Column
-                Column iPOYearColumn = new Column("IPOYear", rowNumber, 3, DataManager.DataTypeEnum.Integer);
+                Column countryColumn = new Column("Country", rowNumber, 3, DataManager.DataTypeEnum.String);
+
+                // Add this column
+                newRow.Columns.Add(countryColumn);
+
+                // Create Column
+                Column iPOYearColumn = new Column("IPOYear", rowNumber, 4, DataManager.DataTypeEnum.Integer);
 
                 // Add this column
                 newRow.Columns.Add(iPOYearColumn);
-
-                // Create Column
-                Column volumeColumn = new Column("Volume", rowNumber, 4, DataManager.DataTypeEnum.Integer);
-
-                // Add this column
-                newRow.Columns.Add(volumeColumn);
 
                 // Create Column
                 Column sectorColumn = new Column("Sector", rowNumber, 5, DataManager.DataTypeEnum.String);
@@ -166,9 +166,9 @@ namespace StockData.Objects
                     row.Columns[0].HasChanges = changedColumnIndexes.Contains(0);
                     row.Columns[1].ColumnValue = Name;
                     row.Columns[1].HasChanges = changedColumnIndexes.Contains(1);
-                    row.Columns[2].ColumnValue = IPOYear;
+                    row.Columns[2].ColumnValue = Country;
                     row.Columns[2].HasChanges = changedColumnIndexes.Contains(2);
-                    row.Columns[3].ColumnValue = Volume;
+                    row.Columns[3].ColumnValue = IPOYear;
                     row.Columns[3].HasChanges = changedColumnIndexes.Contains(3);
                     row.Columns[4].ColumnValue = Sector;
                     row.Columns[4].HasChanges = changedColumnIndexes.Contains(4);
@@ -195,6 +195,25 @@ namespace StockData.Objects
                 set
                 {
                     changedColumns = value;
+                }
+            }
+            #endregion
+
+            #region string Country
+            public string Country
+            {
+                get
+                {
+                    return country;
+                }
+                set
+                {
+                    country = value;
+
+                    if (!Loading)
+                    {
+                        ChangedColumns += 2 + ",";
+                    }
                 }
             }
             #endregion
@@ -231,7 +250,7 @@ namespace StockData.Objects
 
                     if (!Loading)
                     {
-                        ChangedColumns += 2 + ",";
+                        ChangedColumns += 3 + ",";
                     }
                 }
             }
@@ -322,25 +341,6 @@ namespace StockData.Objects
                     if (!Loading)
                     {
                         ChangedColumns += 0 + ",";
-                    }
-                }
-            }
-            #endregion
-
-            #region int Volume
-            public int Volume
-            {
-                get
-                {
-                    return volume;
-                }
-                set
-                {
-                    volume = value;
-
-                    if (!Loading)
-                    {
-                        ChangedColumns += 3 + ",";
                     }
                 }
             }
