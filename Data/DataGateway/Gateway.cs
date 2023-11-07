@@ -1250,7 +1250,7 @@ namespace DataGateway
                 return industrySummarys;
             }
             #endregion
-
+                
             #region LoadIndustryViews(IndustryView tempIndustryView = null)
             /// <summary>
             /// This method loads a collection of 'IndustryView' objects.
@@ -1271,35 +1271,35 @@ namespace DataGateway
                 return industryViews;
             }
             #endregion
-                
-                #region LoadIndustryViewsForIndustryAndStockDate(string industry, DateTime stockDate)
-                /// <summary>
-                /// This method is used to load 'IndustryView' objects by IndustryAndStockDate
-                /// </summary>
-                public List<IndustryView> LoadIndustryViewsForIndustryAndStockDate(string industry, DateTime stockDate)
-                {
-                    // initial value
-                    List<IndustryView> industryViews = null;
+
+            #region LoadIndustryViewsForIndustryAndStockDate(string industry, DateTime stockDate)
+            /// <summary>
+            /// This method is used to load 'IndustryView' objects by IndustryAndStockDate
+            /// </summary>
+            public List<IndustryView> LoadIndustryViewsForIndustryAndStockDate(string industry, DateTime stockDate)
+            {
+                // initial value
+                List<IndustryView> industryViews = null;
                     
-                    // Create a temp IndustryView object
-                    IndustryView tempIndustryView = new IndustryView();
+                // Create a temp IndustryView object
+                IndustryView tempIndustryView = new IndustryView();
                     
-                    // Set the value for LoadByIndustryAndStockDate to true
-                    tempIndustryView.LoadByIndustryAndStockDate = true;
+                // Set the value for LoadByIndustryAndStockDate to true
+                tempIndustryView.LoadByIndustryAndStockDate = true;
                     
-                    // Set the value for Industry
-                    tempIndustryView.Industry = industry;
+                // Set the value for Industry
+                tempIndustryView.Industry = industry;
                     
-                    // Set the value for StockDate
-                    tempIndustryView.StockDate = stockDate;
+                // Set the value for StockDate
+                tempIndustryView.StockDate = stockDate;
                     
-                    // Perform the load
-                    industryViews = LoadIndustryViews(tempIndustryView);
+                // Perform the load
+                industryViews = LoadIndustryViews(tempIndustryView);
                     
-                    // return value
-                    return industryViews;
-                }
-                #endregion
+                // return value
+                return industryViews;
+            }
+            #endregion
 
             #region LoadMarketSummarys(MarketSummary tempMarketSummary = null)
             /// <summary>
@@ -1426,7 +1426,7 @@ namespace DataGateway
                 return sectorSummarys;
             }
             #endregion
-
+                
             #region LoadSectorViews(SectorView tempSectorView = null)
             /// <summary>
             /// This method loads a collection of 'SectorView' objects.
@@ -1447,35 +1447,35 @@ namespace DataGateway
                 return sectorViews;
             }
             #endregion
-                
-                #region LoadSectorViewsForSectorAndStockDate(string sector, DateTime stockDate)
-                /// <summary>
-                /// This method is used to load 'SectorView' objects by SectorAndStockDate
-                /// </summary>
-                public List<SectorView> LoadSectorViewsForSectorAndStockDate(string sector, DateTime stockDate)
-                {
-                    // initial value
-                    List<SectorView> sectorViews = null;
+
+            #region LoadSectorViewsForSectorAndStockDate(string sector, DateTime stockDate)
+            /// <summary>
+            /// This method is used to load 'SectorView' objects by SectorAndStockDate
+            /// </summary>
+            public List<SectorView> LoadSectorViewsForSectorAndStockDate(string sector, DateTime stockDate)
+            {
+                // initial value
+                List<SectorView> sectorViews = null;
                     
-                    // Create a temp SectorView object
-                    SectorView tempSectorView = new SectorView();
+                // Create a temp SectorView object
+                SectorView tempSectorView = new SectorView();
                     
-                    // Set the value for LoadBySectorAndStockDate to true
-                    tempSectorView.LoadBySectorAndStockDate = true;
+                // Set the value for LoadBySectorAndStockDate to true
+                tempSectorView.LoadBySectorAndStockDate = true;
                     
-                    // Set the value for Sector
-                    tempSectorView.Sector = sector;
+                // Set the value for Sector
+                tempSectorView.Sector = sector;
                     
-                    // Set the value for StockDate
-                    tempSectorView.StockDate = stockDate;
+                // Set the value for StockDate
+                tempSectorView.StockDate = stockDate;
                     
-                    // Perform the load
-                    sectorViews = LoadSectorViews(tempSectorView);
+                // Perform the load
+                sectorViews = LoadSectorViews(tempSectorView);
                     
-                    // return value
-                    return sectorViews;
-                }
-                #endregion
+                // return value
+                return sectorViews;
+            }
+            #endregion
                 
             #region LoadStockDays(StockDay tempStockDay = null)
             /// <summary>
@@ -1498,34 +1498,34 @@ namespace DataGateway
             }
             #endregion
 
-                #region LoadStockDaysThatNeedsProcessing(bool industryProcessed, bool sectorProcessed)
-                /// <summary>
-                /// This method is used to load 'StockDay' objects by NeedsProcessing
-                /// </summary>
-                public List<StockDay> LoadStockDaysThatNeedsProcessing(bool industryProcessed, bool sectorProcessed)
-                {
-                    // initial value
-                    List<StockDay> stockDays = null;
+            #region LoadStockDaysThatNeedsProcessing(bool industryProcessed, bool sectorProcessed)
+            /// <summary>
+            /// This method is used to load 'StockDay' objects by NeedsProcessing
+            /// </summary>
+            public List<StockDay> LoadStockDaysThatNeedsProcessing(bool industryProcessed, bool sectorProcessed)
+            {
+                // initial value
+                List<StockDay> stockDays = null;
                     
-                    // Create a temp StockDay object
-                    StockDay tempStockDay = new StockDay();
+                // Create a temp StockDay object
+                StockDay tempStockDay = new StockDay();
                     
-                    // Set the value for LoadByNeedsProcessing to true
-                    tempStockDay.LoadByNeedsProcessing = true;
+                // Set the value for LoadByNeedsProcessing to true
+                tempStockDay.LoadByNeedsProcessing = true;
                     
-                    // Set the value for IndustryProcessed
-                    tempStockDay.IndustryProcessed = industryProcessed;
+                // Set the value for IndustryProcessed
+                tempStockDay.IndustryProcessed = industryProcessed;
                     
-                    // Set the value for SectorProcessed
-                    tempStockDay.SectorProcessed = sectorProcessed;
+                // Set the value for SectorProcessed
+                tempStockDay.SectorProcessed = sectorProcessed;
                     
-                    // Perform the load
-                    stockDays = LoadStockDays(tempStockDay);
+                // Perform the load
+                stockDays = LoadStockDays(tempStockDay);
                     
-                    // return value
-                    return stockDays;
-                }
-                #endregion
+                // return value
+                return stockDays;
+            }
+            #endregion
                 
             #region LoadStocks(Stock tempStock = null)
             /// <summary>
@@ -1587,6 +1587,48 @@ namespace DataGateway
 
                 // return value
                 return stockStreakViews;
+            }
+            #endregion
+
+            #region LoadTopLosingStreakStocks(TopLosingStreakStocks tempTopLosingStreakStocks = null)
+            /// <summary>
+            /// This method loads a collection of 'TopLosingStreakStocks' objects.
+            /// </summary>
+            public List<TopLosingStreakStocks> LoadTopLosingStreakStocks(TopLosingStreakStocks tempTopLosingStreakStocks = null)
+            {
+                // initial value
+                List<TopLosingStreakStocks> topLosingStreakStocks = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    topLosingStreakStocks = this.AppController.ControllerManager.TopLosingStreakStocksController.FetchAll(tempTopLosingStreakStocks);
+                }
+
+                // return value
+                return topLosingStreakStocks;
+            }
+            #endregion
+
+            #region LoadTopStreakStocks(TopStreakStocks tempTopStreakStocks = null)
+            /// <summary>
+            /// This method loads a collection of 'TopStreakStocks' objects.
+            /// </summary>
+            public List<TopStreakStocks> LoadTopStreakStocks(TopStreakStocks tempTopStreakStocks = null)
+            {
+                // initial value
+                List<TopStreakStocks> topStreakStocks = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    topStreakStocks = this.AppController.ControllerManager.TopStreakStocksController.FetchAll(tempTopStreakStocks);
+                }
+
+                // return value
+                return topStreakStocks;
             }
             #endregion
 

@@ -47,6 +47,8 @@ namespace DataAccessComponent.DataManager
         private StockDayManager stockdayManager;
         private StockStreakManager stockstreakManager;
         private StockStreakViewManager stockstreakviewManager;
+        private TopLosingStreakStocksManager toplosingstreakstocksManager;
+        private TopStreakStocksManager topstreakstocksManager;
         #endregion
 
         #region Constructor
@@ -95,6 +97,8 @@ namespace DataAccessComponent.DataManager
                 this.StockDayManager = new StockDayManager(this);
                 this.StockStreakManager = new StockStreakManager(this);
                 this.StockStreakViewManager = new StockStreakViewManager(this);
+                this.TopLosingStreakStocksManager = new TopLosingStreakStocksManager(this);
+                this.TopStreakStocksManager = new TopStreakStocksManager(this);
             }
             #endregion
 
@@ -267,6 +271,22 @@ namespace DataAccessComponent.DataManager
             {
                 get { return stockstreakviewManager; }
                 set { stockstreakviewManager = value; }
+            }
+            #endregion
+
+            #region TopLosingStreakStocksManager
+            public TopLosingStreakStocksManager TopLosingStreakStocksManager
+            {
+                get { return toplosingstreakstocksManager; }
+                set { toplosingstreakstocksManager = value; }
+            }
+            #endregion
+
+            #region TopStreakStocksManager
+            public TopStreakStocksManager TopStreakStocksManager
+            {
+                get { return topstreakstocksManager; }
+                set { topstreakstocksManager = value; }
             }
             #endregion
 

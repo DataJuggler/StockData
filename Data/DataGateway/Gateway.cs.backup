@@ -1250,27 +1250,6 @@ namespace DataGateway
                 return industrySummarys;
             }
             #endregion
-
-            #region LoadIndustryViews(IndustryView tempIndustryView = null)
-            /// <summary>
-            /// This method loads a collection of 'IndustryView' objects.
-            /// </summary>
-            public List<IndustryView> LoadIndustryViews(IndustryView tempIndustryView = null)
-            {
-                // initial value
-                List<IndustryView> industryViews = null;
-
-                // if the AppController exists
-                if (this.HasAppController)
-                {
-                    // perform the load
-                    industryViews = this.AppController.ControllerManager.IndustryViewController.FetchAll(tempIndustryView);
-                }
-
-                // return value
-                return industryViews;
-            }
-            #endregion
                 
                 #region LoadIndustryViewsForIndustryAndStockDate(string industry, DateTime stockDate)
                 /// <summary>
@@ -1426,27 +1405,6 @@ namespace DataGateway
                 return sectorSummarys;
             }
             #endregion
-
-            #region LoadSectorViews(SectorView tempSectorView = null)
-            /// <summary>
-            /// This method loads a collection of 'SectorView' objects.
-            /// </summary>
-            public List<SectorView> LoadSectorViews(SectorView tempSectorView = null)
-            {
-                // initial value
-                List<SectorView> sectorViews = null;
-
-                // if the AppController exists
-                if (this.HasAppController)
-                {
-                    // perform the load
-                    sectorViews = this.AppController.ControllerManager.SectorViewController.FetchAll(tempSectorView);
-                }
-
-                // return value
-                return sectorViews;
-            }
-            #endregion
                 
                 #region LoadSectorViewsForSectorAndStockDate(string sector, DateTime stockDate)
                 /// <summary>
@@ -1587,6 +1545,48 @@ namespace DataGateway
 
                 // return value
                 return stockStreakViews;
+            }
+            #endregion
+
+            #region LoadTopLosingStreakStocks(TopLosingStreakStocks tempTopLosingStreakStocks = null)
+            /// <summary>
+            /// This method loads a collection of 'TopLosingStreakStocks' objects.
+            /// </summary>
+            public List<TopLosingStreakStocks> LoadTopLosingStreakStocks(TopLosingStreakStocks tempTopLosingStreakStocks = null)
+            {
+                // initial value
+                List<TopLosingStreakStocks> topLosingStreakStocks = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    topLosingStreakStocks = this.AppController.ControllerManager.TopLosingStreakStocksController.FetchAll(tempTopLosingStreakStocks);
+                }
+
+                // return value
+                return topLosingStreakStocks;
+            }
+            #endregion
+
+            #region LoadTopStreakStocks(TopStreakStocks tempTopStreakStocks = null)
+            /// <summary>
+            /// This method loads a collection of 'TopStreakStocks' objects.
+            /// </summary>
+            public List<TopStreakStocks> LoadTopStreakStocks(TopStreakStocks tempTopStreakStocks = null)
+            {
+                // initial value
+                List<TopStreakStocks> topStreakStocks = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    topStreakStocks = this.AppController.ControllerManager.TopStreakStocksController.FetchAll(tempTopStreakStocks);
+                }
+
+                // return value
+                return topStreakStocks;
             }
             #endregion
 

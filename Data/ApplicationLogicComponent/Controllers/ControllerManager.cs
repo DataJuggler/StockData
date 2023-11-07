@@ -44,6 +44,8 @@ namespace ApplicationLogicComponent.Controllers
         private StockDayController stockdayController;
         private StockStreakController stockstreakController;
         private StockStreakViewController stockstreakviewController;
+        private TopLosingStreakStocksController toplosingstreakstocksController;
+        private TopStreakStocksController topstreakstocksController;
         #endregion
 
         #region Constructor
@@ -89,6 +91,8 @@ namespace ApplicationLogicComponent.Controllers
                 this.StockDayController = new StockDayController(this.ErrorProcessor, this.AppController);
                 this.StockStreakController = new StockStreakController(this.ErrorProcessor, this.AppController);
                 this.StockStreakViewController = new StockStreakViewController(this.ErrorProcessor, this.AppController);
+                this.TopLosingStreakStocksController = new TopLosingStreakStocksController(this.ErrorProcessor, this.AppController);
+                this.TopStreakStocksController = new TopStreakStocksController(this.ErrorProcessor, this.AppController);
             }
             #endregion
 
@@ -261,6 +265,22 @@ namespace ApplicationLogicComponent.Controllers
             {
                 get { return stockstreakviewController; }
                 set { stockstreakviewController = value; }
+            }
+            #endregion
+
+            #region TopLosingStreakStocksController
+            public TopLosingStreakStocksController TopLosingStreakStocksController
+            {
+                get { return toplosingstreakstocksController; }
+                set { toplosingstreakstocksController = value; }
+            }
+            #endregion
+
+            #region TopStreakStocksController
+            public TopStreakStocksController TopStreakStocksController
+            {
+                get { return topstreakstocksController; }
+                set { topstreakstocksController = value; }
             }
             #endregion
 

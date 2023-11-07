@@ -48,6 +48,8 @@ namespace ApplicationLogicComponent.DataOperations
         private StockDayMethods stockdayMethods;
         private StockStreakMethods stockstreakMethods;
         private StockStreakViewMethods stockstreakviewMethods;
+        private TopLosingStreakStocksMethods toplosingstreakstocksMethods;
+        private TopStreakStocksMethods topstreakstocksMethods;
         #endregion
 
         #region Constructor
@@ -93,6 +95,8 @@ namespace ApplicationLogicComponent.DataOperations
                 this.StockDayMethods = new StockDayMethods(this.DataManager);
                 this.StockStreakMethods = new StockStreakMethods(this.DataManager);
                 this.StockStreakViewMethods = new StockStreakViewMethods(this.DataManager);
+                this.TopLosingStreakStocksMethods = new TopLosingStreakStocksMethods(this.DataManager);
+                this.TopStreakStocksMethods = new TopStreakStocksMethods(this.DataManager);
             }
             #endregion
 
@@ -265,6 +269,22 @@ namespace ApplicationLogicComponent.DataOperations
             {
                 get { return stockstreakviewMethods; }
                 set { stockstreakviewMethods = value; }
+            }
+            #endregion
+
+            #region TopLosingStreakStocksMethods
+            public TopLosingStreakStocksMethods TopLosingStreakStocksMethods
+            {
+                get { return toplosingstreakstocksMethods; }
+                set { toplosingstreakstocksMethods = value; }
+            }
+            #endregion
+
+            #region TopStreakStocksMethods
+            public TopStreakStocksMethods TopStreakStocksMethods
+            {
+                get { return topstreakstocksMethods; }
+                set { topstreakstocksMethods = value; }
             }
             #endregion
 
