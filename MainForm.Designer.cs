@@ -60,6 +60,7 @@ namespace StockData
             ImportSectorsButton = new DataJuggler.Win.Controls.Button();
             DoNotTrackButton = new DataJuggler.Win.Controls.Button();
             WriteDailyReportButton = new DataJuggler.Win.Controls.Button();
+            FixPercentChangeButton = new DataJuggler.Win.Controls.Button();
             SuspendLayout();
             // 
             // ImportStocksButton
@@ -136,7 +137,7 @@ namespace StockData
             ImportIndustryButton.FlatStyle = FlatStyle.Flat;
             ImportIndustryButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ImportIndustryButton.ForeColor = Color.LemonChiffon;
-            ImportIndustryButton.Location = new Point(41, 103);
+            ImportIndustryButton.Location = new Point(41, 99);
             ImportIndustryButton.Margin = new Padding(6, 4, 6, 4);
             ImportIndustryButton.Name = "ImportIndustryButton";
             ImportIndustryButton.Size = new Size(177, 46);
@@ -152,7 +153,7 @@ namespace StockData
             ImportSectorsButton.FlatStyle = FlatStyle.Flat;
             ImportSectorsButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ImportSectorsButton.ForeColor = Color.LemonChiffon;
-            ImportSectorsButton.Location = new Point(245, 103);
+            ImportSectorsButton.Location = new Point(245, 99);
             ImportSectorsButton.Margin = new Padding(6, 4, 6, 4);
             ImportSectorsButton.Name = "ImportSectorsButton";
             ImportSectorsButton.Size = new Size(177, 46);
@@ -184,7 +185,7 @@ namespace StockData
             WriteDailyReportButton.FlatStyle = FlatStyle.Flat;
             WriteDailyReportButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
             WriteDailyReportButton.ForeColor = Color.LemonChiffon;
-            WriteDailyReportButton.Location = new Point(516, 103);
+            WriteDailyReportButton.Location = new Point(516, 99);
             WriteDailyReportButton.Margin = new Padding(6, 4, 6, 4);
             WriteDailyReportButton.Name = "WriteDailyReportButton";
             WriteDailyReportButton.Size = new Size(249, 46);
@@ -193,12 +194,29 @@ namespace StockData
             WriteDailyReportButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
             WriteDailyReportButton.Click += WriteDailyReportButton_Click;
             // 
+            // FixPercentChangeButton
+            // 
+            FixPercentChangeButton.BackColor = Color.Transparent;
+            FixPercentChangeButton.ButtonText = "Fix Percent Change";
+            FixPercentChangeButton.FlatStyle = FlatStyle.Flat;
+            FixPercentChangeButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            FixPercentChangeButton.ForeColor = Color.LemonChiffon;
+            FixPercentChangeButton.Location = new Point(41, 167);
+            FixPercentChangeButton.Margin = new Padding(6, 4, 6, 4);
+            FixPercentChangeButton.Name = "FixPercentChangeButton";
+            FixPercentChangeButton.Size = new Size(195, 46);
+            FixPercentChangeButton.TabIndex = 10;
+            FixPercentChangeButton.TextAlign = ContentAlignment.MiddleCenter;
+            FixPercentChangeButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            FixPercentChangeButton.Click += FixPercentChangeButton_Click;
+            // 
             // MainForm
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = Properties.Resources.BlackImage;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(838, 312);
+            Controls.Add(FixPercentChangeButton);
             Controls.Add(WriteDailyReportButton);
             Controls.Add(DoNotTrackButton);
             Controls.Add(ImportSectorsButton);
@@ -223,6 +241,7 @@ namespace StockData
 
         private DataJuggler.Win.Controls.Button DoNotTrackButton;
         private DataJuggler.Win.Controls.Button WriteDailyReportButton;
+        private DataJuggler.Win.Controls.Button FixPercentChangeButton;
     }
     #endregion
 

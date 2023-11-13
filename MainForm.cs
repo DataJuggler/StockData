@@ -104,6 +104,70 @@ namespace StockData
         }
         #endregion
 
+        #region FixPercentChangeButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// event is fired when the 'FixPercentChangeButton' is clicked.
+        /// </summary>
+        private void FixPercentChangeButton_Click(object sender, EventArgs e)
+        {
+            // Load all the stocks
+            List<Stock> stocks = Gateway.LoadStocks();
+
+            // local
+            DailyPriceData prevData = null;
+
+            // If the stocks collection exists and has one or more items
+            if (ListHelper.HasOneOrMoreItems(stocks))
+            {
+                // Setup the Progress Bar
+                SetupGraph("Fixing Percent Change", stocks.Count, true);
+
+                // Iterate the collection of Stock objects
+                foreach (Stock stock in stocks)
+                {
+                    // reset for each stock
+                    prevData = null;
+
+                    // Load the DailyPriceData for this symbol
+                    List<DailyPriceData> dailyPriceData = Gateway.LoadAllDailyPriceDatasForSymbol(stock.Symbol);
+
+                    // If the dailyPriceData collection exists and has one or more items
+                    if (ListHelper.HasOneOrMoreItems(dailyPriceData))
+                    {
+                        // Iterate the collection of DailyPriceData objects
+                        foreach (DailyPriceData data in dailyPriceData)
+                        {
+                            // if not the first stock, since we do not have data for the first stock
+                            if (NullHelper.Exists(prevData))
+                            {
+                                // Set the PercentChange
+                                data.PercentChange = SetDailyPriceDataPercentChange(prevData.ClosePrice, data.ClosePrice);
+
+                                // Clone this so it can be saved
+                                DailyPriceData clone = data.Clone();
+
+                                // test only
+                                int id = clone.Id;
+
+                                // perform the save
+                                bool saved = Gateway.SaveDailyPriceData(ref clone);
+                            }
+
+                            // set the value for prevData
+                            prevData = data;
+                        }
+                    }
+
+                    // Increment the value for Graph
+                    Graph.Value++;
+                }
+            }
+
+            // udpate the label
+            StatusLabel.Text = "Done.";
+        }
+        #endregion
+
         #region ImportIndustryButton_Click(object sender, EventArgs e)
         /// <summary>
         /// event is fired when the 'ImportIndustryButton' is clicked.
@@ -274,7 +338,7 @@ namespace StockData
 
                         // If the tempStock object does not exist
                         if (NullHelper.IsNull(tempStock))
-                        {  
+                        {
                             // Create a new instance of a 'Stock' object.
                             Stock stock = new Stock();
 
@@ -291,7 +355,7 @@ namespace StockData
                             stock.Name = entry.Name;
 
                             // perform the stock
-                            saved = Gateway.SaveStock(ref stock);                        
+                            saved = Gateway.SaveStock(ref stock);
                         }
                     }
 
@@ -316,7 +380,7 @@ namespace StockData
 
                         // If the tempStock object does not exist
                         if (NullHelper.IsNull(tempStock))
-                        { 
+                        {
                             // Create a new instance of a 'Stock' object.
                             Stock stock = new Stock();
 
@@ -333,7 +397,7 @@ namespace StockData
                             stock.Name = entry.Name;
 
                             // perform the stock
-                            saved = Gateway.SaveStock(ref stock);                        
+                            saved = Gateway.SaveStock(ref stock);
                         }
                     }
 
@@ -525,7 +589,7 @@ namespace StockData
                                                             if (stock.LastClose > 0)
                                                             {
                                                                 // set the percent change                                                                
-                                                                data.PercentChange = NumericHelper.DivideDoublesAsDecimals(100, stock.LastClose, 2) * data.ClosePrice - 100;
+                                                                data.PercentChange = SetDailyPriceDataPercentChange(stock.LastClose, data.ClosePrice);
                                                             }
 
                                                             // if the price went up
@@ -882,7 +946,7 @@ namespace StockData
             StringBuilder sb = new StringBuilder("Good morning, today is ");
             sb.Append(DateTime.Now.ToShortDateString());
             sb.Append(". ");
-            
+
             sb.Append(" My name is Lucas, and welcome to the Bubble Report.");
 
             MarketSummary summary = Gateway.LoadMarketSummarys().FirstOrDefault();
@@ -939,7 +1003,13 @@ namespace StockData
                 // set Summary2
                 string summary2 = " There were " + summary.Advancers.ToString("N0") + " advancers and " + summary.Decliners.ToString("N0") + " decliners.";
 
+                // Append Summary2
                 sb.Append(summary2);
+
+                string summary3 = GetTopStreakStocksSummary();
+
+                // Append Summary3
+                sb.Append(summary3);
 
                 // Set the report
                 string report = sb.ToString();
@@ -952,7 +1022,7 @@ namespace StockData
             }
         }
         #endregion
-            
+
         #endregion
 
         #region Methods
@@ -961,7 +1031,7 @@ namespace StockData
         /// <summary>
         /// returns a list of Files To Stock Files
         /// </summary>
-        public List<StockFile> ConvertFilesToStockFiles(List<string> files)
+        public static List<StockFile> ConvertFilesToStockFiles(List<string> files)
         {
             // initial value
             List<StockFile> stockFiles = null;
@@ -1003,7 +1073,7 @@ namespace StockData
         /// <summary>
         /// returns the Stock Contain Symbol
         /// </summary>
-        public bool DoesStockContainSymbol(string symbol)
+        public static bool DoesStockContainSymbol(string symbol)
         {
             // initial value
             bool doesStockContainSymbol = false;
@@ -1024,17 +1094,17 @@ namespace StockData
                     }
                 }
             }
-                
+
             // return value
             return doesStockContainSymbol;
         }
         #endregion
-            
+
         #region GetDayText(int day)
         /// <summary>
         /// returns the Day Text
         /// </summary>
-        public string GetDayText(int day)
+        public static string GetDayText(int day)
         {
             // initial value
             string dayText = "";
@@ -1057,7 +1127,7 @@ namespace StockData
                     // required 
                     break;
 
-                 case 3:
+                case 3:
 
                     // set the return value
                     dayText = "third";
@@ -1073,7 +1143,7 @@ namespace StockData
                     // required 
                     break;
 
-                 case 5:
+                case 5:
 
                     // set the return value
                     dayText = "fifth";
@@ -1108,12 +1178,12 @@ namespace StockData
                 case 9:
 
                     // set the return value
-                    dayText = "nineth";
+                    dayText = "ninth";
 
                     // required 
                     break;
 
-                 case 10:
+                case 10:
 
                     // set the return value
                     dayText = "tenth";
@@ -1129,7 +1199,7 @@ namespace StockData
                     // required 
                     break;
 
-                 case 12:
+                case 12:
 
                     // set the return value
                     dayText = "twelfth";
@@ -1153,7 +1223,7 @@ namespace StockData
                     // required 
                     break;
 
-                 case 15:
+                case 15:
 
                     // set the return value
                     dayText = "fifteenth";
@@ -1161,7 +1231,7 @@ namespace StockData
                     // required 
                     break;
 
-                 case 16:
+                case 16:
 
                     // set the return value
                     dayText = "sixteenth";
@@ -1177,7 +1247,7 @@ namespace StockData
                     // required 
                     break;
 
-                 case 18:
+                case 18:
 
                     // set the return value
                     dayText = "eighteenth";
@@ -1185,7 +1255,7 @@ namespace StockData
                     // required 
                     break;
 
-                 case 19:
+                case 19:
 
                     // set the return value
                     dayText = "nineteenth";
@@ -1193,7 +1263,7 @@ namespace StockData
                     // required 
                     break;
 
-                 case 20:
+                case 20:
 
                     // set the return value
                     dayText = "twentieth";
@@ -1217,7 +1287,7 @@ namespace StockData
                     // required 
                     break;
 
-                 case 23:
+                case 23:
 
                     // set the return value
                     dayText = "twenty third";
@@ -1225,7 +1295,7 @@ namespace StockData
                     // required 
                     break;
 
-                 case 24:
+                case 24:
 
                     // set the return value
                     dayText = "twenty fourth";
@@ -1233,7 +1303,7 @@ namespace StockData
                     // required 
                     break;
 
-                 case 25:
+                case 25:
 
                     // set the return value
                     dayText = "twenty fifth";
@@ -1265,7 +1335,7 @@ namespace StockData
                     // required 
                     break;
 
-                 case 29:
+                case 29:
 
                     // set the return value
                     dayText = "twenty nineth";
@@ -1289,12 +1359,69 @@ namespace StockData
                     // required 
                     break;
             }
-                
+
             // return value
             return dayText;
         }
         #endregion
-            
+
+        #region GetTopStreakAStockSummary()
+        /// <summary>
+        /// returns the Top Streak A Stock Summary
+        /// </summary>
+        public string GetTopStreakStocksSummary()
+        {
+            // initial value
+            string summary3 = "";
+
+            // load the top streak stocks
+            List<TopStreakStocks> topStreakStocks = Gateway.LoadTopStreakStocks().Take(3).ToList();
+
+            // if there are 3 or more stocks
+            if (ListHelper.HasXOrMoreItems(topStreakStocks, 3))
+            {
+                // set the summary3
+                summary3 = "The top streak stocks are as follows. ";
+
+                // Top Streak Stocks
+                TopStreakStocks topStreakStocks1 = topStreakStocks[0];
+                TopStreakStocks topStreakStocks2 = topStreakStocks[1];
+                TopStreakStocks topStreakStocks3 = topStreakStocks[2];
+
+                // set the summary3
+                summary3 += "The top streak stock is symbol " + topStreakStocks1.Symbol + " which has gone up for the last " + topStreakStocks1.Streak + " sessions.";
+
+                // if tied
+                if (topStreakStocks1.Streak == topStreakStocks2.Streak)
+                {
+                    // append the second one
+                    summary3 += " Tied for the top streak at " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks2.Symbol;
+
+                    // if stopStreakStock1 and 3 also match
+                    if (topStreakStocks1.Streak == topStreakStocks3.Streak)
+                    {
+                        // append the second one
+                        summary3 += "Also tied for the top streak at " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks3.Symbol;
+                    }
+                }
+                else
+                {
+                    summary3 += " The second highest streak at " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks2.Symbol;
+
+                    // if the second and third are a tie.
+                    if (topStreakStocks2.Streak == topStreakStocks3.Streak)
+                    {
+                        // if a tie for second
+                        summary3 += " Tied for the second highest streak of " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks3.Symbol;
+                    }
+                }
+            }
+
+            // return value
+            return summary3;
+        }
+        #endregion
+
         #region Init()
         /// <summary>
         ///  This method performs initializations for this object.
@@ -1313,7 +1440,7 @@ namespace StockData
         /// <summary>
         /// returns the Date From File Name
         /// </summary>
-        public DateTime ParseDateFromFileName(string fileName)
+        public static DateTime ParseDateFromFileName(string fileName)
         {
             // initial value
             DateTime date = new DateTime();
@@ -1443,6 +1570,42 @@ namespace StockData
 
             // return value
             return averageDailyVolume;
+        }
+        #endregion
+
+        #region SetDailyPriceDataPercentChange(double prevClosePrice, double closePrice)
+        /// <summary>
+        /// returns the Daily Price Data Percent Change
+        /// </summary>
+        public static double SetDailyPriceDataPercentChange(double prevClosePrice, double closePrice)
+        {
+            // initial value
+            double percentChange = 0;
+
+            try
+            {
+                // Needs to be a decimal also
+                Decimal oneHundred = 100;
+
+                // cast the values as Decimal
+                Decimal closePrice2 = (Decimal) closePrice;
+                Decimal prevClosePrice2 = (Decimal) prevClosePrice;
+
+                // Get the value as a Decimal
+                Decimal percentChangeDecimal = oneHundred / prevClosePrice2 * closePrice2 - oneHundred;
+                percentChange = (double) percentChangeDecimal;
+
+                // Round to two decimal places
+                percentChange = Math.Round(percentChange, 2);
+            }
+            catch (Exception error)
+            {
+                // for debugging only for now
+                DebugHelper.WriteDebugError("SetDailyPriceDataPercentChange", "MainForm.cs", error);
+            }
+
+            // return value
+            return percentChange;
         }
         #endregion
 

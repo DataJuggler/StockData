@@ -35,8 +35,10 @@ namespace ApplicationLogicComponent.DataOperations
         private DoNotTrackMethods donottrackMethods;
         private IndustryMethods industryMethods;
         private IndustryHistoryMethods industryhistoryMethods;
+        private IndustryLosingStreakViewMethods industrylosingstreakviewMethods;
         private IndustrySummaryMethods industrysummaryMethods;
         private IndustryViewMethods industryviewMethods;
+        private IndustryWinningStreakViewMethods industrywinningstreakviewMethods;
         private MarketSummaryMethods marketsummaryMethods;
         private RecommendationLogMethods recommendationlogMethods;
         private RecommendationViewMethods recommendationviewMethods;
@@ -82,8 +84,10 @@ namespace ApplicationLogicComponent.DataOperations
                 this.DoNotTrackMethods = new DoNotTrackMethods(this.DataManager);
                 this.IndustryMethods = new IndustryMethods(this.DataManager);
                 this.IndustryHistoryMethods = new IndustryHistoryMethods(this.DataManager);
+                this.IndustryLosingStreakViewMethods = new IndustryLosingStreakViewMethods(this.DataManager);
                 this.IndustrySummaryMethods = new IndustrySummaryMethods(this.DataManager);
                 this.IndustryViewMethods = new IndustryViewMethods(this.DataManager);
+                this.IndustryWinningStreakViewMethods = new IndustryWinningStreakViewMethods(this.DataManager);
                 this.MarketSummaryMethods = new MarketSummaryMethods(this.DataManager);
                 this.RecommendationLogMethods = new RecommendationLogMethods(this.DataManager);
                 this.RecommendationViewMethods = new RecommendationViewMethods(this.DataManager);
@@ -168,6 +172,14 @@ namespace ApplicationLogicComponent.DataOperations
             }
             #endregion
 
+            #region IndustryLosingStreakViewMethods
+            public IndustryLosingStreakViewMethods IndustryLosingStreakViewMethods
+            {
+                get { return industrylosingstreakviewMethods; }
+                set { industrylosingstreakviewMethods = value; }
+            }
+            #endregion
+
             #region IndustrySummaryMethods
             public IndustrySummaryMethods IndustrySummaryMethods
             {
@@ -181,6 +193,14 @@ namespace ApplicationLogicComponent.DataOperations
             {
                 get { return industryviewMethods; }
                 set { industryviewMethods = value; }
+            }
+            #endregion
+
+            #region IndustryWinningStreakViewMethods
+            public IndustryWinningStreakViewMethods IndustryWinningStreakViewMethods
+            {
+                get { return industrywinningstreakviewMethods; }
+                set { industrywinningstreakviewMethods = value; }
             }
             #endregion
 

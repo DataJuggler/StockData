@@ -1099,6 +1099,32 @@ namespace DataGateway
             }
             #endregion
 
+                #region LoadAllDailyPriceDatasForSymbol(string symbol)
+                /// <summary>
+                /// This method is used to load 'DailyPriceData' objects for the Symbol given.
+                /// </summary>
+                public List<DailyPriceData> LoadAllDailyPriceDatasForSymbol(string symbol)
+                {
+                    // initial value
+                    List<DailyPriceData> dailyPriceDatas = null;
+                    
+                    // Create a temp DailyPriceData object
+                    DailyPriceData tempDailyPriceData = new DailyPriceData();
+                    
+                    // Set the value for LoadCompleteListBySymbol to true
+                    tempDailyPriceData.LoadCompleteListBySymbol = true;
+                    
+                    // Set the value for Symbol
+                    tempDailyPriceData.Symbol = symbol;
+                    
+                    // Perform the load
+                    dailyPriceDatas = LoadDailyPriceDatas(tempDailyPriceData);
+                    
+                    // return value
+                    return dailyPriceDatas;
+                }
+                #endregion
+                
             #region LoadDailyPriceDatas(DailyPriceData tempDailyPriceData = null)
             /// <summary>
             /// This method loads a collection of 'DailyPriceData' objects.
@@ -1209,6 +1235,27 @@ namespace DataGateway
             }
             #endregion
 
+            #region LoadIndustryLosingStreakViews(IndustryLosingStreakView tempIndustryLosingStreakView = null)
+            /// <summary>
+            /// This method loads a collection of 'IndustryLosingStreakView' objects.
+            /// </summary>
+            public List<IndustryLosingStreakView> LoadIndustryLosingStreakViews(IndustryLosingStreakView tempIndustryLosingStreakView = null)
+            {
+                // initial value
+                List<IndustryLosingStreakView> industryLosingStreakViews = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    industryLosingStreakViews = this.AppController.ControllerManager.IndustryLosingStreakViewController.FetchAll(tempIndustryLosingStreakView);
+                }
+
+                // return value
+                return industryLosingStreakViews;
+            }
+            #endregion
+
             #region LoadIndustrys(Industry tempIndustry = null)
             /// <summary>
             /// This method loads a collection of 'Industry' objects.
@@ -1298,6 +1345,27 @@ namespace DataGateway
                     
                 // return value
                 return industryViews;
+            }
+            #endregion
+
+            #region LoadIndustryWinningStreakViews(IndustryWinningStreakView tempIndustryWinningStreakView = null)
+            /// <summary>
+            /// This method loads a collection of 'IndustryWinningStreakView' objects.
+            /// </summary>
+            public List<IndustryWinningStreakView> LoadIndustryWinningStreakViews(IndustryWinningStreakView tempIndustryWinningStreakView = null)
+            {
+                // initial value
+                List<IndustryWinningStreakView> industryWinningStreakViews = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    industryWinningStreakViews = this.AppController.ControllerManager.IndustryWinningStreakViewController.FetchAll(tempIndustryWinningStreakView);
+                }
+
+                // return value
+                return industryWinningStreakViews;
             }
             #endregion
 
@@ -1940,4 +2008,3 @@ namespace DataGateway
     #endregion
 
 }
-

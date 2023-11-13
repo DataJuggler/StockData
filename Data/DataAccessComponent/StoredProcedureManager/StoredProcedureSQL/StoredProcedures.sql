@@ -1532,6 +1532,57 @@ set ANSI_NULLS ON
 set QUOTED_IDENTIFIER ON
 Go
 -- =========================================================
+-- Procure Name: IndustryLosingStreakView_FetchAll
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   11/7/2023
+-- Description:    Returns all IndustryLosingStreakView objects
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('IndustryLosingStreakView_FetchAll'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure IndustryLosingStreakView_FetchAll
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.IndustryLosingStreakView_FetchAll') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure IndustryLosingStreakView_FetchAll >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure IndustryLosingStreakView_FetchAll >>>'
+
+    End
+
+GO
+
+Create PROCEDURE IndustryLosingStreakView_FetchAll
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Select Statement
+    Select [Advancers],[AveragePercentChange],[Decliners],[Name],[Streak]
+
+    -- From tableName
+    From [IndustryLosingStreakView]
+
+END
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
 -- Procure Name: IndustrySummary_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
 -- Create Date:   11/7/2023
@@ -1627,6 +1678,57 @@ BEGIN
 
     -- From tableName
     From [IndustryView]
+
+END
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
+-- Procure Name: IndustryWinningStreakView_FetchAll
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   11/7/2023
+-- Description:    Returns all IndustryWinningStreakView objects
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('IndustryWinningStreakView_FetchAll'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure IndustryWinningStreakView_FetchAll
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.IndustryWinningStreakView_FetchAll') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure IndustryWinningStreakView_FetchAll >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure IndustryWinningStreakView_FetchAll >>>'
+
+    End
+
+GO
+
+Create PROCEDURE IndustryWinningStreakView_FetchAll
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Select Statement
+    Select [Advancers],[AveragePercentChange],[Decliners],[Name],[Streak]
+
+    -- From tableName
+    From [IndustryWinningStreakView]
 
 END
 

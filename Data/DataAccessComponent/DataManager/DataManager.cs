@@ -34,8 +34,10 @@ namespace DataAccessComponent.DataManager
         private DoNotTrackManager donottrackManager;
         private IndustryManager industryManager;
         private IndustryHistoryManager industryhistoryManager;
+        private IndustryLosingStreakViewManager industrylosingstreakviewManager;
         private IndustrySummaryManager industrysummaryManager;
         private IndustryViewManager industryviewManager;
+        private IndustryWinningStreakViewManager industrywinningstreakviewManager;
         private MarketSummaryManager marketsummaryManager;
         private RecommendationLogManager recommendationlogManager;
         private RecommendationViewManager recommendationviewManager;
@@ -84,8 +86,10 @@ namespace DataAccessComponent.DataManager
                 this.DoNotTrackManager = new DoNotTrackManager(this);
                 this.IndustryManager = new IndustryManager(this);
                 this.IndustryHistoryManager = new IndustryHistoryManager(this);
+                this.IndustryLosingStreakViewManager = new IndustryLosingStreakViewManager(this);
                 this.IndustrySummaryManager = new IndustrySummaryManager(this);
                 this.IndustryViewManager = new IndustryViewManager(this);
+                this.IndustryWinningStreakViewManager = new IndustryWinningStreakViewManager(this);
                 this.MarketSummaryManager = new MarketSummaryManager(this);
                 this.RecommendationLogManager = new RecommendationLogManager(this);
                 this.RecommendationViewManager = new RecommendationViewManager(this);
@@ -170,6 +174,14 @@ namespace DataAccessComponent.DataManager
             }
             #endregion
 
+            #region IndustryLosingStreakViewManager
+            public IndustryLosingStreakViewManager IndustryLosingStreakViewManager
+            {
+                get { return industrylosingstreakviewManager; }
+                set { industrylosingstreakviewManager = value; }
+            }
+            #endregion
+
             #region IndustrySummaryManager
             public IndustrySummaryManager IndustrySummaryManager
             {
@@ -183,6 +195,14 @@ namespace DataAccessComponent.DataManager
             {
                 get { return industryviewManager; }
                 set { industryviewManager = value; }
+            }
+            #endregion
+
+            #region IndustryWinningStreakViewManager
+            public IndustryWinningStreakViewManager IndustryWinningStreakViewManager
+            {
+                get { return industrywinningstreakviewManager; }
+                set { industrywinningstreakviewManager = value; }
             }
             #endregion
 

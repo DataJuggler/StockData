@@ -31,8 +31,10 @@ namespace ApplicationLogicComponent.Controllers
         private DoNotTrackController donottrackController;
         private IndustryController industryController;
         private IndustryHistoryController industryhistoryController;
+        private IndustryLosingStreakViewController industrylosingstreakviewController;
         private IndustrySummaryController industrysummaryController;
         private IndustryViewController industryviewController;
+        private IndustryWinningStreakViewController industrywinningstreakviewController;
         private MarketSummaryController marketsummaryController;
         private RecommendationLogController recommendationlogController;
         private RecommendationViewController recommendationviewController;
@@ -78,8 +80,10 @@ namespace ApplicationLogicComponent.Controllers
                 this.DoNotTrackController = new DoNotTrackController(this.ErrorProcessor, this.AppController);
                 this.IndustryController = new IndustryController(this.ErrorProcessor, this.AppController);
                 this.IndustryHistoryController = new IndustryHistoryController(this.ErrorProcessor, this.AppController);
+                this.IndustryLosingStreakViewController = new IndustryLosingStreakViewController(this.ErrorProcessor, this.AppController);
                 this.IndustrySummaryController = new IndustrySummaryController(this.ErrorProcessor, this.AppController);
                 this.IndustryViewController = new IndustryViewController(this.ErrorProcessor, this.AppController);
+                this.IndustryWinningStreakViewController = new IndustryWinningStreakViewController(this.ErrorProcessor, this.AppController);
                 this.MarketSummaryController = new MarketSummaryController(this.ErrorProcessor, this.AppController);
                 this.RecommendationLogController = new RecommendationLogController(this.ErrorProcessor, this.AppController);
                 this.RecommendationViewController = new RecommendationViewController(this.ErrorProcessor, this.AppController);
@@ -164,6 +168,14 @@ namespace ApplicationLogicComponent.Controllers
             }
             #endregion
 
+            #region IndustryLosingStreakViewController
+            public IndustryLosingStreakViewController IndustryLosingStreakViewController
+            {
+                get { return industrylosingstreakviewController; }
+                set { industrylosingstreakviewController = value; }
+            }
+            #endregion
+
             #region IndustrySummaryController
             public IndustrySummaryController IndustrySummaryController
             {
@@ -177,6 +189,14 @@ namespace ApplicationLogicComponent.Controllers
             {
                 get { return industryviewController; }
                 set { industryviewController = value; }
+            }
+            #endregion
+
+            #region IndustryWinningStreakViewController
+            public IndustryWinningStreakViewController IndustryWinningStreakViewController
+            {
+                get { return industrywinningstreakviewController; }
+                set { industrywinningstreakviewController = value; }
             }
             #endregion
 

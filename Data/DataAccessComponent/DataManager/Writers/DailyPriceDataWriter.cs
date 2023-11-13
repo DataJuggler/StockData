@@ -50,6 +50,15 @@ namespace DataAccessComponent.DataManager.Writers
                         // Create the @Symbol parameter
                         fetchAllDailyPriceDatasStoredProcedure.Parameters = SqlParameterHelper.CreateSqlParameters("@Symbol", dailyPriceData.Symbol);
                     }
+                    // if dailyPriceData.LoadCompleteListBySymbol is true
+                    else if (dailyPriceData.LoadCompleteListBySymbol)
+                    {
+                        // Change the procedure name
+                        fetchAllDailyPriceDatasStoredProcedure.ProcedureName = "DailyPriceData_FetchCompleteListForSymbol";
+                        
+                        // Create the @Symbol parameter
+                        fetchAllDailyPriceDatasStoredProcedure.Parameters = SqlParameterHelper.CreateSqlParameters("@Symbol", dailyPriceData.Symbol);
+                    }
                 }
                 
                 // return value
