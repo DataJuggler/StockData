@@ -8,9 +8,9 @@ using DataJuggler.Excelerate;
 using DataJuggler.UltimateHelper;
 using StockData.Objects;
 using DataJuggler.UltimateHelper.Objects;
-using ApplicationLogicComponent.Connection;
 using ObjectLibrary.BusinessObjects;
 using ObjectLibrary.Enumerations;
+using ApplicationLogicComponent.Connection;
 using DataGateway;
 using System.Xml.Schema;
 using System.Text;
@@ -1414,6 +1414,11 @@ namespace StockData
                         // if a tie for second
                         summary3 += " Tied for the second highest streak of " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks3.Symbol;
                     }
+                    else
+                    {
+                        // if a tie for second
+                        summary3 += " And for the third highest streak of " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks3.Symbol;
+                    }
                 }
             }
 
@@ -1452,7 +1457,7 @@ namespace StockData
                 string temp = FileHelper.GetFileNameWithoutExtension(fileName);
 
                 // get the index of the underscore
-                int index = temp.IndexOf("_");
+                int index = temp.IndexOf('_');
 
                 // if the index was found
                 if (index >= 0)

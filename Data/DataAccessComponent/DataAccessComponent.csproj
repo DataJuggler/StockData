@@ -3,7 +3,7 @@
   <PropertyGroup>
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Version>7.0.8</Version>
     <PackageId>DataJuggler.DataTier.Net7.DataAccessComponent</PackageId>
     <Authors>DataJuggler</Authors>
@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="DataJuggler.Net7" Version="7.3.1" />
-    <PackageReference Include="DataJuggler.UltimateHelper" Version="7.2.4" />
+    <PackageReference Include="DataJuggler.UltimateHelper" Version="8.0.1" />
   </ItemGroup>
 
   <ItemGroup>
