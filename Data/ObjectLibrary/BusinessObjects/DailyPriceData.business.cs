@@ -17,7 +17,9 @@ namespace ObjectLibrary.BusinessObjects
         #region Private Variables
         private bool loadBySymbol;
         private bool findBySymbolAndMostRecent;
-        private bool loadCompleteListBySymbol;
+        private bool loadCompleteListBySymbol;        
+        private bool findMaxStreakBySymbol;
+        private bool findByStockDateAndSymbol;
         #endregion
 
         #region Constructor
@@ -44,6 +46,17 @@ namespace ObjectLibrary.BusinessObjects
 
         #region Properties
 
+            #region FindByStockDateAndSymbol
+            /// <summary>
+            /// This property gets or sets the value for 'FindByStockDateAndSymbol'.
+            /// </summary>
+            public bool FindByStockDateAndSymbol
+            {
+                get { return findByStockDateAndSymbol; }
+                set { findByStockDateAndSymbol = value; }
+            }
+            #endregion
+
             #region FindBySymbolAndMostRecent
             /// <summary>
             /// This property gets or sets the value for 'FindBySymbolAndMostRecent'.
@@ -52,6 +65,17 @@ namespace ObjectLibrary.BusinessObjects
             {
                 get { return findBySymbolAndMostRecent; }
                 set { findBySymbolAndMostRecent = value; }
+            }
+            #endregion
+
+            #region FindMaxStreakBySymbol
+            /// <summary>
+            /// This property gets or sets the value for 'FindMaxStreakBySymbol'.
+            /// </summary>
+            public bool FindMaxStreakBySymbol
+            {
+                get { return findMaxStreakBySymbol; }
+                set { findMaxStreakBySymbol = value; }
             }
             #endregion
 

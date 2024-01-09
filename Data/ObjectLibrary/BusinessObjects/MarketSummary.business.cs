@@ -49,8 +49,11 @@ namespace ObjectLibrary.BusinessObjects
             {
                 get
                 {
+                    // local
+                    double oneHundred = 100;
+
                     // Set the return value
-                    double score = NumericHelper.DivideDoublesAsDecimals(NumberStocks, Advancers, 2);
+                    double score = NumericHelper.DivideDoublesAsDecimals(oneHundred, NumberStocks, 2) * advancers;
 
                     // return value
                     return score;

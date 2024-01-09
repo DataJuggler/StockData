@@ -96,6 +96,24 @@ namespace DataAccessComponent.DataManager.Writers
                             // Create the SymbolAndMostRecent field set parameters
                             findDailyPriceDataStoredProcedure.Parameters = SqlParameterHelper.CreateSqlParameters("@MostRecent", dailyPriceData.MostRecent, "@Symbol", dailyPriceData.Symbol);
                     }
+                    // if dailyPriceData.FindMaxStreakBySymbol is true
+                    else if (dailyPriceData.FindMaxStreakBySymbol)
+                    {
+                        // Change the procedure name
+                        findDailyPriceDataStoredProcedure.ProcedureName = "DailyPriceData_FindMaxStreakBySymbol";
+                        
+                        // Create the @Symbol parameter
+                        findDailyPriceDataStoredProcedure.Parameters = SqlParameterHelper.CreateSqlParameters("@Symbol", dailyPriceData.Symbol);
+                    }
+                    // if dailyPriceData.FindByStockDateAndSymbol is true
+                    else if (dailyPriceData.FindByStockDateAndSymbol)
+                    {
+                        // Change the procedure name
+                        findDailyPriceDataStoredProcedure.ProcedureName = "DailyPriceData_FindByStockDateAndSymbol";
+                        
+                        // Create the StockDateAndSymbol field set parameters
+                        findDailyPriceDataStoredProcedure.Parameters = SqlParameterHelper.CreateSqlParameters("@StockDate", dailyPriceData.StockDate, "@Symbol", dailyPriceData.Symbol);
+                    }
                     else
                     {
                         // Now create parameters for this procedure

@@ -575,11 +575,11 @@ namespace DataGateway
             }
             #endregion
 
-                #region FindDailyPriceDataBySymbolAndMostRecent(bool mostRecent, string symbol)
+                #region FindDailyPriceDataByStockDateAndSymbol(DateTime stockDate, string symbol)
                 /// <summary>
-                /// This method is used to find 'DailyPriceData' objects by SymbolAndMostRecent
+                /// This method is used to find 'DailyPriceData' objects by StockDateAndSymbol
                 /// </summary>
-                public DailyPriceData FindDailyPriceDataBySymbolAndMostRecent(bool mostRecent, string symbol)
+                public DailyPriceData FindDailyPriceDataByStockDateAndSymbol(DateTime stockDate, string symbol)
                 {
                     // initial value
                     DailyPriceData dailyPriceData = null;
@@ -587,11 +587,66 @@ namespace DataGateway
                     // Create a temp DailyPriceData object
                     DailyPriceData tempDailyPriceData = new DailyPriceData();
                     
-                    // Set the value for FindBySymbolAndMostRecent to true
-                    tempDailyPriceData.FindBySymbolAndMostRecent = true;
+                    // Set the value for FindByStockDateAndSymbol to true
+                    tempDailyPriceData.FindByStockDateAndSymbol = true;
                     
-                    // Set the value for MostRecent
-                    tempDailyPriceData.MostRecent = mostRecent;
+                    // Set the value for StockDate
+                    tempDailyPriceData.StockDate = stockDate;
+                    
+                    // Set the value for Symbol
+                    tempDailyPriceData.Symbol = symbol;
+                    
+                    // Perform the find
+                    dailyPriceData = FindDailyPriceData(0, tempDailyPriceData);
+                    
+                    // return value
+                    return dailyPriceData;
+                }
+                #endregion
+                
+            #region FindDailyPriceDataBySymbolAndMostRecent(bool mostRecent, string symbol)
+            /// <summary>
+            /// This method is used to find 'DailyPriceData' objects by SymbolAndMostRecent
+            /// </summary>
+            public DailyPriceData FindDailyPriceDataBySymbolAndMostRecent(bool mostRecent, string symbol)
+            {
+                // initial value
+                DailyPriceData dailyPriceData = null;
+                    
+                // Create a temp DailyPriceData object
+                DailyPriceData tempDailyPriceData = new DailyPriceData();
+                    
+                // Set the value for FindBySymbolAndMostRecent to true
+                tempDailyPriceData.FindBySymbolAndMostRecent = true;
+                    
+                // Set the value for MostRecent
+                tempDailyPriceData.MostRecent = mostRecent;
+                    
+                // Set the value for Symbol
+                tempDailyPriceData.Symbol = symbol;
+                    
+                // Perform the find
+                dailyPriceData = FindDailyPriceData(0, tempDailyPriceData);
+                    
+                // return value
+                return dailyPriceData;
+            }
+            #endregion
+                
+                #region FindDailyPriceDataMaxStreakBySymbol(string symbol)
+                /// <summary>
+                /// This method is used to find 'DailyPriceData' objects for the Symbol given.
+                /// </summary>
+                public DailyPriceData FindDailyPriceDataMaxStreakBySymbol(string symbol)
+                {
+                    // initial value
+                    DailyPriceData dailyPriceData = null;
+                    
+                    // Create a temp DailyPriceData object
+                    DailyPriceData tempDailyPriceData = new DailyPriceData();
+                    
+                    // Set the value for FindMaxStreakBySymbol to true
+                    tempDailyPriceData.FindMaxStreakBySymbol = true;
                     
                     // Set the value for Symbol
                     tempDailyPriceData.Symbol = symbol;
@@ -641,31 +696,31 @@ namespace DataGateway
             }
             #endregion
 
-                #region FindDoNotTrackBySymbol(string symbol)
-                /// <summary>
-                /// This method is used to find 'DoNotTrack' objects for the Symbol given.
-                /// </summary>
-                public DoNotTrack FindDoNotTrackBySymbol(string symbol)
-                {
-                    // initial value
-                    DoNotTrack doNotTrack = null;
+            #region FindDoNotTrackBySymbol(string symbol)
+            /// <summary>
+            /// This method is used to find 'DoNotTrack' objects for the Symbol given.
+            /// </summary>
+            public DoNotTrack FindDoNotTrackBySymbol(string symbol)
+            {
+                // initial value
+                DoNotTrack doNotTrack = null;
                     
-                    // Create a temp DoNotTrack object
-                    DoNotTrack tempDoNotTrack = new DoNotTrack();
+                // Create a temp DoNotTrack object
+                DoNotTrack tempDoNotTrack = new DoNotTrack();
                     
-                    // Set the value for FindBySymbol to true
-                    tempDoNotTrack.FindBySymbol = true;
+                // Set the value for FindBySymbol to true
+                tempDoNotTrack.FindBySymbol = true;
                     
-                    // Set the value for Symbol
-                    tempDoNotTrack.Symbol = symbol;
+                // Set the value for Symbol
+                tempDoNotTrack.Symbol = symbol;
                     
-                    // Perform the find
-                    doNotTrack = FindDoNotTrack(0, tempDoNotTrack);
+                // Perform the find
+                doNotTrack = FindDoNotTrack(0, tempDoNotTrack);
                     
-                    // return value
-                    return doNotTrack;
-                }
-                #endregion
+                // return value
+                return doNotTrack;
+            }
+            #endregion
                 
             #region FindIndustry(int id, Industry tempIndustry = null)
             /// <summary>

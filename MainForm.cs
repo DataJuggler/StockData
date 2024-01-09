@@ -104,6 +104,68 @@ namespace StockData
         }
         #endregion
 
+        #region FindMaxStreakButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// event is fired when the 'FindMaxStreakButton' is clicked.
+        /// </summary>
+        private void FindMaxStreakButton_Click(object sender, EventArgs e)
+        {
+            // locals
+            int advanced = 0;
+            int declined = 0;
+
+            // load all stocks
+            List<Stock> stocks = Gateway.LoadStocks();
+
+            if (ListHelper.HasOneOrMoreItems(stocks))
+            {
+                Graph.Value = 0;
+                Graph.Maximum = stocks.Count;
+                Graph.Visible = true;
+                StatusLabel.Text = "Processiing 4 Weeks After Max Streak Results";
+
+                // Iterate the collection of Stock objects
+                foreach (Stock stock in stocks)
+                {
+                    // find the max streak for this stock
+                    DailyPriceData maxStreak = Gateway.FindDailyPriceDataMaxStreakBySymbol(stock.Symbol);
+
+                    // If the maxStreak object exists
+                    if (NullHelper.Exists(maxStreak))
+                    {
+                        DateTime monthOut = maxStreak.StockDate.AddDays(28);
+
+                        DailyPriceData monthAfterMaxStreak = Gateway.FindDailyPriceDataByStockDateAndSymbol(monthOut, stock.Symbol);
+
+                        // If the monthAfterMaxStreak object exists
+                        if (NullHelper.Exists(monthAfterMaxStreak))
+                        {
+                            if (monthAfterMaxStreak.ClosePrice > maxStreak.ClosePrice)
+                            {
+                                // Increment the value for advanced
+                                advanced++;
+                            }
+                            else if (monthAfterMaxStreak.ClosePrice < maxStreak.ClosePrice)
+                            {
+                                // Increment the value for declined
+                                declined++;
+                            }
+                        }
+                    }
+
+                    // Update the graph
+                    Graph.Value++;
+
+                    // Refresh
+                    Refresh();
+                    Application.DoEvents();
+                }
+
+                MessageBox.Show("Advanced: " + advanced + Environment.NewLine + "Declined: " + declined, "Results");
+            }
+        }
+        #endregion
+            
         #region FixPercentChangeButton_Click(object sender, EventArgs e)
         /// <summary>
         /// event is fired when the 'FixPercentChangeButton' is clicked.
@@ -957,7 +1019,7 @@ namespace StockData
                 sb.Append(" This report is for ");
                 string monthName = DateHelper.GetMonthName(summary.StockDate);
                 sb.Append(monthName);
-                sb.Append(", ");
+                sb.Append("[Pause.2]");
                 string dayText = GetDayText(summary.StockDate.Day);
                 sb.Append(dayText);
                 sb.Append(". ");
@@ -1001,7 +1063,7 @@ namespace StockData
                 sb.Append(summaryScore);
 
                 // set Summary2
-                string summary2 = " There were " + summary.Advancers.ToString("N0") + " advancers and " + summary.Decliners.ToString("N0") + " decliners.";
+                string summary2 = " [Pause.5]There were " + summary.Advancers.ToString("N0") + " advancers and " + summary.Decliners.ToString("N0") + " decliners.";
 
                 // Append Summary2
                 sb.Append(summary2);
@@ -1389,35 +1451,35 @@ namespace StockData
                 TopStreakStocks topStreakStocks3 = topStreakStocks[2];
 
                 // set the summary3
-                summary3 += "The top streak stock is symbol " + topStreakStocks1.Symbol + " which has gone up for the last " + topStreakStocks1.Streak + " sessions.";
+                summary3 += "[Pause.5]The top streak stock is symbol " + topStreakStocks1.Symbol + " which has gone up for the last " + topStreakStocks1.Streak + " sessions.";
 
                 // if tied
                 if (topStreakStocks1.Streak == topStreakStocks2.Streak)
                 {
                     // append the second one
-                    summary3 += " Tied for the top streak at " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks2.Symbol;
+                    summary3 += "[Pause.5] Tied for the top streak at " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks2.Symbol;
 
                     // if stopStreakStock1 and 3 also match
                     if (topStreakStocks1.Streak == topStreakStocks3.Streak)
                     {
                         // append the second one
-                        summary3 += "Also tied for the top streak at " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks3.Symbol;
+                        summary3 += "[Pause.8] Also tied for the top streak at " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks3.Symbol;
                     }
                 }
                 else
                 {
-                    summary3 += " The second highest streak at " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks2.Symbol;
+                    summary3 += "[Pause.8] The second highest streak at " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks2.Symbol;
 
                     // if the second and third are a tie.
                     if (topStreakStocks2.Streak == topStreakStocks3.Streak)
                     {
                         // if a tie for second
-                        summary3 += " Tied for the second highest streak of " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks3.Symbol;
+                        summary3 += "[Pause.8] Tied for the second highest streak of " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks3.Symbol;
                     }
                     else
                     {
                         // if a tie for second
-                        summary3 += " And for the third highest streak of " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks3.Symbol;
+                        summary3 += "[Pause.8] And for the third highest streak of " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks3.Symbol;
                     }
                 }
             }
@@ -1593,12 +1655,12 @@ namespace StockData
                 Decimal oneHundred = 100;
 
                 // cast the values as Decimal
-                Decimal closePrice2 = (Decimal) closePrice;
-                Decimal prevClosePrice2 = (Decimal) prevClosePrice;
+                Decimal closePrice2 = (Decimal)closePrice;
+                Decimal prevClosePrice2 = (Decimal)prevClosePrice;
 
                 // Get the value as a Decimal
                 Decimal percentChangeDecimal = oneHundred / prevClosePrice2 * closePrice2 - oneHundred;
-                percentChange = (double) percentChangeDecimal;
+                percentChange = (double)percentChangeDecimal;
 
                 // Round to two decimal places
                 percentChange = Math.Round(percentChange, 2);

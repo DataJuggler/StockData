@@ -61,6 +61,7 @@ namespace StockData
             DoNotTrackButton = new DataJuggler.Win.Controls.Button();
             WriteDailyReportButton = new DataJuggler.Win.Controls.Button();
             FixPercentChangeButton = new DataJuggler.Win.Controls.Button();
+            FindMaxStreakButton = new DataJuggler.Win.Controls.Button();
             SuspendLayout();
             // 
             // ImportStocksButton
@@ -68,7 +69,7 @@ namespace StockData
             ImportStocksButton.BackColor = Color.Transparent;
             ImportStocksButton.ButtonText = "Import Stocks";
             ImportStocksButton.FlatStyle = FlatStyle.Flat;
-            ImportStocksButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ImportStocksButton.Font = new Font("Verdana", 12F, FontStyle.Bold);
             ImportStocksButton.ForeColor = Color.LemonChiffon;
             ImportStocksButton.Location = new Point(41, 34);
             ImportStocksButton.Margin = new Padding(6, 4, 6, 4);
@@ -104,7 +105,7 @@ namespace StockData
             ProcessFilesButton.BackColor = Color.Transparent;
             ProcessFilesButton.ButtonText = "Process Files";
             ProcessFilesButton.FlatStyle = FlatStyle.Flat;
-            ProcessFilesButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ProcessFilesButton.Font = new Font("Verdana", 12F, FontStyle.Bold);
             ProcessFilesButton.ForeColor = Color.LemonChiffon;
             ProcessFilesButton.Location = new Point(588, 34);
             ProcessFilesButton.Margin = new Padding(6, 4, 6, 4);
@@ -120,7 +121,7 @@ namespace StockData
             HiddenButton.BackColor = Color.Transparent;
             HiddenButton.ButtonText = "Import Stocks";
             HiddenButton.FlatStyle = FlatStyle.Flat;
-            HiddenButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            HiddenButton.Font = new Font("Verdana", 12F, FontStyle.Bold);
             HiddenButton.ForeColor = Color.LemonChiffon;
             HiddenButton.Location = new Point(-600, -600);
             HiddenButton.Margin = new Padding(6, 4, 6, 4);
@@ -135,7 +136,7 @@ namespace StockData
             ImportIndustryButton.BackColor = Color.Transparent;
             ImportIndustryButton.ButtonText = "Import Industries";
             ImportIndustryButton.FlatStyle = FlatStyle.Flat;
-            ImportIndustryButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ImportIndustryButton.Font = new Font("Verdana", 12F, FontStyle.Bold);
             ImportIndustryButton.ForeColor = Color.LemonChiffon;
             ImportIndustryButton.Location = new Point(41, 99);
             ImportIndustryButton.Margin = new Padding(6, 4, 6, 4);
@@ -151,7 +152,7 @@ namespace StockData
             ImportSectorsButton.BackColor = Color.Transparent;
             ImportSectorsButton.ButtonText = "Import Sectors";
             ImportSectorsButton.FlatStyle = FlatStyle.Flat;
-            ImportSectorsButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ImportSectorsButton.Font = new Font("Verdana", 12F, FontStyle.Bold);
             ImportSectorsButton.ForeColor = Color.LemonChiffon;
             ImportSectorsButton.Location = new Point(245, 99);
             ImportSectorsButton.Margin = new Padding(6, 4, 6, 4);
@@ -167,7 +168,7 @@ namespace StockData
             DoNotTrackButton.BackColor = Color.Transparent;
             DoNotTrackButton.ButtonText = "Update Do Not Track";
             DoNotTrackButton.FlatStyle = FlatStyle.Flat;
-            DoNotTrackButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            DoNotTrackButton.Font = new Font("Verdana", 12F, FontStyle.Bold);
             DoNotTrackButton.ForeColor = Color.LemonChiffon;
             DoNotTrackButton.Location = new Point(245, 34);
             DoNotTrackButton.Margin = new Padding(6, 4, 6, 4);
@@ -183,7 +184,7 @@ namespace StockData
             WriteDailyReportButton.BackColor = Color.Transparent;
             WriteDailyReportButton.ButtonText = "Create Daily Report";
             WriteDailyReportButton.FlatStyle = FlatStyle.Flat;
-            WriteDailyReportButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            WriteDailyReportButton.Font = new Font("Verdana", 12F, FontStyle.Bold);
             WriteDailyReportButton.ForeColor = Color.LemonChiffon;
             WriteDailyReportButton.Location = new Point(516, 99);
             WriteDailyReportButton.Margin = new Padding(6, 4, 6, 4);
@@ -199,7 +200,7 @@ namespace StockData
             FixPercentChangeButton.BackColor = Color.Transparent;
             FixPercentChangeButton.ButtonText = "Fix Percent Change";
             FixPercentChangeButton.FlatStyle = FlatStyle.Flat;
-            FixPercentChangeButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            FixPercentChangeButton.Font = new Font("Verdana", 12F, FontStyle.Bold);
             FixPercentChangeButton.ForeColor = Color.LemonChiffon;
             FixPercentChangeButton.Location = new Point(41, 167);
             FixPercentChangeButton.Margin = new Padding(6, 4, 6, 4);
@@ -210,12 +211,29 @@ namespace StockData
             FixPercentChangeButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
             FixPercentChangeButton.Click += FixPercentChangeButton_Click;
             // 
+            // FindMaxStreakButton
+            // 
+            FindMaxStreakButton.BackColor = Color.Transparent;
+            FindMaxStreakButton.ButtonText = "Process Files";
+            FindMaxStreakButton.FlatStyle = FlatStyle.Flat;
+            FindMaxStreakButton.Font = new Font("Verdana", 12F, FontStyle.Bold);
+            FindMaxStreakButton.ForeColor = Color.LemonChiffon;
+            FindMaxStreakButton.Location = new Point(588, 171);
+            FindMaxStreakButton.Margin = new Padding(6, 4, 6, 4);
+            FindMaxStreakButton.Name = "FindMaxStreakButton";
+            FindMaxStreakButton.Size = new Size(177, 46);
+            FindMaxStreakButton.TabIndex = 11;
+            FindMaxStreakButton.TextAlign = ContentAlignment.MiddleCenter;
+            FindMaxStreakButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            FindMaxStreakButton.Click += FindMaxStreakButton_Click;
+            // 
             // MainForm
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = Properties.Resources.BlackImage;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(838, 312);
+            Controls.Add(FindMaxStreakButton);
             Controls.Add(FixPercentChangeButton);
             Controls.Add(WriteDailyReportButton);
             Controls.Add(DoNotTrackButton);
@@ -227,7 +245,7 @@ namespace StockData
             Controls.Add(Graph);
             Controls.Add(ImportStocksButton);
             DoubleBuffered = true;
-            Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Verdana", 12F);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4);
             Name = "MainForm";
@@ -242,6 +260,7 @@ namespace StockData
         private DataJuggler.Win.Controls.Button DoNotTrackButton;
         private DataJuggler.Win.Controls.Button WriteDailyReportButton;
         private DataJuggler.Win.Controls.Button FixPercentChangeButton;
+        private DataJuggler.Win.Controls.Button FindMaxStreakButton;
     }
     #endregion
 
