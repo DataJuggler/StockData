@@ -14,6 +14,7 @@ using ApplicationLogicComponent.Connection;
 using DataGateway;
 using System.Xml.Schema;
 using System.Text;
+using Azure.Core.GeoJson;
 
 #endregion
 
@@ -1427,7 +1428,7 @@ namespace StockData
         }
         #endregion
 
-        #region GetTopStreakAStockSummary()
+        #region GetTopStreakStocksSummary()
         /// <summary>
         /// returns the Top Streak A Stock Summary
         /// </summary>
@@ -1449,37 +1450,47 @@ namespace StockData
                 TopStreakStocks topStreakStocks1 = topStreakStocks[0];
                 TopStreakStocks topStreakStocks2 = topStreakStocks[1];
                 TopStreakStocks topStreakStocks3 = topStreakStocks[2];
+                
+                // Get the symbols to use
+                string symbol1 = SeparateChars(topStreakStocks1.Symbol);
+                string symbol2 = SeparateChars(topStreakStocks2.Symbol);
+                string symbol3 = SeparateChars(topStreakStocks3.Symbol);
 
                 // set the summary3
-                summary3 += "[Pause.5]The top streak stock is symbol " + topStreakStocks1.Symbol + " which has gone up for the last " + topStreakStocks1.Streak + " sessions.";
+                summary3 += "[Pause.5]The top streak stock is symbol " + symbol1 + " which has gone up for the last " + topStreakStocks1.Streak + " sessions.";
 
                 // if tied
                 if (topStreakStocks1.Streak == topStreakStocks2.Streak)
                 {
                     // append the second one
-                    summary3 += "[Pause.5] Tied for the top streak at " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks2.Symbol;
+                    summary3 += "[Pause.5] Tied for the top streak at " + topStreakStocks2.Streak + " gaining sessions is symbol " + symbol2;
 
                     // if stopStreakStock1 and 3 also match
                     if (topStreakStocks1.Streak == topStreakStocks3.Streak)
                     {
                         // append the second one
-                        summary3 += "[Pause.8] Also tied for the top streak at " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks3.Symbol;
+                        summary3 += "[Pause.8] Also tied for the top streak at " + topStreakStocks2.Streak + " gaining sessions is symbol " + symbol3;
+                    }
+                    else
+                    {
+                        // third
+                        summary3 += "[Pause.8] And for the third highest streak of " + topStreakStocks3.Streak + " gaining sessions is symbol " + symbol3;
                     }
                 }
                 else
                 {
-                    summary3 += "[Pause.8] The second highest streak at " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks2.Symbol;
+                    summary3 += "[Pause.8] The second highest streak at " + topStreakStocks2.Streak + " gaining sessions is symbol " + symbol2;
 
                     // if the second and third are a tie.
                     if (topStreakStocks2.Streak == topStreakStocks3.Streak)
                     {
                         // if a tie for second
-                        summary3 += "[Pause.8] Tied for the second highest streak of " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks3.Symbol;
+                        summary3 += "[Pause.8] Tied for the second highest streak of " + topStreakStocks3.Streak + " gaining sessions is symbol " + symbol3;
                     }
                     else
                     {
-                        // if a tie for second
-                        summary3 += "[Pause.8] And for the third highest streak of " + topStreakStocks2.Streak + " gaining sessions is symbol " + topStreakStocks3.Symbol;
+                        // third
+                        summary3 += "[Pause.8] And for the third highest streak of " + topStreakStocks3.Streak + " gaining sessions is symbol " + symbol3;
                     }
                 }
             }
@@ -1592,6 +1603,40 @@ namespace StockData
         }
         #endregion
 
+        #region SeparateChars(string symbol)
+        /// <summary>
+        /// returns the Chars with a space between them
+        /// </summary>
+        public string SeparateChars(string symbol)
+        {
+            // initial value
+            string separateChars = "";
+
+            // If the symbol string exists
+            if (TextHelper.Exists(symbol))
+            {
+                // local
+                StringBuilder sb = new StringBuilder();
+
+                // Iterate the collection of char objects
+                foreach (char c in symbol)
+                {
+                    // Add this character
+                    sb.Append(c);
+
+                    // Add a space
+                    sb.Append(' ');
+                }
+
+                // set the return value
+                separateChars = sb.ToString().TrimEnd();
+            }
+                
+            // return value
+            return separateChars;
+        }
+        #endregion
+            
         #region SetAverageDailyVolume(string symbol)
         /// <summary>
         /// returns the Average Daily Volume

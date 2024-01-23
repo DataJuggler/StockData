@@ -78,6 +78,7 @@ namespace StockData
             ImportStocksButton.TabIndex = 1;
             ImportStocksButton.TextAlign = ContentAlignment.MiddleCenter;
             ImportStocksButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            ImportStocksButton.Visible = false;
             ImportStocksButton.Click += ImportStocksButton_Click;
             // 
             // Graph
@@ -145,6 +146,7 @@ namespace StockData
             ImportIndustryButton.TabIndex = 6;
             ImportIndustryButton.TextAlign = ContentAlignment.MiddleCenter;
             ImportIndustryButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            ImportIndustryButton.Visible = false;
             ImportIndustryButton.Click += ImportIndustryButton_Click;
             // 
             // ImportSectorsButton
@@ -161,6 +163,7 @@ namespace StockData
             ImportSectorsButton.TabIndex = 7;
             ImportSectorsButton.TextAlign = ContentAlignment.MiddleCenter;
             ImportSectorsButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            ImportSectorsButton.Visible = false;
             ImportSectorsButton.Click += ImportSectorsButton_Click;
             // 
             // DoNotTrackButton
@@ -177,6 +180,7 @@ namespace StockData
             DoNotTrackButton.TabIndex = 8;
             DoNotTrackButton.TextAlign = ContentAlignment.MiddleCenter;
             DoNotTrackButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            DoNotTrackButton.Visible = false;
             DoNotTrackButton.Click += DoNotTrackButton_Click;
             // 
             // WriteDailyReportButton
@@ -209,6 +213,7 @@ namespace StockData
             FixPercentChangeButton.TabIndex = 10;
             FixPercentChangeButton.TextAlign = ContentAlignment.MiddleCenter;
             FixPercentChangeButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            FixPercentChangeButton.Visible = false;
             FixPercentChangeButton.Click += FixPercentChangeButton_Click;
             // 
             // FindMaxStreakButton
@@ -225,6 +230,7 @@ namespace StockData
             FindMaxStreakButton.TabIndex = 11;
             FindMaxStreakButton.TextAlign = ContentAlignment.MiddleCenter;
             FindMaxStreakButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            FindMaxStreakButton.Visible = false;
             FindMaxStreakButton.Click += FindMaxStreakButton_Click;
             // 
             // MainForm
