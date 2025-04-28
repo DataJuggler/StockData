@@ -10,6 +10,19 @@
 *.userosscache
 *.sln.docstates
 
+# Ignore everything in Documents
+Documents/*
+
+# But don't ignore the Stocks folder itself
+!Documents/Stocks/
+
+# Don't ignore the contents of Stocks
+!Documents/Stocks/**
+
+# Still ignore contents of Processed
+Documents/Processed/
+
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
