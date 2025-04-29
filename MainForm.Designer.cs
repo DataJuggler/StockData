@@ -78,7 +78,7 @@ namespace StockData
             ImportStocksButton.TabIndex = 1;
             ImportStocksButton.TextAlign = ContentAlignment.MiddleCenter;
             ImportStocksButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
-            ImportStocksButton.Visible = false;
+            ImportStocksButton.UseMnemonic = true;
             ImportStocksButton.Click += ImportStocksButton_Click;
             // 
             // Graph
@@ -115,6 +115,7 @@ namespace StockData
             ProcessFilesButton.TabIndex = 4;
             ProcessFilesButton.TextAlign = ContentAlignment.MiddleCenter;
             ProcessFilesButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            ProcessFilesButton.UseMnemonic = true;
             ProcessFilesButton.Click += ProcessFilesButton_Click;
             // 
             // HiddenButton
@@ -131,6 +132,7 @@ namespace StockData
             HiddenButton.TabIndex = 5;
             HiddenButton.TextAlign = ContentAlignment.MiddleCenter;
             HiddenButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            HiddenButton.UseMnemonic = true;
             // 
             // ImportIndustryButton
             // 
@@ -146,6 +148,7 @@ namespace StockData
             ImportIndustryButton.TabIndex = 6;
             ImportIndustryButton.TextAlign = ContentAlignment.MiddleCenter;
             ImportIndustryButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            ImportIndustryButton.UseMnemonic = true;
             ImportIndustryButton.Visible = false;
             ImportIndustryButton.Click += ImportIndustryButton_Click;
             // 
@@ -163,6 +166,7 @@ namespace StockData
             ImportSectorsButton.TabIndex = 7;
             ImportSectorsButton.TextAlign = ContentAlignment.MiddleCenter;
             ImportSectorsButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            ImportSectorsButton.UseMnemonic = true;
             ImportSectorsButton.Visible = false;
             ImportSectorsButton.Click += ImportSectorsButton_Click;
             // 
@@ -180,6 +184,7 @@ namespace StockData
             DoNotTrackButton.TabIndex = 8;
             DoNotTrackButton.TextAlign = ContentAlignment.MiddleCenter;
             DoNotTrackButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            DoNotTrackButton.UseMnemonic = true;
             DoNotTrackButton.Visible = false;
             DoNotTrackButton.Click += DoNotTrackButton_Click;
             // 
@@ -197,6 +202,7 @@ namespace StockData
             WriteDailyReportButton.TabIndex = 9;
             WriteDailyReportButton.TextAlign = ContentAlignment.MiddleCenter;
             WriteDailyReportButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            WriteDailyReportButton.UseMnemonic = true;
             WriteDailyReportButton.Click += WriteDailyReportButton_Click;
             // 
             // FixPercentChangeButton
@@ -213,6 +219,7 @@ namespace StockData
             FixPercentChangeButton.TabIndex = 10;
             FixPercentChangeButton.TextAlign = ContentAlignment.MiddleCenter;
             FixPercentChangeButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            FixPercentChangeButton.UseMnemonic = true;
             FixPercentChangeButton.Visible = false;
             FixPercentChangeButton.Click += FixPercentChangeButton_Click;
             // 
@@ -230,6 +237,7 @@ namespace StockData
             FindMaxStreakButton.TabIndex = 11;
             FindMaxStreakButton.TextAlign = ContentAlignment.MiddleCenter;
             FindMaxStreakButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            FindMaxStreakButton.UseMnemonic = true;
             FindMaxStreakButton.Visible = false;
             FindMaxStreakButton.Click += FindMaxStreakButton_Click;
             // 

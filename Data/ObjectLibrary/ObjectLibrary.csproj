@@ -4,11 +4,11 @@
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <TargetFramework>net9.0</TargetFramework>
-    <PackageId>DataJuggler.DataTier.Net7.ObjectLibrary</PackageId>
-    <Version>7.0.8</Version>
+    <PackageId>DataJuggler.DataTier.Net9.ObjectLibrary</PackageId>
+    <Version>9.0.7</Version>
     <Authors>DataJuggler</Authors>
     <Company>DataJuggler</Company>
-    <Description>This is one of four projects that make up a DataTier.Net7 DataTier</Description>
+    <Description>This is one of four projects that make up a DataTier.Net9 DataTier</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -20,8 +20,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DataJuggler.Net9" Version="9.0.3" />
-    <PackageReference Include="DataJuggler.UltimateHelper" Version="9.1.0" />
+    <PackageReference Include="DataJuggler.Net9" Version="9.0.1" />
   </ItemGroup>
   
 </Project>

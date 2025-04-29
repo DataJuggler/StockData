@@ -37,6 +37,172 @@ namespace ObjectLibrary.BusinessObjects
 
         #region Methods
 
+            #region CreateValuesList
+            // <summary>
+            // This method creates the ValuesList for an Insert SQL Statement.'
+            // </summary>
+            public string CreateValuesList()
+            {
+                // initial value
+                string valuesList = "";
+
+                // locals
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                string comma = ",";
+                string singleQuote = "'";
+
+                // CloseScore
+
+                sb.Append(CloseScore);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Industry
+
+                sb.Append(singleQuote);
+                sb.Append(Industry);
+                sb.Append(singleQuote);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // IndustryScore
+
+                sb.Append(IndustryScore);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // IndustryStreak
+
+                sb.Append(IndustryStreak);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // LastClose
+
+                sb.Append(LastClose);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // LastPercentChange
+
+                sb.Append(LastPercentChange);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Score
+
+                sb.Append(Score);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Sector
+
+                sb.Append(singleQuote);
+                sb.Append(Sector);
+                sb.Append(singleQuote);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // SectorScore
+
+                sb.Append(SectorScore);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // SectorStreak
+
+                sb.Append(SectorStreak);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // StockDate
+
+                // If a valid date
+                if (StockDate.Year > 1900)
+                {
+                    sb.Append(singleQuote);
+                    sb.Append(StockDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                    sb.Append(singleQuote);
+                }
+                else
+                {
+                    sb.Append("'1900-01-01'");
+                }
+
+                // Add a comma
+                sb.Append(comma);
+
+                // StockName
+
+                sb.Append(singleQuote);
+                sb.Append(StockName);
+                sb.Append(singleQuote);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Streak
+
+                sb.Append(Streak);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // StreakPercentChange
+
+                sb.Append(StreakPercentChange);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Symbol
+
+                sb.Append(singleQuote);
+                sb.Append(Symbol);
+                sb.Append(singleQuote);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // VolumeScore
+
+                sb.Append(VolumeScore);
+
+                // Set the return value
+                valuesList = sb.ToString();
+
+                // Return Value
+                return valuesList;
+            }
+            #endregion
+
+            #region GenerateInsertSQL
+            // <summary>
+            // This method generates a SQL Insert statement for ah object loaded.'
+            // </summary>
+            public string GenerateInsertSQL()
+            {
+                // local
+                string valuesList = CreateValuesList();
+
+                // Set the return Value
+                string insertSQL = "INSERT INTO [RecommendationLog] (CloseScore,Industry,IndustryScore,IndustryStreak,LastClose,LastPercentChange,Score,Sector,SectorScore,SectorStreak,StockDate,StockName,Streak,StreakPercentChange,Symbol,VolumeScore) VALUES (" + valuesList + ") " + Environment.NewLine + "SELECT SCOPE_IDENTITY()" + Environment.NewLine;
+
+                // Return Value
+                return insertSQL;
+            }
+            #endregion
+
             #region UpdateIdentity(int id)
             // <summary>
             // This method provides a 'setter'

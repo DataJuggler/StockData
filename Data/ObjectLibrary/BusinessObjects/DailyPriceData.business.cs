@@ -15,11 +15,10 @@ namespace ObjectLibrary.BusinessObjects
     {
 
         #region Private Variables
-        private bool loadBySymbol;
-        private bool findBySymbolAndMostRecent;
-        private bool loadCompleteListBySymbol;        
         private bool findMaxStreakBySymbol;
         private bool findByStockDateAndSymbol;
+        private bool loadBySymbol;
+        private bool findBySymbolAndMostRecent;
         #endregion
 
         #region Constructor
@@ -87,17 +86,6 @@ namespace ObjectLibrary.BusinessObjects
             {
                 get { return loadBySymbol; }
                 set { loadBySymbol = value; }
-            }
-            #endregion
-
-            #region LoadCompleteListBySymbol
-            /// <summary>
-            /// This property gets or sets the value for 'LoadCompleteListBySymbol'.
-            /// </summary>
-            public bool LoadCompleteListBySymbol
-            {
-                get { return loadCompleteListBySymbol; }
-                set { loadCompleteListBySymbol = value; }
             }
             #endregion
 

@@ -2,9 +2,9 @@
 
 #region using statements
 
+using DataJuggler.UltimateHelper;
 using ObjectLibrary.Enumerations;
 using System;
-using DataJuggler.UltimateHelper;
 
 #endregion
 
@@ -62,6 +62,8 @@ namespace ObjectLibrary.BusinessObjects
             #endregion
 
         #endregion
+
     }
     #endregion
+
 }

@@ -36,6 +36,175 @@ namespace ObjectLibrary.BusinessObjects
 
         #region Methods
 
+            #region CreateValuesList
+            // <summary>
+            // This method creates the ValuesList for an Insert SQL Statement.'
+            // </summary>
+            public string CreateValuesList()
+            {
+                // initial value
+                string valuesList = "";
+
+                // locals
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                string comma = ",";
+                string singleQuote = "'";
+
+                // ClosePrice
+
+                sb.Append(ClosePrice);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // CloseScore
+
+                sb.Append(CloseScore);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // HighPrice
+
+                sb.Append(HighPrice);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // LowPrice
+
+                sb.Append(LowPrice);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // MostRecent
+
+                // If MostRecent is true
+                if (MostRecent)
+                {
+                    sb.Append(1);
+                }
+                else
+                {
+                    sb.Append(0);
+                }
+
+                // Add a comma
+                sb.Append(comma);
+
+                // OpenPrice
+
+                sb.Append(OpenPrice);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // PercentChange
+
+                sb.Append(PercentChange);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // PriceUnchanged
+
+                // If PriceUnchanged is true
+                if (PriceUnchanged)
+                {
+                    sb.Append(1);
+                }
+                else
+                {
+                    sb.Append(0);
+                }
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Spread
+
+                sb.Append(Spread);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // SpreadScore
+
+                sb.Append(SpreadScore);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // StockDate
+
+                // If a valid date
+                if (StockDate.Year > 1900)
+                {
+                    sb.Append(singleQuote);
+                    sb.Append(StockDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                    sb.Append(singleQuote);
+                }
+                else
+                {
+                    sb.Append("'1900-01-01'");
+                }
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Streak
+
+                sb.Append(Streak);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Symbol
+
+                sb.Append(singleQuote);
+                sb.Append(Symbol);
+                sb.Append(singleQuote);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Volume
+
+                sb.Append(Volume);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // VolumeScore
+
+                sb.Append(VolumeScore);
+
+                // Set the return value
+                valuesList = sb.ToString();
+
+                // Return Value
+                return valuesList;
+            }
+            #endregion
+
+            #region GenerateInsertSQL
+            // <summary>
+            // This method generates a SQL Insert statement for ah object loaded.'
+            // </summary>
+            public string GenerateInsertSQL()
+            {
+                // local
+                string valuesList = CreateValuesList();
+
+                // Set the return Value
+                string insertSQL = "INSERT INTO [DailyPriceData] (ClosePrice,CloseScore,HighPrice,LowPrice,MostRecent,OpenPrice,PercentChange,PriceUnchanged,Spread,SpreadScore,StockDate,Streak,Symbol,Volume,VolumeScore) VALUES (" + valuesList + ") " + Environment.NewLine + "SELECT SCOPE_IDENTITY()" + Environment.NewLine;
+
+                // Return Value
+                return insertSQL;
+            }
+            #endregion
+
             #region UpdateIdentity(int id)
             // <summary>
             // This method provides a 'setter'

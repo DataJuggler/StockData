@@ -14,7 +14,7 @@ namespace ObjectLibrary.BusinessObjects
     public partial class SectorView
     {
 
-        #region Private Variables        
+        #region Private Variables
         private bool loadBySectorAndStockDate;
         #endregion
 

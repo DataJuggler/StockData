@@ -32,6 +32,155 @@ namespace ObjectLibrary.BusinessObjects
 
         #region Methods
 
+            #region CreateValuesList
+            // <summary>
+            // This method creates the ValuesList for an Insert SQL Statement.'
+            // </summary>
+            public string CreateValuesList()
+            {
+                // initial value
+                string valuesList = "";
+
+                // locals
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                string comma = ",";
+                string singleQuote = "'";
+
+                // CurrentStreak
+
+                // If CurrentStreak is true
+                if (CurrentStreak)
+                {
+                    sb.Append(1);
+                }
+                else
+                {
+                    sb.Append(0);
+                }
+
+                // Add a comma
+                sb.Append(comma);
+
+                // PercentChange
+
+                sb.Append(PercentChange);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // ReverseSplit
+
+                // If ReverseSplit is true
+                if (ReverseSplit)
+                {
+                    sb.Append(1);
+                }
+                else
+                {
+                    sb.Append(0);
+                }
+
+                // Add a comma
+                sb.Append(comma);
+
+                // ReverseSplitDivisor
+
+                sb.Append(ReverseSplitDivisor);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // StockId
+
+                sb.Append(StockId);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // StreakDays
+
+                sb.Append(StreakDays);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // StreakEndDate
+
+                // If a valid date
+                if (StreakEndDate.Year > 1900)
+                {
+                    sb.Append(singleQuote);
+                    sb.Append(StreakEndDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                    sb.Append(singleQuote);
+                }
+                else
+                {
+                    sb.Append("'1900-01-01'");
+                }
+
+                // Add a comma
+                sb.Append(comma);
+
+                // StreakEndPrice
+
+                sb.Append(StreakEndPrice);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // StreakStartDate
+
+                // If a valid date
+                if (StreakStartDate.Year > 1900)
+                {
+                    sb.Append(singleQuote);
+                    sb.Append(StreakStartDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                    sb.Append(singleQuote);
+                }
+                else
+                {
+                    sb.Append("'1900-01-01'");
+                }
+
+                // Add a comma
+                sb.Append(comma);
+
+                // StreakStartPrice
+
+                sb.Append(StreakStartPrice);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // StreakType
+
+                sb.Append(StreakType);
+
+                // Set the return value
+                valuesList = sb.ToString();
+
+                // Return Value
+                return valuesList;
+            }
+            #endregion
+
+            #region GenerateInsertSQL
+            // <summary>
+            // This method generates a SQL Insert statement for ah object loaded.'
+            // </summary>
+            public string GenerateInsertSQL()
+            {
+                // local
+                string valuesList = CreateValuesList();
+
+                // Set the return Value
+                string insertSQL = "INSERT INTO [StockStreak] (CurrentStreak,PercentChange,ReverseSplit,ReverseSplitDivisor,StockId,StreakDays,StreakEndDate,StreakEndPrice,StreakStartDate,StreakStartPrice,StreakType) VALUES (" + valuesList + ") " + Environment.NewLine + "SELECT SCOPE_IDENTITY()" + Environment.NewLine;
+
+                // Return Value
+                return insertSQL;
+            }
+            #endregion
+
             #region UpdateIdentity(int id)
             // <summary>
             // This method provides a 'setter'

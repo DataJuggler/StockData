@@ -7,14 +7,14 @@ using DataJuggler.Win.Controls.Interfaces;
 using DataJuggler.Excelerate;
 using DataJuggler.UltimateHelper;
 using StockData.Objects;
+using DataAccessComponent.DataGateway;
 using DataJuggler.UltimateHelper.Objects;
 using ObjectLibrary.BusinessObjects;
 using ObjectLibrary.Enumerations;
-using ApplicationLogicComponent.Connection;
-using DataGateway;
 using System.Xml.Schema;
 using System.Text;
 using Azure.Core.GeoJson;
+using DataAccessComponent.Connection;
 
 #endregion
 
@@ -192,7 +192,7 @@ namespace StockData
                     prevData = null;
 
                     // Load the DailyPriceData for this symbol
-                    List<DailyPriceData> dailyPriceData = Gateway.LoadAllDailyPriceDatasForSymbol(stock.Symbol);
+                    List<DailyPriceData> dailyPriceData = Gateway.LoadDailyPriceDatasForSymbol(stock.Symbol);
 
                     // If the dailyPriceData collection exists and has one or more items
                     if (ListHelper.HasOneOrMoreItems(dailyPriceData))
@@ -402,23 +402,30 @@ namespace StockData
                         // If the tempStock object does not exist
                         if (NullHelper.IsNull(tempStock))
                         {
-                            // Create a new instance of a 'Stock' object.
-                            Stock stock = new Stock();
+                            // Next we need to check Do Not Track and make sure stock is not in Do Not Track table
+                            DoNotTrack doNotTrack = gateway.FindDoNotTrackBySymbol(entry.Symbol);
 
-                            // set the properties of the stock object
-                            stock.IPOYear = entry.IPOYear;
-                            stock.LastClose = 0;
-                            stock.Track = true;
-                            stock.AverageDailyVolume = 0;
-                            stock.Exchange = "NASDAQ";
-                            stock.Industry = entry.Industry;
-                            stock.Sector = entry.Sector;
-                            stock.Streak = 0;
-                            stock.Symbol = entry.Symbol;
-                            stock.Name = entry.Name;
+                            // if the stock was not found in doNotTrack then import the stock
+                            if (NullHelper.IsNull(doNotTrack))
+                            {
+                                // Create a new instance of a 'Stock' object.
+                                Stock stock = new Stock();
 
-                            // perform the stock
-                            saved = Gateway.SaveStock(ref stock);
+                                // set the properties of the stock object
+                                stock.IPOYear = entry.IPOYear;
+                                stock.LastClose = 0;
+                                stock.Track = true;
+                                stock.AverageDailyVolume = 0;
+                                stock.Exchange = "NASDAQ";
+                                stock.Industry = entry.Industry;
+                                stock.Sector = entry.Sector;
+                                stock.Streak = 0;
+                                stock.Symbol = entry.Symbol;
+                                stock.Name = entry.Name;
+
+                                // perform the stock
+                                saved = Gateway.SaveStock(ref stock);
+                            }
                         }
                     }
 
@@ -444,23 +451,30 @@ namespace StockData
                         // If the tempStock object does not exist
                         if (NullHelper.IsNull(tempStock))
                         {
-                            // Create a new instance of a 'Stock' object.
-                            Stock stock = new Stock();
+                            // Next we need to check Do Not Track and make sure stock is not in Do Not Track table
+                            DoNotTrack doNotTrack = gateway.FindDoNotTrackBySymbol(entry.Symbol);
 
-                            // set the properties of the stock object
-                            stock.IPOYear = entry.IPOYear;
-                            stock.LastClose = 0;
-                            stock.Track = true;
-                            stock.AverageDailyVolume = 0;
-                            stock.Exchange = "NYSE";
-                            stock.Industry = entry.Industry;
-                            stock.Sector = entry.Sector;
-                            stock.Streak = 0;
-                            stock.Symbol = entry.Symbol;
-                            stock.Name = entry.Name;
+                            // if the stock was not found in doNotTrack then import the stock
+                            if (NullHelper.IsNull(doNotTrack))
+                            {
+                                // Create a new instance of a 'Stock' object.
+                                Stock stock = new Stock();
 
-                            // perform the stock
-                            saved = Gateway.SaveStock(ref stock);
+                                // set the properties of the stock object
+                                stock.IPOYear = entry.IPOYear;
+                                stock.LastClose = 0;
+                                stock.Track = true;
+                                stock.AverageDailyVolume = 0;
+                                stock.Exchange = "NYSE";
+                                stock.Industry = entry.Industry;
+                                stock.Sector = entry.Sector;
+                                stock.Streak = 0;
+                                stock.Symbol = entry.Symbol;
+                                stock.Name = entry.Name;
+
+                                // perform the stock
+                                saved = Gateway.SaveStock(ref stock);
+                            }
                         }
                     }
 
@@ -1507,7 +1521,7 @@ namespace StockData
         public void Init()
         {
             // Create a new instance of a 'Gateway' object.
-            Gateway = new Gateway(Connection.Name);
+            Gateway = new Gateway(ConnectionConstants.Name);
 
             // Load the Admin
             Admin = Gateway.LoadAdmins().FirstOrDefault();

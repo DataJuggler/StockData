@@ -15,7 +15,7 @@ namespace ObjectLibrary.BusinessObjects
     {
 
         #region Private Variables
-        private bool loadByNeedsProcessing;
+        private bool loadByIndustryProcessedAndSectorProcessed;
         #endregion
 
         #region Constructor
@@ -42,14 +42,14 @@ namespace ObjectLibrary.BusinessObjects
 
         #region Properties
 
-            #region LoadByNeedsProcessing
+            #region LoadByIndustryProcessedAndSectorProcessed
             /// <summary>
-            /// This property gets or sets the value for 'LoadByNeedsProcessing'.
+            /// This property gets or sets the value for 'LoadByIndustryProcessedAndSectorProcessed'.
             /// </summary>
-            public bool LoadByNeedsProcessing
+            public bool LoadByIndustryProcessedAndSectorProcessed
             {
-                get { return loadByNeedsProcessing; }
-                set { loadByNeedsProcessing = value; }
+                get { return loadByIndustryProcessedAndSectorProcessed; }
+                set { loadByIndustryProcessedAndSectorProcessed = value; }
             }
             #endregion
 

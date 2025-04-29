@@ -1,17 +1,10 @@
 ﻿
-
-#region using statements
-
-#endregion
-
 namespace ObjectLibrary.Enumerations
 {
 
     #region enum StreakTypeEnum : int
     /// <summary>
-    /// This enum is only here so that the Enumerations reference compiles.
-    /// You can remove this but if you do you also need to remove the reference
-    /// in DataManager for this object.
+    /// This is the type of Streak a Stock is having (increasing or decreasing)
     /// </summary>
     public enum StreakTypeEnum : int
     {

@@ -28,6 +28,101 @@ namespace ObjectLibrary.BusinessObjects
 
         #region Methods
 
+            #region CreateValuesList
+            // <summary>
+            // This method creates the ValuesList for an Insert SQL Statement.'
+            // </summary>
+            public string CreateValuesList()
+            {
+                // initial value
+                string valuesList = "";
+
+                // locals
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                string comma = ",";
+                string singleQuote = "'";
+
+                // Advancers
+
+                sb.Append(Advancers);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // AveragePercentChange
+
+                sb.Append(AveragePercentChange);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Date
+
+                // If a valid date
+                if (Date.Year > 1900)
+                {
+                    sb.Append(singleQuote);
+                    sb.Append(Date.ToString("yyyy-MM-dd HH:mm:ss"));
+                    sb.Append(singleQuote);
+                }
+                else
+                {
+                    sb.Append("'1900-01-01'");
+                }
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Decliners
+
+                sb.Append(Decliners);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // IndustryId
+
+                sb.Append(IndustryId);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Score
+
+                sb.Append(Score);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Streak
+
+                sb.Append(Streak);
+
+                // Set the return value
+                valuesList = sb.ToString();
+
+                // Return Value
+                return valuesList;
+            }
+            #endregion
+
+            #region GenerateInsertSQL
+            // <summary>
+            // This method generates a SQL Insert statement for ah object loaded.'
+            // </summary>
+            public string GenerateInsertSQL()
+            {
+                // local
+                string valuesList = CreateValuesList();
+
+                // Set the return Value
+                string insertSQL = "INSERT INTO [IndustryHistory] (Advancers,AveragePercentChange,Date,Decliners,IndustryId,Score,Streak) VALUES (" + valuesList + ") " + Environment.NewLine + "SELECT SCOPE_IDENTITY()" + Environment.NewLine;
+
+                // Return Value
+                return insertSQL;
+            }
+            #endregion
+
             #region UpdateIdentity(int id)
             // <summary>
             // This method provides a 'setter'

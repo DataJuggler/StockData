@@ -24,6 +24,7 @@ namespace ObjectLibrary.BusinessObjects
         private string industry;
         private int iPOYear;
         private double lastClose;
+        private DateTime lastUpdated;
         private string name;
         private string sector;
         private int streak;
@@ -32,6 +33,163 @@ namespace ObjectLibrary.BusinessObjects
         #endregion
 
         #region Methods
+
+            #region CreateValuesList
+            // <summary>
+            // This method creates the ValuesList for an Insert SQL Statement.'
+            // </summary>
+            public string CreateValuesList()
+            {
+                // initial value
+                string valuesList = "";
+
+                // locals
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                string comma = ",";
+                string singleQuote = "'";
+
+                // AverageDailyVolume
+
+                sb.Append(AverageDailyVolume);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Country
+
+                sb.Append(singleQuote);
+                sb.Append(Country);
+                sb.Append(singleQuote);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // DaysBelowMinVolume
+
+                sb.Append(DaysBelowMinVolume);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Exchange
+
+                sb.Append(singleQuote);
+                sb.Append(Exchange);
+                sb.Append(singleQuote);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Industry
+
+                sb.Append(singleQuote);
+                sb.Append(Industry);
+                sb.Append(singleQuote);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // IPOYear
+
+                sb.Append(IPOYear);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // LastClose
+
+                sb.Append(LastClose);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // LastUpdated
+
+                // If a valid date
+                if (LastUpdated.Year > 1900)
+                {
+                    sb.Append(singleQuote);
+                    sb.Append(LastUpdated.ToString("yyyy-MM-dd HH:mm:ss"));
+                    sb.Append(singleQuote);
+                }
+                else
+                {
+                    sb.Append("'1900-01-01'");
+                }
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Name
+
+                sb.Append(singleQuote);
+                sb.Append(Name);
+                sb.Append(singleQuote);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Sector
+
+                sb.Append(singleQuote);
+                sb.Append(Sector);
+                sb.Append(singleQuote);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Streak
+
+                sb.Append(Streak);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Symbol
+
+                sb.Append(singleQuote);
+                sb.Append(Symbol);
+                sb.Append(singleQuote);
+
+                // Add a comma
+                sb.Append(comma);
+
+                // Track
+
+                // If Track is true
+                if (Track)
+                {
+                    sb.Append(1);
+                }
+                else
+                {
+                    sb.Append(0);
+                }
+
+                // Set the return value
+                valuesList = sb.ToString();
+
+                // Return Value
+                return valuesList;
+            }
+            #endregion
+
+            #region GenerateInsertSQL
+            // <summary>
+            // This method generates a SQL Insert statement for ah object loaded.'
+            // </summary>
+            public string GenerateInsertSQL()
+            {
+                // local
+                string valuesList = CreateValuesList();
+
+                // Set the return Value
+                string insertSQL = "INSERT INTO [Stock] (AverageDailyVolume,Country,DaysBelowMinVolume,Exchange,Industry,IPOYear,LastClose,LastUpdated,Name,Sector,Streak,Symbol,Track) VALUES (" + valuesList + ") " + Environment.NewLine + "SELECT SCOPE_IDENTITY()" + Environment.NewLine;
+
+                // Return Value
+                return insertSQL;
+            }
+            #endregion
 
             #region UpdateIdentity(int id)
             // <summary>
@@ -153,6 +311,20 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     lastClose = value;
+                }
+            }
+            #endregion
+
+            #region DateTime LastUpdated
+            public DateTime LastUpdated
+            {
+                get
+                {
+                    return lastUpdated;
+                }
+                set
+                {
+                    lastUpdated = value;
                 }
             }
             #endregion
